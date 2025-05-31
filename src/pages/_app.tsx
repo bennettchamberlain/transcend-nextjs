@@ -1,9 +1,11 @@
-import '@site/assets/style.css';
-import ProgressBar from 'nextjs-progressbar';
-import { NextAppProps, DefaultSeo } from '@site/utilities/deps';
-import { ShopifyProvider, CartProvider } from '@shopify/hydrogen-react';
+import "@site/assets/style.css";
+import { CartProvider, ShopifyProvider } from "@shopify/hydrogen-react";
+import ProgressBar from "nextjs-progressbar";
 
-import { storeDomain, publicStorefrontToken, storefrontApiVersion } from '@site/utilities/storefront';
+import type { NextAppProps } from "@site/utilities/deps";
+
+import { DefaultSeo } from "@site/utilities/deps";
+import { publicStorefrontToken, storeDomain, storefrontApiVersion } from "@site/utilities/storefront";
 
 export default function App({ Component, pageProps }: NextAppProps) {
   return (

@@ -1,12 +1,13 @@
-import { useState, NextLink, useRouter, clsx } from '@site/utilities/deps';
-import { Dialog, Popover } from '@headlessui/react';
-import { useCart } from '@shopify/hydrogen-react';
-import { Bars3Icon, XMarkIcon, ShoppingBagIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { Dialog, Popover } from "@headlessui/react";
+import { Bars3Icon, ShoppingBagIcon, ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useCart } from "@shopify/hydrogen-react";
+
+import { clsx, NextLink, useRouter, useState } from "@site/utilities/deps";
 
 const mainMenuItems: { text: string; href: string }[] = [
   {
-    text: 'Products',
-    href: '/products',
+    text: "Products",
+    href: "/products",
   },
 ];
 
@@ -16,7 +17,7 @@ export function HeaderSection() {
   const { totalQuantity } = useCart();
 
   function isMenuItemActive(href: string) {
-    const { pathname } = new URL('https://x' + href);
+    const { pathname } = new URL(`https://x${href}`);
 
     return router.pathname.startsWith(pathname);
   }
@@ -34,8 +35,8 @@ export function HeaderSection() {
           {mainMenuItems.map(({ text, href }) => (
             <NextLink
               className={clsx(
-                'text-sm font-semibold leading-6 text-gray-900',
-                isMenuItemActive(href) && 'text-primary-600'
+                "text-sm leading-6 font-semibold text-gray-900",
+                isMenuItemActive(href) && "text-primary-600",
               )}
               key={href}
               href={href}
@@ -51,7 +52,7 @@ export function HeaderSection() {
             <span className="relative inline-block">
               <ShoppingCartIcon className="h-6 w-6"></ShoppingCartIcon>
               {!!totalQuantity && (
-                <span className="absolute right-0 top-0 inline-flex -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-red-600 px-2 py-1 text-xs font-bold leading-none text-red-100">
+                <span className="absolute top-0 right-0 inline-flex translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-red-600 px-2 py-1 text-xs leading-none font-bold text-red-100">
                   {totalQuantity}
                 </span>
               )}
@@ -65,7 +66,7 @@ export function HeaderSection() {
           >
             <span className="sr-only">Open main menu</span>
             <span className="relative inline-block">
-              <Bars3Icon className="-mt-1 h-6  w-6" aria-hidden="true" />
+              <Bars3Icon className="-mt-1 h-6 w-6" aria-hidden="true" />
             </span>
           </button>
         </div>
@@ -89,8 +90,8 @@ export function HeaderSection() {
                 {mainMenuItems.map(({ text, href }) => (
                   <NextLink
                     className={clsx(
-                      '-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50',
-                      isMenuItemActive(href) && 'text-primary-600'
+                      "-mx-3 block rounded-lg px-3 py-2 text-base leading-7 font-semibold text-gray-900 hover:bg-gray-50",
+                      isMenuItemActive(href) && "text-primary-600",
                     )}
                     key={href}
                     href={href}

@@ -1,8 +1,11 @@
-import { storefront } from '@site/utilities/storefront';
-import { truncate } from 'lodash';
-import { ProductPrice, AddToCartButton, ProductProvider } from '@shopify/hydrogen-react';
-import { NextImage, DataProps, invariant, useVariantSelector, formatTitle } from '@site/utilities/deps';
-import { Button } from '@site/snippets';
+import { AddToCartButton, ProductPrice, ProductProvider } from "@shopify/hydrogen-react";
+import { truncate } from "lodash";
+
+import type { DataProps } from "@site/utilities/deps";
+
+import { Button } from "@site/snippets";
+import { formatTitle, invariant, NextImage, useVariantSelector } from "@site/utilities/deps";
+import { storefront } from "@site/utilities/storefront";
 
 export async function fetchProductSingleSection(handle: string) {
   const { productByHandle } = await storefront.query({
@@ -92,11 +95,11 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
     <ProductProvider data={props.data}>
       <section>
         <div className="flex flex-col rounded-lg shadow-sm md:flex-row md:space-x-8">
-          <div className="md:basis-6/12 ">
+          <div className="md:basis-6/12">
             <div className="h-full w-full overflow-hidden rounded-lg bg-gray-200">
               <NextImage
                 src={props.data.images.nodes[0].url}
-                alt={props.data.images.nodes[0].altText || ''}
+                alt={props.data.images.nodes[0].altText || ""}
                 width={props.data.images.nodes[0].width}
                 height={props.data.images.nodes[0].height}
                 className="min-h-[600px] w-full object-cover object-center"
@@ -127,7 +130,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
                       return (
                         <Button
                           className="mr-1"
-                          color={selected ? 'primary' : 'dark'}
+                          color={selected ? "primary" : "dark"}
                           size="sm"
                           key={value}
                           disabled={disabled}
@@ -143,7 +146,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
 
               <AddToCartButton
                 variantId={variantId}
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-primary-600 p-3 text-base font-semibold text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:bg-gray-700"
+                className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 mt-10 flex w-full items-center justify-center rounded-md border border-transparent p-3 text-base font-semibold text-white focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:bg-gray-700"
               >
                 Add to Cart
               </AddToCartButton>

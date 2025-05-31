@@ -1,13 +1,14 @@
-import { NextImage, NextLink } from '@site/utilities/deps';
 import {
+  CartCheckoutButton,
   CartCost,
-  useCart,
   CartLineProvider,
+  CartLineQuantity,
   CartLineQuantityAdjustButton,
   Money,
-  CartLineQuantity,
-  CartCheckoutButton,
-} from '@shopify/hydrogen-react';
+  useCart,
+} from "@shopify/hydrogen-react";
+
+import { NextImage, NextLink } from "@site/utilities/deps";
 
 export function CartSection() {
   const cart = useCart();
@@ -21,7 +22,7 @@ export function CartSection() {
               <div className="h-24 w-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
                 <NextImage
                   src={line?.merchandise?.image?.url!}
-                  alt={line?.merchandise?.image?.altText || ''}
+                  alt={line?.merchandise?.image?.altText || ""}
                   width={line?.merchandise?.image?.width!}
                   height={line?.merchandise?.image?.height!}
                   className="h-full w-full object-cover object-center"
@@ -32,7 +33,7 @@ export function CartSection() {
                 <div>
                   <div className="flex justify-between text-base font-medium text-gray-900">
                     <h3>
-                      <NextLink href={'/products/' + line?.merchandise?.product?.handle}>
+                      <NextLink href={`/products/${line?.merchandise?.product?.handle}`}>
                         {line?.merchandise?.product?.title}
                       </NextLink>
                     </h3>
@@ -41,7 +42,7 @@ export function CartSection() {
                   <p className="mt-1 text-sm text-gray-500">
                     {line?.merchandise?.selectedOptions?.map((option, index) => (
                       <span key={option?.name}>
-                        {index ? ' / ' : ''}
+                        {index ? " / " : ""}
                         {option?.value}
                       </span>
                     ))}
