@@ -100,8 +100,8 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
               <NextImage
                 src={props.data.images.nodes[0].url}
                 alt={props.data.images.nodes[0].altText || ""}
-                width={props.data.images.nodes[0].width}
-                height={props.data.images.nodes[0].height}
+                width={props.data.images.nodes[0].width as number}
+                height={props.data.images.nodes[0].height as number}
                 className="min-h-[600px] w-full object-cover object-center"
               />
             </div>
@@ -146,7 +146,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
 
               <AddToCartButton
                 variantId={variantId}
-                className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 mt-10 flex w-full items-center justify-center rounded-md border border-transparent p-3 text-base font-semibold text-white focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:bg-gray-700"
+                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-primary-600 p-3 text-base font-semibold text-white hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:outline-none disabled:bg-gray-700"
               >
                 Add to Cart
               </AddToCartButton>

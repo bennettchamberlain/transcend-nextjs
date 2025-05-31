@@ -61,10 +61,10 @@ export function ProductListSection(props: DataProps<typeof fetchProductListSecti
             <NextLink key={node.handle} href={`/products/${node.handle}`} className="group">
               <div className="w-full overflow-hidden rounded-lg bg-gray-200">
                 <NextImage
-                  src={node.featuredImage!.url}
-                  alt={node.featuredImage!.altText || ""}
-                  height={node.featuredImage!.height}
-                  width={node.featuredImage!.width}
+                  src={node.featuredImage!.url as string}
+                  alt={node.featuredImage!.altText as string}
+                  height={node.featuredImage!.height as number}
+                  width={node.featuredImage!.width as number}
                   className="h-full w-full object-cover object-center group-hover:opacity-75"
                 />
               </div>

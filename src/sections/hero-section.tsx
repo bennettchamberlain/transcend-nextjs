@@ -10,6 +10,7 @@ export function HeroSection() {
             target="_blank"
             href="https://github.com/maxvien/next-shopify-storefront"
             className="font-semibold text-indigo-600"
+            rel="noreferrer noopener"
           >
             <span className="absolute inset-0" aria-hidden="true" />
             Go here <span aria-hidden="true">&rarr;</span>
@@ -33,6 +34,7 @@ export function HeroSection() {
             href="https://github.com/maxvien/next-shopify-storefront"
             className="text-sm leading-6 font-semibold text-gray-900"
             target="_blank"
+            rel="noreferrer noopener"
           >
             Get Source Code <span aria-hidden="true">→</span>
           </a>

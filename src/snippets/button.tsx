@@ -52,6 +52,7 @@ export function Button(props: Props) {
         props.className,
       )}
       disabled={props.disabled}
+      type="button"
     >
       {props.children}
     </button>

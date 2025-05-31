@@ -1,7 +1,6 @@
-import { StoreLayout } from "@site/layouts/StoreLayout";
-
 import type { PageProps } from "@site/utilities/deps";
 
+import { StoreLayout } from "@site/layouts/store-layout";
 import { fetchProductSingleSection, ProductSingleSection } from "@site/sections/prouct-single-section";
 import { fetchStaticPaths, fetchStaticProps, invariant, NextSeo } from "@site/utilities/deps";
 
