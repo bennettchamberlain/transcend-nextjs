@@ -1,9 +1,9 @@
 # 🛍 Next Shopify Storefront
 
 A **[Shopping Cart](https://github.com/Maxvien/next-shopify-storefront)** built with
-[TypeScript](https://www.typescriptlang.org), [Tailwind CSS](https://tailwindcss.com),
-[Headless UI](https://headlessui.com), [Next.js](https://nextjs.org), [React.js](https://react.dev),
-[Shopify Hydrogen React](https://shopify.dev/docs/api/hydrogen-react),... and
+[ESMate](https://github.com/VienDinhCom/esmate), [TypeScript](https://www.typescriptlang.org),
+[Tailwind CSS](https://tailwindcss.com), [Headless UI](https://headlessui.com), [Next.js](https://nextjs.org),
+[React.js](https://react.dev), [Shopify Hydrogen React](https://shopify.dev/docs/api/hydrogen-react),... and
 [Shopify Storefront GraphQL API](https://shopify.dev/docs/api/storefront).
 
 ![Next Shopify Storefront - GitHub Repo Stars](https://img.shields.io/github/stars/maxvien/next-shopify-storefront?label=Stars)
@@ -27,8 +27,8 @@ used [GraphQL Zeus](https://github.com/graphql-editor/graphql-zeus) to talk to
 [Shopify Utilities](https://www.npmjs.com/package/@maxvien/shopify) to make selecting product variants easier.
 
 Then came [SEO](https://www.npmjs.com/package/next-seo), best practices, and refining the user experience.
-[Swiper](https://swiperjs.com/) made touch interactions feel natural. [ESlint](https://eslint.org/) and
-[Prettier](https://prettier.io/) kept the code clean.
+[Swiper](https://swiperjs.com/) made touch interactions feel natural. [ESMate](https://github.com/VienDinhCom/esmate),
+[ESlint](https://eslint.org/) and [Prettier](https://prettier.io/) kept the code clean.
 
 It was a process of learning, breaking things, fixing them, and refining. And in the end, it wasn’t just about building
 a store—it was about building something that works beautifully.
@@ -47,7 +47,7 @@ Clone the source code into your computer.
 git clone https://github.com/VienDinhCom/next-shopify-storefront.git
 ```
 
-**This project was developed with Node 18 and NPM 10.**<br>
+**This project was developed with Node 22 and NPM 10.**<br>
 
 To set up a compatible environment, please download [Volta](https://github.com/volta-cli/volta) and run `volta setup`.
 
