@@ -1,16 +1,18 @@
-import { invariant, fetchStaticProps, fetchStaticPaths, PageProps, NextSeo } from '@site/utilities/deps';
-import { StoreLayout } from '@site/layouts/StoreLayout';
-import { ProductSingleSection, fetchProductSingleSection } from '@site/sections/ProuctSingleSection';
+import type { PageProps } from "@site/utilities/deps";
+
+import { StoreLayout } from "@site/layouts/store-layout";
+import { fetchProductSingleSection, ProductSingleSection } from "@site/sections/prouct-single-section";
+import { fetchStaticPaths, fetchStaticProps, invariant, NextSeo } from "@site/utilities/deps";
 
 export const getStaticPaths = fetchStaticPaths(async () => {
   return {
     paths: [],
-    fallback: 'blocking',
+    fallback: "blocking",
   };
 });
 
 export const getStaticProps = fetchStaticProps(async ({ params }) => {
-  invariant(typeof params?.handle === 'string', `params.handle is required`);
+  invariant(typeof params?.handle === "string", `params.handle is required`);
 
   return {
     props: {

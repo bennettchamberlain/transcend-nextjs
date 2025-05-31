@@ -1,7 +1,10 @@
-import { storefront } from '@site/utilities/storefront';
-import { NextImage, NextLink, useState, useAsyncFn, DataProps } from '@site/utilities/deps';
-import { Button } from '@site/snippets';
-import { Money } from '@shopify/hydrogen-react';
+import { Money } from "@shopify/hydrogen-react";
+
+import type { DataProps } from "@site/utilities/deps";
+
+import { Button } from "@site/snippets";
+import { NextImage, NextLink, useAsyncFn, useState } from "@site/utilities/deps";
+import { storefront } from "@site/utilities/storefront";
 
 export async function fetchProductListSection(cursor?: string) {
   const { products } = await storefront.query({
@@ -58,10 +61,10 @@ export function ProductListSection(props: DataProps<typeof fetchProductListSecti
             <NextLink key={node.handle} href={`/products/${node.handle}`} className="group">
               <div className="w-full overflow-hidden rounded-lg bg-gray-200">
                 <NextImage
-                  src={node.featuredImage!.url}
-                  alt={node.featuredImage!.altText || ''}
-                  height={node.featuredImage!.height}
-                  width={node.featuredImage!.width}
+                  src={node.featuredImage!.url as string}
+                  alt={node.featuredImage!.altText as string}
+                  height={node.featuredImage!.height as number}
+                  width={node.featuredImage!.width as number}
                   className="h-full w-full object-cover object-center group-hover:opacity-75"
                 />
               </div>
@@ -76,8 +79,8 @@ export function ProductListSection(props: DataProps<typeof fetchProductListSecti
 
       {hasNextPage && (
         <div className="text-center">
-          <Button color={loader.error ? 'danger' : 'primary'} size="md" onClick={load} disabled={loader.loading}>
-            {loader.loading ? 'Loading' : loader.error ? 'Try Again' : 'Load More'}
+          <Button color={loader.error ? "danger" : "primary"} size="md" onClick={load} disabled={loader.loading}>
+            {loader.loading ? "Loading" : loader.error ? "Try Again" : "Load More"}
           </Button>
         </div>
       )}

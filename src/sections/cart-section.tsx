@@ -1,13 +1,16 @@
-import { NextImage, NextLink } from '@site/utilities/deps';
+import type { MoneyV2 } from "@shopify/hydrogen-react/storefront-api-types";
+
 import {
+  CartCheckoutButton,
   CartCost,
-  useCart,
   CartLineProvider,
+  CartLineQuantity,
   CartLineQuantityAdjustButton,
   Money,
-  CartLineQuantity,
-  CartCheckoutButton,
-} from '@shopify/hydrogen-react';
+  useCart,
+} from "@shopify/hydrogen-react";
+
+import { NextImage, NextLink } from "@site/utilities/deps";
 
 export function CartSection() {
   const cart = useCart();
@@ -20,10 +23,10 @@ export function CartSection() {
             <CartLineProvider line={line!}>
               <div className="h-24 w-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
                 <NextImage
-                  src={line?.merchandise?.image?.url!}
-                  alt={line?.merchandise?.image?.altText || ''}
-                  width={line?.merchandise?.image?.width!}
-                  height={line?.merchandise?.image?.height!}
+                  src={line?.merchandise?.image?.url as string}
+                  alt={line?.merchandise?.image?.altText as string}
+                  width={line?.merchandise?.image?.width as number}
+                  height={line?.merchandise?.image?.height as number}
                   className="h-full w-full object-cover object-center"
                 />
               </div>
@@ -32,16 +35,16 @@ export function CartSection() {
                 <div>
                   <div className="flex justify-between text-base font-medium text-gray-900">
                     <h3>
-                      <NextLink href={'/products/' + line?.merchandise?.product?.handle}>
+                      <NextLink href={`/products/${line?.merchandise?.product?.handle}`}>
                         {line?.merchandise?.product?.title}
                       </NextLink>
                     </h3>
-                    <Money className="ml-4" data={line?.cost?.totalAmount!}></Money>
+                    <Money className="ml-4" data={line?.cost?.totalAmount as MoneyV2}></Money>
                   </div>
                   <p className="mt-1 text-sm text-gray-500">
                     {line?.merchandise?.selectedOptions?.map((option, index) => (
                       <span key={option?.name}>
-                        {index ? ' / ' : ''}
+                        {index ? " / " : ""}
                         {option?.value}
                       </span>
                     ))}

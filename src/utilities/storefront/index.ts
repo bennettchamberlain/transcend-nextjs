@@ -1,14 +1,12 @@
-import { ZeusScalars, Chain } from './zeus';
-import { createStorefrontClient } from '@shopify/hydrogen-react';
+import { createStorefrontClient } from "@shopify/hydrogen-react";
 
-export const storeDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN as string;
-export const publicStorefrontToken = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_TOKEN as string;
-export const storefrontApiVersion = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION as string;
+import { env } from "../env";
+import { Chain, ZeusScalars } from "./zeus";
 
 const { getStorefrontApiUrl, getPublicTokenHeaders } = createStorefrontClient({
-  storeDomain,
-  storefrontApiVersion,
-  publicStorefrontToken,
+  storeDomain: env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN,
+  storefrontApiVersion: env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION,
+  publicStorefrontToken: env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_TOKEN,
 });
 
 const chain = Chain(getStorefrontApiUrl(), {
@@ -16,6 +14,10 @@ const chain = Chain(getStorefrontApiUrl(), {
 });
 
 const scalars = ZeusScalars({
+  ID: {
+    encode: (e) => e as string,
+    decode: (e) => e as string,
+  },
   URL: {
     encode: (e) => e as string,
     decode: (e) => e as string,
@@ -27,12 +29,12 @@ const scalars = ZeusScalars({
 });
 
 export const storefront = {
-  query: chain('query', {
+  query: chain("query", {
     scalars,
   }),
-  mutation: chain('mutation', {
+  mutation: chain("mutation", {
     scalars,
   }),
 };
 
-export * from './zeus';
+export * from "./zeus";
