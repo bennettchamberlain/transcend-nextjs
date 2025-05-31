@@ -4,5 +4,5 @@ import { defineConfig } from "esmate/eslint";
 export default defineConfig({
   type: "app",
   react: true,
-  ignores: [],
+  ignores: ["src/utilities/storefront/zeus"],
 });
