@@ -5,16 +5,16 @@ import ProgressBar from "nextjs-progressbar";
 import type { NextAppProps } from "@site/utilities/deps";
 
 import { DefaultSeo } from "@site/utilities/deps";
-import { publicStorefrontToken, storeDomain, storefrontApiVersion } from "@site/utilities/storefront";
+import { env } from "@site/utilities/env";
 
 export default function App({ Component, pageProps }: NextAppProps) {
   return (
     <ShopifyProvider
       languageIsoCode="EN"
       countryIsoCode="US"
-      storeDomain={storeDomain}
-      storefrontToken={publicStorefrontToken}
-      storefrontApiVersion={storefrontApiVersion}
+      storeDomain={env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}
+      storefrontToken={env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_TOKEN}
+      storefrontApiVersion={env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_API_VERSION}
     >
       <DefaultSeo
         defaultTitle="Next Shopify Storefront"
