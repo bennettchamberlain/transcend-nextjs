@@ -3,7 +3,7 @@
 A **[Shopping Cart](https://github.com/Maxvien/next-shopify-storefront)** built with
 [ESMate](https://github.com/VienDinhCom/esmate), [TypeScript](https://www.typescriptlang.org),
 [Tailwind CSS](https://tailwindcss.com), [Headless UI](https://headlessui.com), [Next.js](https://nextjs.org),
-[React.js](https://react.dev), [Shopify Hydrogen React](https://shopify.dev/docs/api/hydrogen-react),... and
+[React.js](https://react.dev), [Shopify Hydrogen React](https://shopify.dev/docs/api/hydrogen-react), and
 [Shopify Storefront GraphQL API](https://shopify.dev/docs/api/storefront).
 
 ![Next Shopify Storefront - GitHub Repo Stars](https://img.shields.io/github/stars/maxvien/next-shopify-storefront?label=Stars)
@@ -92,12 +92,12 @@ Start the project in production mode.
 npm run start
 ```
 
-### Lint
+### Lint & Format
 
 Analyze the code to find problems with `eslint` and `prettier`.
 
 ```bash
-npm run lint
+npm run check
 ```
 
 Automatically fix problems.
