@@ -1,7 +1,7 @@
 import type { PageProps } from "@site/utilities/deps";
 
 import { StoreLayout } from "@site/layouts/store-layout";
-import { fetchCollectionSection, CollectionSection } from "@site/sections/collection-section";
+import { CollectionSection, fetchCollectionSection } from "@site/sections/collection-section";
 import { fetchStaticPaths, fetchStaticProps, invariant, NextSeo } from "@site/utilities/deps";
 
 export const getStaticPaths = fetchStaticPaths(async () => {

@@ -1,6 +1,5 @@
-import { NextLink } from "@site/utilities/deps";
 import { StoreLayout } from "@site/layouts/store-layout";
-import { NextSeo } from "@site/utilities/deps";
+import { NextLink, NextSeo } from "@site/utilities/deps";
 
 export default function Custom404() {
   return (

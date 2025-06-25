@@ -1,6 +1,5 @@
-import { NextLink } from "@site/utilities/deps";
-import { HeaderSection } from "@site/sections/header-section";
 import Footer from "@site/sections/footer";
+import { HeaderSection } from "@site/sections/header-section";
 
 export default function LocationPage() {
   return (
@@ -29,6 +28,7 @@ export default function LocationPage() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
+                sandbox="allow-same-origin"
                 title="Transcend Silver Lake Location"
                 className="h-full w-full"
               ></iframe>

@@ -5,9 +5,9 @@ import { useEffect } from "react";
 
 import type { NextAppProps } from "@site/utilities/deps";
 
+import { CyberProgressBar } from "@site/snippets";
 import { DefaultSeo } from "@site/utilities/deps";
 import { env } from "@site/utilities/env";
-import { CyberProgressBar } from "@site/snippets";
 
 // Extend Window interface to include gsap
 declare global {

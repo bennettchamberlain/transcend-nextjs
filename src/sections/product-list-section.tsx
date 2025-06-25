@@ -8,6 +8,7 @@ import { NextImage, NextLink, useAsyncFn, useState } from "@site/utilities/deps"
 import { storefront } from "@site/utilities/storefront";
 
 import type { SortOption } from "./product-search-sort-section";
+
 import { ProductSearchSortSection } from "./product-search-sort-section";
 
 export async function fetchProductListSection(cursor?: string, searchQuery?: string, sortOption?: SortOption) {

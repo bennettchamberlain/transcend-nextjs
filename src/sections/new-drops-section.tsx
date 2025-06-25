@@ -1,11 +1,11 @@
-import { Money, AddToCartButton, ProductProvider } from "@shopify/hydrogen-react";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { AddToCartButton, Money, ProductProvider } from "@shopify/hydrogen-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { DataProps } from "@site/utilities/deps";
 
 import { Button } from "@site/snippets";
-import { NextImage, NextLink, useAsyncFn, useState, useEffect } from "@site/utilities/deps";
-import { useRef } from "react";
+import { NextImage, NextLink, useAsyncFn } from "@site/utilities/deps";
 import { storefront } from "@site/utilities/storefront";
 
 export async function fetchNewDropsSection(cursor?: string) {
@@ -98,39 +98,12 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const [isAnimated, setIsAnimated] = useState(false);
   const [displayText, setDisplayText] = useState("NEW DROPS");
+  const [pages, setPages] = useState([props.data || { edges: [], pageInfo: { hasNextPage: false } }]);
 
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const targetText = "NEW DROPS";
 
-  // Scroll-triggered animation
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !isAnimated) {
-            setIsAnimated(true);
-            triggerAnimation();
-          }
-        });
-      },
-      {
-        threshold: 0.5, // Trigger when 50% of the element is visible
-        rootMargin: "0px 0px -400px 0px", // Trigger slightly before center
-      },
-    );
-
-    if (titleRef.current) {
-      observer.observe(titleRef.current);
-    }
-
-    return () => {
-      if (titleRef.current) {
-        observer.unobserve(titleRef.current);
-      }
-    };
-  }, [isAnimated]);
-
-  const triggerAnimation = () => {
+  const triggerAnimation = useCallback(() => {
     let iterations = 0;
     const interval = setInterval(() => {
       setDisplayText(
@@ -152,7 +125,47 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
 
       iterations += 1 / 3;
     }, 30);
-  };
+  }, [targetText, letters]);
+
+  // Scroll-triggered animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isAnimated) {
+            setIsAnimated(true);
+            triggerAnimation();
+          }
+        });
+      },
+      {
+        threshold: 0.5, // Trigger when 50% of the element is visible
+        rootMargin: "0px 0px -400px 0px", // Trigger slightly before center
+      },
+    );
+
+    const currentTitleRef = titleRef.current;
+    if (currentTitleRef) {
+      observer.observe(currentTitleRef);
+    }
+
+    return () => {
+      if (currentTitleRef) {
+        observer.unobserve(currentTitleRef);
+      }
+    };
+  }, [isAnimated, triggerAnimation]);
+
+  const lastPage = pages[pages.length - 1];
+  const lastCursor = lastPage.edges[lastPage.edges.length - 1]?.cursor;
+  const hasNextPage = lastPage.pageInfo.hasNextPage;
+
+  const [loader, load] = useAsyncFn(async () => {
+    const productList = await fetchNewDropsSection(lastCursor);
+    if (productList) {
+      setPages([...pages, productList]);
+    }
+  }, [lastCursor, pages]);
 
   // Handle case where collection doesn't exist
   if (!props.data) {
@@ -172,18 +185,6 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
       </section>
     );
   }
-
-  const [pages, setPages] = useState([props.data]);
-  const lastPage = pages[pages.length - 1];
-  const lastCursor = lastPage.edges[lastPage.edges.length - 1]?.cursor;
-  const hasNextPage = lastPage.pageInfo.hasNextPage;
-
-  const [loader, load] = useAsyncFn(async () => {
-    const productList = await fetchNewDropsSection(lastCursor);
-    if (productList) {
-      setPages([...pages, productList]);
-    }
-  }, [lastCursor]);
 
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

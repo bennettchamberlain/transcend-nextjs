@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 interface CyberProgressBarProps {
   color?: string;
@@ -18,7 +18,8 @@ const CyberProgressBar: React.FC<CyberProgressBarProps> = ({
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [progress, setProgress] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const isInitialMount = useRef(true);
   const router = useRouter();
 
   const center = size / 2;
@@ -40,17 +41,117 @@ const CyberProgressBar: React.FC<CyberProgressBarProps> = ({
   // Additional easing function for even smoother animations
   const smoothEasing = (t: number) => {
     // Ease-out function that starts fast and slows down
-    return 1 - Math.pow(1 - t, 3);
+    return 1 - (1 - t) ** 3;
   };
 
+  const animateType1 = useCallback(
+    (easedProgress: number) => {
+      const c12 = svgRef.current?.querySelector("#c12") as SVGElement;
+      if (!c12) {
+        return;
+      }
+
+      const currentRadius = radius + 60 * easedProgress;
+      const rotation = easedProgress * 360;
+
+      c12.setAttribute("r", r(currentRadius).toString());
+      c12.setAttribute("stroke-dasharray", s(currentRadius, 4, 5).join(","));
+      c12.setAttribute("transform", `rotate(${rotation - 5 * (2 / 3)}, ${center}, ${center})`);
+    },
+    [radius, center],
+  );
+
+  const animateType2 = useCallback(
+    (easedProgress: number) => {
+      const c22 = svgRef.current?.querySelector("#c22") as SVGElement;
+      const c23 = svgRef.current?.querySelector("#c23") as SVGElement;
+      if (!c22 || !c23) {
+        return;
+      }
+
+      const currentRadius = radius * 0.93 - 30 * easedProgress;
+      const radiusDiff = Math.abs(currentRadius - radius * 0.93);
+      const rotation = easedProgress * 360;
+
+      c22.setAttribute("r", r(currentRadius).toString());
+      c22.setAttribute("stroke-dasharray", (currentRadius / 4).toString());
+      c22.setAttribute("transform", `rotate(-${radiusDiff * 3 + rotation}, ${center}, ${center})`);
+
+      c23.setAttribute("stroke-width", (radiusDiff * 0.2).toString());
+      c23.setAttribute("transform", `rotate(${radiusDiff * 3 * 2 + rotation * 2}, ${center}, ${center})`);
+    },
+    [radius, center],
+  );
+
+  const animateType3 = useCallback(
+    (easedProgress: number) => {
+      const elements = {
+        c31: svgRef.current?.querySelector("#c31") as SVGElement,
+        c33: svgRef.current?.querySelector("#c33") as SVGElement,
+        c36: svgRef.current?.querySelector("#c36") as SVGElement,
+        c38: svgRef.current?.querySelector("#c38") as SVGElement,
+        c34: svgRef.current?.querySelector("#c34") as SVGElement,
+        c35: svgRef.current?.querySelector("#c35") as SVGElement,
+      };
+
+      if (!elements.c31 || !elements.c33) {
+        return;
+      }
+
+      const v = easedProgress * 100;
+      const rotation = easedProgress * 360;
+
+      elements.c31.setAttribute("r", r(radius + v).toString());
+      elements.c31.setAttribute("stroke-dasharray", `${(radius + v) / 3}, ${(radius + v) * (2 / 3)}`);
+
+      elements.c33.setAttribute("r", r(radius * 0.87 + v / 2).toString());
+      elements.c33.setAttribute("stroke-width", (14 + v / 6).toString());
+
+      elements.c36.setAttribute("r", r(radius + v).toString());
+      elements.c36.setAttribute("stroke-dasharray", `${(radius + v) / 3}, ${(radius + v) * (2 / 3)}`);
+
+      elements.c38.setAttribute("r", r(radius * 0.87 + v / 2).toString());
+      elements.c38.setAttribute("stroke-width", (14 + v / 6).toString());
+
+      elements.c34.setAttribute("transform", `rotate(-${v * 3.6 + rotation}, ${center}, ${center})`);
+      elements.c35.setAttribute("r", r(40 + v).toString());
+    },
+    [radius, center],
+  );
+
+  const animateType4 = useCallback(
+    (easedProgress: number) => {
+      const c71 = svgRef.current?.querySelector("#c71") as SVGElement;
+      const c74 = svgRef.current?.querySelector("#c74") as SVGElement;
+      if (!c71 || !c74) {
+        return;
+      }
+
+      const v = easedProgress * 100;
+      const rotation = easedProgress * 360;
+
+      c74.setAttribute("r", r(radius * 1.07 - v).toString());
+      c74.setAttribute("stroke-dasharray", ((radius * 1.07 - v) / 100).toString());
+      c74.setAttribute("transform", `rotate(${rotation}, ${center}, ${center})`);
+
+      c71.setAttribute("r", r(radius + v).toString());
+      c71.setAttribute("stroke-dasharray", `8, ${(radius + v) / 4 - 8}`);
+      c71.setAttribute("transform", `rotate(${rotation * 0.5}, ${center}, ${center})`);
+    },
+    [radius, center],
+  );
+
   useEffect(() => {
-    // Show progress bar when component mounts (page loads)
-    setIsVisible(true);
-    setProgress(0);
+    // Only run on initial mount
+    if (!isInitialMount.current) {
+      return;
+    }
+    isInitialMount.current = false;
 
     // Simulate initial page load progress with smoother animation
-    let startTime = Date.now();
+    const startTime = Date.now();
     const duration = 3000; // 3 seconds total duration
+    let hideTimeout: NodeJS.Timeout;
 
     const animate = () => {
       const elapsed = Date.now() - startTime;
@@ -66,17 +167,27 @@ const CyberProgressBar: React.FC<CyberProgressBarProps> = ({
         requestAnimationFrame(animate);
       } else {
         // Hide after completion
-        setTimeout(() => {
+        hideTimeout = setTimeout(() => {
           setIsVisible(false);
           setProgress(0);
         }, 500);
       }
     };
 
+    // Start the animation
     requestAnimationFrame(animate);
+
+    // Cleanup function
+    return () => {
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+      }
+    };
   }, []);
 
   useEffect(() => {
+    let hideTimeout: NodeJS.Timeout;
+
     const handleStart = () => {
       setIsVisible(true);
       setProgress(0);
@@ -85,7 +196,7 @@ const CyberProgressBar: React.FC<CyberProgressBarProps> = ({
     const handleComplete = () => {
       setProgress(100);
       // Hide after completion animation
-      setTimeout(() => {
+      hideTimeout = setTimeout(() => {
         setIsVisible(false);
         setProgress(0);
       }, 500);
@@ -93,7 +204,7 @@ const CyberProgressBar: React.FC<CyberProgressBarProps> = ({
 
     const handleError = () => {
       setProgress(100);
-      setTimeout(() => {
+      hideTimeout = setTimeout(() => {
         setIsVisible(false);
         setProgress(0);
       }, 500);
@@ -108,14 +219,19 @@ const CyberProgressBar: React.FC<CyberProgressBarProps> = ({
       router.events.off("routeChangeStart", handleStart);
       router.events.off("routeChangeComplete", handleComplete);
       router.events.off("routeChangeError", handleError);
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+      }
     };
   }, [router]);
 
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible) {
+      return;
+    }
 
     // Simulate progress when navigation starts with smoother animation
-    let startTime = Date.now();
+    const startTime = Date.now();
     const duration = 2000; // 2 seconds for navigation
 
     const animate = () => {
@@ -137,7 +253,9 @@ const CyberProgressBar: React.FC<CyberProgressBarProps> = ({
   }, [isVisible]);
 
   useEffect(() => {
-    if (!isVisible || !svgRef.current) return;
+    if (!isVisible || !svgRef.current) {
+      return;
+    }
 
     const animateProgress = () => {
       const easedProgress = timingFunc(progress / 100);
@@ -159,84 +277,7 @@ const CyberProgressBar: React.FC<CyberProgressBarProps> = ({
     };
 
     animateProgress();
-  }, [progress, isVisible, type]);
-
-  const animateType1 = (easedProgress: number) => {
-    const c12 = svgRef.current?.querySelector("#c12") as SVGElement;
-    if (!c12) return;
-
-    const currentRadius = radius + 60 * easedProgress;
-    const rotation = easedProgress * 360;
-
-    c12.setAttribute("r", r(currentRadius).toString());
-    c12.setAttribute("stroke-dasharray", s(currentRadius, 4, 5).join(","));
-    c12.setAttribute("transform", `rotate(${rotation - 5 * (2 / 3)}, ${center}, ${center})`);
-  };
-
-  const animateType2 = (easedProgress: number) => {
-    const c22 = svgRef.current?.querySelector("#c22") as SVGElement;
-    const c23 = svgRef.current?.querySelector("#c23") as SVGElement;
-    if (!c22 || !c23) return;
-
-    const currentRadius = radius * 0.93 - 30 * easedProgress;
-    const radiusDiff = Math.abs(currentRadius - radius * 0.93);
-    const rotation = easedProgress * 360;
-
-    c22.setAttribute("r", r(currentRadius).toString());
-    c22.setAttribute("stroke-dasharray", (currentRadius / 4).toString());
-    c22.setAttribute("transform", `rotate(-${radiusDiff * 3 + rotation}, ${center}, ${center})`);
-
-    c23.setAttribute("stroke-width", (radiusDiff * 0.2).toString());
-    c23.setAttribute("transform", `rotate(${radiusDiff * 3 * 2 + rotation * 2}, ${center}, ${center})`);
-  };
-
-  const animateType3 = (easedProgress: number) => {
-    const elements = {
-      c31: svgRef.current?.querySelector("#c31") as SVGElement,
-      c33: svgRef.current?.querySelector("#c33") as SVGElement,
-      c36: svgRef.current?.querySelector("#c36") as SVGElement,
-      c38: svgRef.current?.querySelector("#c38") as SVGElement,
-      c34: svgRef.current?.querySelector("#c34") as SVGElement,
-      c35: svgRef.current?.querySelector("#c35") as SVGElement,
-    };
-
-    if (!elements.c31 || !elements.c33) return;
-
-    const v = easedProgress * 100;
-    const rotation = easedProgress * 360;
-
-    elements.c31.setAttribute("r", r(radius + v).toString());
-    elements.c31.setAttribute("stroke-dasharray", `${(radius + v) / 3}, ${(radius + v) * (2 / 3)}`);
-
-    elements.c33.setAttribute("r", r(radius * 0.87 + v / 2).toString());
-    elements.c33.setAttribute("stroke-width", (14 + v / 6).toString());
-
-    elements.c36.setAttribute("r", r(radius + v).toString());
-    elements.c36.setAttribute("stroke-dasharray", `${(radius + v) / 3}, ${(radius + v) * (2 / 3)}`);
-
-    elements.c38.setAttribute("r", r(radius * 0.87 + v / 2).toString());
-    elements.c38.setAttribute("stroke-width", (14 + v / 6).toString());
-
-    elements.c34.setAttribute("transform", `rotate(-${v * 3.6 + rotation}, ${center}, ${center})`);
-    elements.c35.setAttribute("r", r(40 + v).toString());
-  };
-
-  const animateType4 = (easedProgress: number) => {
-    const c71 = svgRef.current?.querySelector("#c71") as SVGElement;
-    const c74 = svgRef.current?.querySelector("#c74") as SVGElement;
-    if (!c71 || !c74) return;
-
-    const v = easedProgress * 100;
-    const rotation = easedProgress * 360;
-
-    c74.setAttribute("r", r(radius * 1.07 - v).toString());
-    c74.setAttribute("stroke-dasharray", ((radius * 1.07 - v) / 100).toString());
-    c74.setAttribute("transform", `rotate(${rotation}, ${center}, ${center})`);
-
-    c71.setAttribute("r", r(radius + v).toString());
-    c71.setAttribute("stroke-dasharray", `8, ${(radius + v) / 4 - 8}`);
-    c71.setAttribute("transform", `rotate(${rotation * 0.5}, ${center}, ${center})`);
-  };
+  }, [progress, isVisible, type, animateType1, animateType2, animateType3, animateType4]);
 
   const renderButton1 = () => (
     <>
@@ -345,9 +386,7 @@ const CyberProgressBar: React.FC<CyberProgressBarProps> = ({
         fill="transparent"
         stroke={color}
         strokeWidth="14"
-        strokeDasharray={
-          `${(radius * 0.87) / 180}, ${(radius * 0.87) / 60}`.repeat(15) + `, ${(radius * 0.87) / 180}, ${240}`
-        }
+        strokeDasharray={`${`${(radius * 0.87) / 180}, ${(radius * 0.87) / 60}`.repeat(15)}, ${(radius * 0.87) / 180}, ${240}`}
         transform={`rotate(180, ${center}, ${center})`}
       />
       <circle
@@ -358,9 +397,7 @@ const CyberProgressBar: React.FC<CyberProgressBarProps> = ({
         fill="transparent"
         stroke={color}
         strokeWidth="14"
-        strokeDasharray={
-          `${(radius * 0.87) / 180}, ${(radius * 0.87) / 60}`.repeat(15) + `, ${(radius * 0.87) / 180}, ${240}`
-        }
+        strokeDasharray={`${`${(radius * 0.87) / 180}, ${(radius * 0.87) / 60}`.repeat(15)}, ${(radius * 0.87) / 180}, ${240}`}
       />
     </>
   );
@@ -409,7 +446,9 @@ const CyberProgressBar: React.FC<CyberProgressBarProps> = ({
     }
   };
 
-  if (!isVisible) return null;
+  if (!isVisible) {
+    return null;
+  }
 
   return (
     <div

@@ -1,13 +1,14 @@
 import { AddToCartButton, ProductPrice, ProductProvider } from "@shopify/hydrogen-react";
 import { truncate } from "lodash";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type { DataProps } from "@site/utilities/deps";
 
 import { Button } from "@site/snippets";
 import { formatTitle, invariant, NextImage, useVariantSelector } from "@site/utilities/deps";
 import { storefront } from "@site/utilities/storefront";
-import { ProductRecommendationsSection, fetchProductRecommendationsSection } from "./product-recommendations-section";
+
+import { fetchProductRecommendationsSection, ProductRecommendationsSection } from "./product-recommendations-section";
 
 export async function fetchProductSingleSection(handle: string) {
   const { productByHandle } = await storefront.query({
@@ -98,16 +99,20 @@ export async function fetchProductSingleSection(handle: string) {
 export function ProductSingleSection(props: DataProps<typeof fetchProductSingleSection>) {
   const { variantId, options, selectOption } = useVariantSelector(props.data);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const hasInitialized = useRef(false);
 
   // Automatically select the first option for each option type only once when component mounts
   useEffect(() => {
-    options.forEach(({ name, values }) => {
-      const firstAvailableValue = values.find((value) => !value.disabled);
-      if (firstAvailableValue) {
-        selectOption(name, firstAvailableValue.value);
-      }
-    });
-  }, []); // Empty dependency array - only run once on mount
+    if (!hasInitialized.current && options.length > 0) {
+      options.forEach(({ name, values }) => {
+        const firstAvailableValue = values.find((value) => !value.disabled);
+        if (firstAvailableValue) {
+          selectOption(name, firstAvailableValue.value);
+        }
+      });
+      hasInitialized.current = true;
+    }
+  }, [options, selectOption]);
 
   const productImages = props.data.images.nodes;
 
@@ -140,6 +145,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
               <div className="mt-4 flex gap-2 overflow-x-auto">
                 {productImages.map((image, index) => (
                   <button
+                    type="button"
                     key={image.id}
                     onClick={() => setSelectedImageIndex(index)}
                     className={`flex-shrink-0 overflow-hidden border-2 transition-all duration-200 hover:opacity-80 ${

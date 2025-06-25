@@ -1,7 +1,8 @@
+import type { CSSProperties } from "react";
+
 import type { ReactNode } from "@site/utilities/deps";
 
 import { clsx, NextLink } from "@site/utilities/deps";
-import { CSSProperties } from "react";
 
 interface Props {
   onClick?: () => void;

@@ -1,11 +1,12 @@
 "use client";
 
 import React from "react";
+
 import { CyberButton } from "../snippets";
 
 const CyberButtonDemo: React.FC = () => {
-  const handleButtonClick = (type: number) => {
-    console.log(`Cyber button ${type} clicked!`);
+  const handleButtonClick = (_type: number) => {
+    // Button clicked - type: ${_type}
   };
 
   return (

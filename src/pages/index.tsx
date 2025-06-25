@@ -1,10 +1,9 @@
-import { GetStaticProps } from "next";
+import type { GetStaticProps } from "next";
 
 import { StoreLayout } from "@site/layouts/store-layout";
-import { HeroButtonRow } from "@site/sections/hero-button-row";
-import { HeroSection } from "@site/sections/hero-section";
 import { CollectionsScroll, fetchCollections } from "@site/sections/collections-scroll";
-import { NewDropsSection, fetchNewDropsSection } from "@site/sections/new-drops-section";
+import { HeroSection } from "@site/sections/hero-section";
+import { fetchNewDropsSection, NewDropsSection } from "@site/sections/new-drops-section";
 
 interface PageProps {
   collections: Awaited<ReturnType<typeof fetchCollections>>;

@@ -1,10 +1,8 @@
 import type { MoneyV2 } from "@shopify/hydrogen-react/storefront-api-types";
+
 import { Money } from "@shopify/hydrogen-react";
-import {
-  qualifiesForFreeShippingFromCart,
-  getRemainingForFreeShipping,
-  moneyToNumber,
-} from "@site/utilities/cart-utils";
+
+import { formatRemainingForFreeShippingFromCart, qualifiesForFreeShippingFromCart } from "@site/utilities/cart-utils";
 
 interface FreeShippingBannerProps {
   subtotal: { amount?: string; currencyCode?: string } | null | undefined;
@@ -13,8 +11,8 @@ interface FreeShippingBannerProps {
 
 export function FreeShippingBanner({ subtotal, className = "" }: FreeShippingBannerProps) {
   const hasFreeShipping = qualifiesForFreeShippingFromCart(subtotal);
-  const remaining = getRemainingForFreeShipping(subtotal);
-  const subtotalAmount = moneyToNumber(subtotal);
+  const remainingForFreeShipping = formatRemainingForFreeShippingFromCart(subtotal);
+  const subtotalAmount = subtotal?.amount ? Number.parseFloat(subtotal.amount) : 0;
   const progressPercentage = Math.min((subtotalAmount / 150) * 100, 100);
 
   if (hasFreeShipping) {
@@ -42,17 +40,7 @@ export function FreeShippingBanner({ subtotal, className = "" }: FreeShippingBan
     <div className={`rounded-lg border border-lime-500/30 bg-lime-900/20 p-3 ${className}`}>
       <div className="text-center">
         <div className="mb-2 text-sm font-medium text-lime-400">
-          Add{" "}
-          <Money
-            data={
-              {
-                amount: remaining.toFixed(2),
-                currencyCode: subtotal?.currencyCode || "USD",
-              } as MoneyV2
-            }
-            className="font-bold"
-          />{" "}
-          more for free shipping!
+          Add <Money data={remainingForFreeShipping as MoneyV2} className="font-bold" /> more for free shipping!
         </div>
         <div className="h-2 w-full rounded-full bg-gray-700">
           <div

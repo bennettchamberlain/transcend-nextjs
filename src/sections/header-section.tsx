@@ -1,5 +1,5 @@
-import { Dialog, DialogPanel, Popover, PopoverGroup } from "@headlessui/react";
-import { Bars3Icon, ShoppingBagIcon, ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Dialog, DialogPanel } from "@headlessui/react";
+import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useCart } from "@shopify/hydrogen-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -40,7 +40,9 @@ function TypingEffect() {
   }, []);
 
   useEffect(() => {
-    if (!isTyping) return;
+    if (!isTyping) {
+      return;
+    }
 
     const currentOffer = offers[currentIndex];
 
@@ -60,7 +62,9 @@ function TypingEffect() {
   }, [currentText, currentIndex, isTyping]);
 
   useEffect(() => {
-    if (isTyping) return;
+    if (isTyping) {
+      return;
+    }
 
     if (currentText.length > 0) {
       // Erasing effect
@@ -94,12 +98,11 @@ export function HeaderSection() {
   const { totalQuantity } = useCart();
 
   useEffect(() => {
-    let lastScrollY = window.scrollY;
+    const _lastScrollY = window.scrollY;
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setShowTopBar(currentScrollY < 50); // Show top bar when scrolled less than 50px
-      lastScrollY = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -159,7 +162,7 @@ export function HeaderSection() {
             </div>
           </NextLink>
         </div>
-        <PopoverGroup className="hidden lg:flex lg:gap-x-12">
+        <div className="hidden lg:flex lg:gap-x-12">
           {mainMenuItems.map(({ text, href }) => (
             <NextLink
               className={clsx(
@@ -172,8 +175,7 @@ export function HeaderSection() {
               {text}
             </NextLink>
           ))}
-        </PopoverGroup>
-
+        </div>
         <div className="flex flex-1 justify-end">
           <NextLink href="/cart">
             <span className="sr-only">Cart</span>

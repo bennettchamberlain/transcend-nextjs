@@ -1,13 +1,17 @@
 import type { MoneyV2 } from "@shopify/hydrogen-react/storefront-api-types";
 
+import { CurrencyCode } from "./storefront/zeus";
+
 const FREE_SHIPPING_THRESHOLD = 150; // $150 USD
 
 /**
  * Converts a MoneyV2 object to a number for calculations
  */
 export function moneyToNumber(money: MoneyV2 | null | undefined): number {
-    if (!money?.amount) return 0;
-    return parseFloat(money.amount);
+    if (!money?.amount) {
+        return 0;
+    }
+    return Number.parseFloat(money.amount);
 }
 
 /**
@@ -34,11 +38,13 @@ export function formatRemainingForFreeShipping(
     subtotal: MoneyV2 | null | undefined
 ): MoneyV2 | null {
     const remaining = getRemainingForFreeShipping(subtotal);
-    if (remaining === 0) return null;
+    if (remaining === 0) {
+        return null;
+    }
 
     return {
         amount: remaining.toFixed(2),
-        currencyCode: subtotal?.currencyCode || "USD",
+        currencyCode: subtotal?.currencyCode || CurrencyCode.USD,
     };
 }
 
@@ -48,8 +54,10 @@ export function formatRemainingForFreeShipping(
 export function qualifiesForFreeShippingFromCart(
     subtotal: { amount?: string; currencyCode?: string } | null | undefined
 ): boolean {
-    if (!subtotal?.amount) return false;
-    const subtotalAmount = parseFloat(subtotal.amount);
+    if (!subtotal?.amount) {
+        return false;
+    }
+    const subtotalAmount = Number.parseFloat(subtotal.amount);
     return subtotalAmount >= FREE_SHIPPING_THRESHOLD;
 }
 
@@ -59,13 +67,17 @@ export function qualifiesForFreeShippingFromCart(
 export function formatRemainingForFreeShippingFromCart(
     subtotal: { amount?: string; currencyCode?: string } | null | undefined
 ): MoneyV2 | null {
-    if (!subtotal?.amount) return null;
-    const subtotalAmount = parseFloat(subtotal.amount);
+    if (!subtotal?.amount) {
+        return null;
+    }
+    const subtotalAmount = Number.parseFloat(subtotal.amount);
     const remaining = FREE_SHIPPING_THRESHOLD - subtotalAmount;
-    if (remaining <= 0) return null;
+    if (remaining <= 0) {
+        return null;
+    }
 
     return {
         amount: remaining.toFixed(2),
-        currencyCode: subtotal.currencyCode || "USD",
+        currencyCode: (subtotal.currencyCode as CurrencyCode) || CurrencyCode.USD,
     };
 } 

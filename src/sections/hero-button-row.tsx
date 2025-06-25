@@ -1,5 +1,6 @@
-import { NextLink } from "@site/utilities/deps";
 import { Zap } from "lucide-react";
+
+import { NextLink } from "@site/utilities/deps";
 
 export function HeroButtonRow() {
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 interface CyberButtonProps {
   type: 1 | 2 | 3 | 4;
@@ -34,17 +34,17 @@ const CyberButton: React.FC<CyberButtonProps> = ({ type, size = 200, color = "#f
     return t;
   };
 
-  const timingFunc3 = (t: number) => {
-    return t * t * t;
-  };
-
   // Button type 1 animation
   const animateButton1 = () => {
-    if (isAnimating) return;
+    if (isAnimating) {
+      return;
+    }
     setIsAnimating(true);
 
     const c12 = svgRef.current?.querySelector("#c12") as SVGElement;
-    if (!c12) return;
+    if (!c12) {
+      return;
+    }
 
     // Initial state
     c12.setAttribute("r", r(radius).toString());
@@ -52,7 +52,7 @@ const CyberButton: React.FC<CyberButtonProps> = ({ type, size = 200, color = "#f
     c12.setAttribute("transform", `rotate(-${5 * (2 / 3)}, ${center}, ${center})`);
 
     // Animate to 360
-    let startTime = Date.now();
+    const startTime = Date.now();
     const duration = 800;
 
     const animate = () => {
@@ -90,19 +90,23 @@ const CyberButton: React.FC<CyberButtonProps> = ({ type, size = 200, color = "#f
 
   // Button type 2 animation
   const animateButton2 = () => {
-    if (isAnimating) return;
+    if (isAnimating) {
+      return;
+    }
     setIsAnimating(true);
 
     const c22 = svgRef.current?.querySelector("#c22") as SVGElement;
     const c23 = svgRef.current?.querySelector("#c23") as SVGElement;
-    if (!c22 || !c23) return;
+    if (!c22 || !c23) {
+      return;
+    }
 
     // Initial state
     c22.setAttribute("r", r(radius * 0.93).toString());
     c22.setAttribute("stroke-dasharray", ((radius * 0.93) / 4).toString());
     c22.setAttribute("transform", `rotate(0, ${center}, ${center})`);
 
-    let startTime = Date.now();
+    const startTime = Date.now();
     const duration = 800;
 
     const animate = () => {
@@ -125,7 +129,7 @@ const CyberButton: React.FC<CyberButtonProps> = ({ type, size = 200, color = "#f
       } else {
         // Return animation
         setTimeout(() => {
-          let returnStartTime = Date.now();
+          const returnStartTime = Date.now();
           const returnAnimate = () => {
             const returnElapsed = Date.now() - returnStartTime;
             const returnProgress = Math.min(returnElapsed / duration, 1);
@@ -158,7 +162,9 @@ const CyberButton: React.FC<CyberButtonProps> = ({ type, size = 200, color = "#f
 
   // Button type 3 animation
   const animateButton3 = () => {
-    if (isAnimating) return;
+    if (isAnimating) {
+      return;
+    }
     setIsAnimating(true);
 
     const elements = {
@@ -170,9 +176,11 @@ const CyberButton: React.FC<CyberButtonProps> = ({ type, size = 200, color = "#f
       c35: svgRef.current?.querySelector("#c35") as SVGElement,
     };
 
-    if (!elements.c31 || !elements.c33) return;
+    if (!elements.c31 || !elements.c33) {
+      return;
+    }
 
-    let startTime = Date.now();
+    const startTime = Date.now();
     const duration = 800;
 
     const animate = () => {
@@ -204,7 +212,7 @@ const CyberButton: React.FC<CyberButtonProps> = ({ type, size = 200, color = "#f
       } else {
         // Return animation
         setTimeout(() => {
-          let returnStartTime = Date.now();
+          const returnStartTime = Date.now();
           const returnAnimate = () => {
             const returnElapsed = Date.now() - returnStartTime;
             const returnProgress = Math.min(returnElapsed / duration, 1);
@@ -243,18 +251,22 @@ const CyberButton: React.FC<CyberButtonProps> = ({ type, size = 200, color = "#f
 
   // Button type 4 animation (using button 7 from original)
   const animateButton4 = () => {
-    if (isAnimating) return;
+    if (isAnimating) {
+      return;
+    }
     setIsAnimating(true);
 
     const c71 = svgRef.current?.querySelector("#c71") as SVGElement;
     const c74 = svgRef.current?.querySelector("#c74") as SVGElement;
-    if (!c71 || !c74) return;
+    if (!c71 || !c74) {
+      return;
+    }
 
     // Initial state
     c71.setAttribute("transform", `rotate(0, ${center}, ${center})`);
     c74.setAttribute("transform", `rotate(0, ${center}, ${center})`);
 
-    let startTime = Date.now();
+    const startTime = Date.now();
     const duration = 800;
 
     const animate = () => {
@@ -290,7 +302,7 @@ const CyberButton: React.FC<CyberButtonProps> = ({ type, size = 200, color = "#f
 
             // Final size animation
             setTimeout(() => {
-              let finalStartTime = Date.now();
+              const finalStartTime = Date.now();
               const finalDuration = 1500;
               const finalAnimate = () => {
                 const finalElapsed = Date.now() - finalStartTime;
@@ -448,9 +460,7 @@ const CyberButton: React.FC<CyberButtonProps> = ({ type, size = 200, color = "#f
         fill="transparent"
         stroke={color}
         strokeWidth="14"
-        strokeDasharray={
-          `${(radius * 0.87) / 180}, ${(radius * 0.87) / 60}`.repeat(15) + `, ${(radius * 0.87) / 180}, ${240}`
-        }
+        strokeDasharray={`${`${(radius * 0.87) / 180}, ${(radius * 0.87) / 60}`.repeat(15)}, ${(radius * 0.87) / 180}, ${240}`}
         transform={`rotate(180, ${center}, ${center})`}
       />
       <circle
@@ -461,9 +471,7 @@ const CyberButton: React.FC<CyberButtonProps> = ({ type, size = 200, color = "#f
         fill="transparent"
         stroke={color}
         strokeWidth="14"
-        strokeDasharray={
-          `${(radius * 0.87) / 180}, ${(radius * 0.87) / 60}`.repeat(15) + `, ${(radius * 0.87) / 180}, ${240}`
-        }
+        strokeDasharray={`${`${(radius * 0.87) / 180}, ${(radius * 0.87) / 60}`.repeat(15)}, ${(radius * 0.87) / 180}, ${240}`}
         style={{ cursor: "pointer" }}
       />
     </>

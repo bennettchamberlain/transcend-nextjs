@@ -1,9 +1,7 @@
-import { Money, AddToCartButton, ProductProvider } from "@shopify/hydrogen-react";
-import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { Money, ProductProvider } from "@shopify/hydrogen-react";
 
 import type { DataProps } from "@site/utilities/deps";
 
-import { Button } from "@site/snippets";
 import { NextImage, NextLink } from "@site/utilities/deps";
 import { storefront } from "@site/utilities/storefront";
 

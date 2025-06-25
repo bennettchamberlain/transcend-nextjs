@@ -1,6 +1,5 @@
-import { NextLink } from "@site/utilities/deps";
-import { Zap, ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+
 import { HeroButtonRow } from "./hero-button-row";
 
 export function HeroSection() {
@@ -12,7 +11,7 @@ export function HeroSection() {
   useEffect(() => {
     const createAnimation = ({
       duration = 21,
-      reversed = false,
+      reversed: _reversed = false,
       target,
       text,
       textProperties = undefined,
@@ -57,7 +56,9 @@ export function HeroSection() {
     };
 
     const triggerAnimation = () => {
-      if (animationTriggered) return;
+      if (animationTriggered) {
+        return;
+      }
 
       // Apply animation to desktop ellipse
       if (ellipseRef.current && window.gsap) {
@@ -99,13 +100,14 @@ export function HeroSection() {
       },
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentSectionRef = sectionRef.current;
+    if (currentSectionRef) {
+      observer.observe(currentSectionRef);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentSectionRef) {
+        observer.unobserve(currentSectionRef);
       }
     };
   }, [animationTriggered]);

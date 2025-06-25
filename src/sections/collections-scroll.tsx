@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import Link from "next/link";
-
 import { ChevronLeft, ChevronRight, Zap } from "lucide-react";
-import { storefront, ModelTypes } from "@site/utilities/storefront";
+import Link from "next/link";
+import { useCallback, useEffect, useRef, useState } from "react";
+
+import { storefront } from "@site/utilities/storefront";
 
 interface CollectionsScrollProps {
   collections: {
@@ -50,7 +50,7 @@ export async function fetchCollections() {
   }
 }
 
-export const CollectionsScroll = ({ collections }: CollectionsScrollProps) => {
+export function CollectionsScroll({ collections }: CollectionsScrollProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const [isAnimated, setIsAnimated] = useState(false);
@@ -58,6 +58,30 @@ export const CollectionsScroll = ({ collections }: CollectionsScrollProps) => {
 
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const targetText = "COLLECTIONS";
+
+  const triggerAnimation = useCallback(() => {
+    let iterations = 0;
+    const interval = setInterval(() => {
+      setDisplayText(
+        targetText
+          .split("")
+          .map((letter, index) => {
+            if (index <= iterations + 1) {
+              return targetText[index];
+            }
+            return letters[Math.floor(Math.random() * letters.length)];
+          })
+          .join(""),
+      );
+
+      if (iterations >= targetText.length) {
+        clearInterval(interval);
+        setDisplayText(targetText);
+      }
+
+      iterations += 1 / 3;
+    }, 30);
+  }, [targetText, letters]);
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
@@ -93,40 +117,17 @@ export const CollectionsScroll = ({ collections }: CollectionsScrollProps) => {
       },
     );
 
-    if (titleRef.current) {
-      observer.observe(titleRef.current);
+    const currentTitleRef = titleRef.current;
+    if (currentTitleRef) {
+      observer.observe(currentTitleRef);
     }
 
     return () => {
-      if (titleRef.current) {
-        observer.unobserve(titleRef.current);
+      if (currentTitleRef) {
+        observer.unobserve(currentTitleRef);
       }
     };
-  }, [isAnimated]);
-
-  const triggerAnimation = () => {
-    let iterations = 0;
-    const interval = setInterval(() => {
-      setDisplayText(
-        targetText
-          .split("")
-          .map((letter, index) => {
-            if (index <= iterations + 1) {
-              return targetText[index];
-            }
-            return letters[Math.floor(Math.random() * letters.length)];
-          })
-          .join(""),
-      );
-
-      if (iterations >= targetText.length) {
-        clearInterval(interval);
-        setDisplayText(targetText);
-      }
-
-      iterations += 1 / 3;
-    }, 30);
-  };
+  }, [isAnimated, triggerAnimation]);
 
   // Handle case where collections is undefined or null
   const safeCollections = collections || [];
@@ -137,7 +138,7 @@ export const CollectionsScroll = ({ collections }: CollectionsScrollProps) => {
   }
 
   return (
-    <div className="bg-dark-gradient relative pb-2 pt-10 md:py-16">
+    <div className="bg-dark-gradient relative pt-10 pb-2 md:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-12 text-right">
@@ -153,6 +154,7 @@ export const CollectionsScroll = ({ collections }: CollectionsScrollProps) => {
         <div className="relative">
           {/* Left Scroll Button */}
           <button
+            type="button"
             onClick={() => scroll("left")}
             className="bg-card-bg/80 border-border-color hover:border-neon-green hover:text-neon-green hover:bg-card-bg glass-effect group hover:shadow-neon-green/20 absolute top-8 left-4 z-10 flex h-14 w-14 items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-lg"
           >
@@ -222,6 +224,7 @@ export const CollectionsScroll = ({ collections }: CollectionsScrollProps) => {
 
           {/* Right Scroll Button */}
           <button
+            type="button"
             onClick={() => scroll("right")}
             className="bg-card-bg/80 border-border-color hover:border-neon-green hover:text-neon-green hover:bg-card-bg glass-effect group hover:shadow-neon-green/20 absolute top-8 right-4 z-10 flex h-14 w-14 items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-lg"
           >
@@ -232,12 +235,12 @@ export const CollectionsScroll = ({ collections }: CollectionsScrollProps) => {
         {/* Scroll Indicator */}
         <div className="mt-8 flex justify-center">
           <div className="flex space-x-2">
-            {safeCollections.map((_, index) => (
-              <div key={index} className="bg-border-color h-2 w-2 rounded-full transition-all duration-300" />
+            {safeCollections.map((collection) => (
+              <div key={collection.id} className="bg-border-color h-2 w-2 rounded-full transition-all duration-300" />
             ))}
           </div>
         </div>
       </div>
     </div>
   );
-};
+}

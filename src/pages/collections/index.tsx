@@ -1,9 +1,8 @@
-import { GetStaticProps } from "next";
+import type { GetStaticProps } from "next";
 
-
-import { NextSeo } from "@site/utilities/deps";
-import { CollectionsScroll, fetchCollections } from "@site/sections/collections-scroll";
 import { StoreLayout } from "@site/layouts/store-layout";
+import { CollectionsScroll, fetchCollections } from "@site/sections/collections-scroll";
+import { NextSeo } from "@site/utilities/deps";
 
 interface PageProps {
   collections: Awaited<ReturnType<typeof fetchCollections>>;
