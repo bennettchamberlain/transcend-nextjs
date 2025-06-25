@@ -157,11 +157,11 @@ export function HeroSection() {
             <div className="w-full max-w-md space-y-4 lg:min-w-[400px]">
               <div className="space-y-4">
                 <h1 className="text-center text-4xl leading-tight font-bold text-white lg:text-left lg:text-5xl">
-                  <span className="bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400 bg-clip-text text-transparent">
-                    Intelligent
+                  <span className="bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400 bg-clip-text font-[800] text-transparent">
+                    TRANSCEND
                   </span>
                   <br />
-                  <span className="text-white">Design</span>
+                  <span className="font-[800] text-white">COLLECTIVE</span>
                 </h1>
 
                 {/* Animated Ellipse - Hidden on mobile, shown on desktop */}
