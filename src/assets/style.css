@@ -1,6 +1,38 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "AOMono";
+  src: url("/fonts/AOMono-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AOMono";
+  src: url("/fonts/AOMono-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AOMono";
+  src: url("/fonts/AOMono-Black.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Global font family application */
+* {
+  font-family: "AOMono", ui-sans-serif, system-ui, sans-serif;
+}
+
 @theme {
+  --font-family-sans: "AOMono", ui-sans-serif, system-ui, sans-serif;
+  --font-family-mono: "AOMono", ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+
   --color-primary-50: #eef2ff;
   --color-primary-100: #e0e7ff;
   --color-primary-200: #c7d2fe;
@@ -73,6 +105,30 @@
   --color-warning-900: #7c2d12;
   --color-warning-950: #431407;
 
+  --color-lime-50: #f7ffd9;
+  --color-lime-100: #efffb3;
+  --color-lime-200: #e3ff8d;
+  --color-lime-300: #d7ff67;
+  --color-lime-400: #cbff41;
+  --color-lime-500: #dcff07;
+  --color-lime-600: #c2e606;
+  --color-lime-700: #a8cc05;
+  --color-lime-800: #8eb304;
+  --color-lime-900: #749903;
+  --color-lime-950: #5a7f02;
+
   --color-light: #ffffff;
   --color-dark: #000000;
+}
+
+/* Beveled corner effect for buttons */
+.beveled-corner {
+  position: relative;
+  clip-path: polygon(
+    0 0,
+    /* top-left */ 100% 0,
+    /* top-right */ 100% calc(100% - 8px),
+    /* bottom-right (beveled) */ calc(100% - 8px) 100%,
+    /* bottom-right inner point */ 0 100% /* bottom-left */
+  );
 }

@@ -1,24 +1,20 @@
 import { GetStaticProps } from "next";
 
-import { StoreLayout } from "@site/layouts/store-layout";
-import { HeroButtonRow } from "@site/sections/hero-button-row";
-import { HeroSection } from "@site/sections/hero-section";
+
+import { NextSeo } from "@site/utilities/deps";
 import { CollectionsScroll, fetchCollections } from "@site/sections/collections-scroll";
-import { NewDropsSection, fetchNewDropsSection } from "@site/sections/new-drops-section";
+import { StoreLayout } from "@site/layouts/store-layout";
 
 interface PageProps {
   collections: Awaited<ReturnType<typeof fetchCollections>>;
-  newDrops: Awaited<ReturnType<typeof fetchNewDropsSection>>;
 }
 
 export const getStaticProps: GetStaticProps<PageProps> = async () => {
   const collections = await fetchCollections();
-  const newDrops = await fetchNewDropsSection();
 
   return {
     props: {
       collections,
-      newDrops,
     },
     revalidate: 60, // Revalidate every minute
   };
@@ -27,9 +23,8 @@ export const getStaticProps: GetStaticProps<PageProps> = async () => {
 export default function Page(props: PageProps) {
   return (
     <StoreLayout>
-      <HeroSection />
+      <NextSeo title="Collections" description="Explore our curated tech-forward collections" />
       <CollectionsScroll collections={props.collections} />
-      <NewDropsSection data={props.newDrops} />
     </StoreLayout>
   );
 }
