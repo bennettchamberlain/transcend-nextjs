@@ -77,7 +77,7 @@ export function HeroSection() {
           duration: 21,
           reversed: true,
           target: mobileEllipseRef.current.querySelector("svg")!,
-          text: "Intelligent Design for Digital Minds. Evolve.",
+          text: "Intelligent Design for a Digital Age...",
           textProperties: { fontSize: /iPhone/.test(navigator.userAgent) ? "19px" : "17px" },
         });
       }
