@@ -1,5 +1,4 @@
-import { useEffect } from "@site/utilities/deps";
-import { useRouter } from "@site/utilities/deps";
+import { useEffect, useRouter } from "@site/utilities/deps";
 
 export default function IndexPage() {
   const router = useRouter();

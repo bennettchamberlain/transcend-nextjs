@@ -1,8 +1,8 @@
-import "@site/assets/style.css";
 import { CartProvider, ShopifyProvider } from "@shopify/hydrogen-react";
 import { gsap } from "gsap";
-import { useEffect } from "react";
 import Head from "next/head";
+import "@site/assets/style.css";
+import { useEffect } from "react";
 
 import type { NextAppProps } from "@site/utilities/deps";
 

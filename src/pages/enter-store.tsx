@@ -1,5 +1,6 @@
-import { useEffect, useState, useRef, useRouter } from "@site/utilities/deps";
 import { CyberButton } from "@site/snippets";
+import { useEffect, useRef, useRouter, useState } from "@site/utilities/deps";
+
 import CyberProgressBar from "../snippets/cyber-progress-bar";
 
 export default function EnterStorePage() {
@@ -30,26 +31,27 @@ export default function EnterStorePage() {
       }
     };
 
+    const handleDesktopLoad = () => handleVideoLoad(desktopVideo!);
+    const handleMobileLoad = () => handleVideoLoad(mobileVideo!);
+
     if (desktopVideo) {
-      const handleDesktopLoad = () => handleVideoLoad(desktopVideo);
       desktopVideo.addEventListener("loadeddata", handleDesktopLoad);
       desktopVideo.addEventListener("canplaythrough", handleDesktopLoad);
     }
 
     if (mobileVideo) {
-      const handleMobileLoad = () => handleVideoLoad(mobileVideo);
       mobileVideo.addEventListener("loadeddata", handleMobileLoad);
       mobileVideo.addEventListener("canplaythrough", handleMobileLoad);
     }
 
     return () => {
       if (desktopVideo) {
-        desktopVideo.removeEventListener("loadeddata", () => handleVideoLoad(desktopVideo));
-        desktopVideo.removeEventListener("canplaythrough", () => handleVideoLoad(desktopVideo));
+        desktopVideo.removeEventListener("loadeddata", handleDesktopLoad);
+        desktopVideo.removeEventListener("canplaythrough", handleDesktopLoad);
       }
       if (mobileVideo) {
-        mobileVideo.removeEventListener("loadeddata", () => handleVideoLoad(mobileVideo));
-        mobileVideo.removeEventListener("canplaythrough", () => handleVideoLoad(mobileVideo));
+        mobileVideo.removeEventListener("loadeddata", handleMobileLoad);
+        mobileVideo.removeEventListener("canplaythrough", handleMobileLoad);
       }
     };
   }, []);

@@ -2,7 +2,6 @@ import { Zap } from "lucide-react";
 
 export function HeroButtonRow() {
   const handleClick = () => {
-    console.log("Button clicked, navigating to /products");
     window.location.href = "/products";
   };
 
