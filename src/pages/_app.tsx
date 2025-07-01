@@ -2,6 +2,7 @@ import "@site/assets/style.css";
 import { CartProvider, ShopifyProvider } from "@shopify/hydrogen-react";
 import { gsap } from "gsap";
 import { useEffect } from "react";
+import Head from "next/head";
 
 import type { NextAppProps } from "@site/utilities/deps";
 
@@ -24,6 +25,9 @@ export default function App({ Component, pageProps }: NextAppProps) {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      <Head>
+        <link rel="stylesheet" href="https://use.typekit.net/fsr7gex.css" />
+      </Head>
       <ShopifyProvider
         languageIsoCode="EN"
         countryIsoCode="US"
@@ -37,7 +41,7 @@ export default function App({ Component, pageProps }: NextAppProps) {
           description="🛍 A Shopping Cart built with TypeScript, Tailwind CSS, Headless UI, Next.js, React.js, Shopify Hydrogen React,... and Shopify Storefront GraphQL API."
         />
         <CartProvider>
-          <CyberProgressBar color="#ff0000" type={1} size={60} />
+          <CyberProgressBar color="#dcff07" type={1} size={60} />
           <Component {...pageProps} />
         </CartProvider>
       </ShopifyProvider>

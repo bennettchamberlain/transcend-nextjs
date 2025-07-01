@@ -1,4 +1,21 @@
 @import "tailwindcss";
+@import url("https://use.typekit.net/fsr7gex.css");
+
+@font-face {
+  font-family: "bc-sklonar";
+  src: url("https://use.typekit.net/fsr7gex.css");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "bc-sklonar";
+  src: url("https://use.typekit.net/fsr7gex.css");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 @font-face {
   font-family: "AOMono";
@@ -24,14 +41,89 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Modeseven";
+  src: url("/fonts/Modeseven.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Baunk";
+  src: url("/fonts/Baunk.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Moonhouse";
+  src: url("/fonts/Moonhouse-yE5M.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "NT1972";
+  src: url("/fonts/NT1972-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "VcrEas";
+  src: url("/fonts/VcrEas-rX3K.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Global font family application */
 * {
+  font-family: "Modeseven", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Prevent horizontal overflow */
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+/* Ensure all containers respect viewport width */
+#__next {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+/* Prevent any element from causing horizontal scroll */
+* {
+  box-sizing: border-box;
+}
+
+/* Heading and subheading font family */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "AOMono", ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme {
-  --font-family-sans: "AOMono", ui-sans-serif, system-ui, sans-serif;
+  --font-family-sans: "Modeseven", ui-sans-serif, system-ui, sans-serif;
   --font-family-mono: "AOMono", ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  --font-family-heading: "AOMono", ui-sans-serif, system-ui, sans-serif;
+  --font-family-baunk: "Baunk", ui-sans-serif, system-ui, sans-serif;
+  --font-family-moonhouse: "Moonhouse", ui-sans-serif, system-ui, sans-serif;
+  --font-family-nt1972: "NT1972", ui-sans-serif, system-ui, sans-serif;
+  --font-family-vcreas: "VcrEas", ui-sans-serif, system-ui, sans-serif;
 
   --color-primary-50: #eef2ff;
   --color-primary-100: #e0e7ff;

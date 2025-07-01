@@ -174,7 +174,15 @@ function Footer() {
   };
 
   return (
-    <footer className="bg-black px-4 py-16 text-white">
+    <footer
+      className="bg-black px-4 py-16 text-white"
+      style={{
+        backgroundImage: 'url("/images/Transcend 2.0 SYMBOL.png")',
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center bottom",
+      }}
+    >
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Logo Section */}
@@ -589,6 +597,12 @@ function Footer() {
 
         .noise__el {
           fill: #70719c;
+        }
+
+        @media (max-width: 768px) {
+          footer {
+            background-position: center calc(100% - 170px) !important;
+          }
         }
       `}</style>
     </footer>

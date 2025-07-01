@@ -228,9 +228,13 @@ export function ProductListSection(props: DataProps<typeof fetchProductListSecti
                           />
                         )}
                       </div>
-                      <h3 className="mt-4 text-sm text-gray-300">{node.title}</h3>
+                      <div className="mt-4 text-xs text-gray-300">
+                        <span className="text-neon-green neon-glow" style={{ fontFamily: "bc-sklonar" }}>
+                          {node.title}
+                        </span>
+                      </div>
 
-                      <div className="mt-1 text-lg font-medium text-white">
+                      <div className="mt-1 font-mono text-base font-medium text-white" style={{ fontFamily: "AOMono" }}>
                         <Money data={node.priceRange.minVariantPrice}></Money>
                       </div>
                     </NextLink>

@@ -65,7 +65,7 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
       setDisplayText(
         targetText
           .split("")
-          .map((letter, index) => {
+          .map((_, index) => {
             if (index <= iterations + 1) {
               return targetText[index];
             }
@@ -145,9 +145,12 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
           <h2
             ref={titleRef}
             className="mb-4 cursor-pointer text-4xl font-black text-white transition-all duration-200 md:text-5xl"
-            style={{ fontFamily: "'Space Mono', monospace" }}
+            style={{ fontFamily: "Modeseven", fontWeight: "900" }}
           >
-            <span className="text-neon-green neon-glow">{displayText}</span>
+            {/* <span className="text-neon-green neon-glow" style={{ fontFamily: "AOMono", fontWeight: "900" }}>
+              {displayText}
+            </span> */}
+            {displayText}
           </h2>
         </div>
 
@@ -196,16 +199,19 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
 
                   {/* Content */}
                   <div className="relative flex h-full flex-col justify-end p-6">
-                    <h3 className="group-hover:text-neon-green mb-2 text-2xl font-black text-white transition-colors duration-200">
+                    {/* <h3
+                      className="group-hover:text-neon-green mb-2 text-2xl font-black text-white transition-colors duration-200"
+                      style={{ fontFamily: "nt1972" }}
+                    >
                       {collection.title}
-                    </h3>
+                    </h3> */}
 
-                    <p className="mb-4 line-clamp-2 text-sm text-gray-300">
-                      {collection.description || "Discover cutting-edge fashion technology"}
+                    <p className="mb-4 line-clamp-2 text-sm text-gray-300" style={{ fontFamily: "Modeseven" }}>
+                      {collection.title || "Discover cutting-edge fashion technology"}
                     </p>
 
                     {/* Explore Button */}
-                    <div className="text-neon-green flex items-center text-sm font-bold tracking-wider uppercase transition-transform duration-200 group-hover:translate-x-2">
+                    <div className="text-neon-green flex items-center text-sm font-bold tracking-wider uppercase transition-transform duration-200">
                       Explore Collection
                       <ChevronRight className="ml-2 h-4 w-4" />
                     </div>

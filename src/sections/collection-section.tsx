@@ -212,9 +212,9 @@ export function CollectionSection(props: DataProps<typeof fetchCollectionSection
                       />
                     )}
                   </div>
-                  <h3 className="mt-4 text-sm text-gray-300">{node.title}</h3>
+                  <div className="mt-4 text-sm text-gray-300">{node.title}</div>
 
-                  <div className="mt-1 text-lg font-medium text-white">
+                  <div className="mt-1 font-mono text-lg font-medium text-white">
                     <Money data={node.priceRange.minVariantPrice}></Money>
                   </div>
                 </NextLink>

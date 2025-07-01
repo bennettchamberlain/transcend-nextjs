@@ -83,10 +83,15 @@ function TypingEffect() {
   }, [currentText, isTyping, currentIndex]);
 
   return (
-    <span className="font-mono text-xs" style={{ color: "#dcff07" }}>
+    <span className="text-xs" style={{ color: "#dcff07", fontFamily: "AOMono" }}>
       <span className="text-gray-200">C:\</span>
       {currentText}
-      <span className={`transition-opacity duration-150 ${cursorVisible ? "opacity-100" : "opacity-0"}`}>|</span>
+      <span
+        className={`transition-opacity duration-150 ${cursorVisible ? "opacity-100" : "opacity-0"}`}
+        style={{ fontFamily: "AOMono" }}
+      >
+        |
+      </span>
     </span>
   );
 }
@@ -133,11 +138,19 @@ export function HeaderSection() {
               <TypingEffect />
             </div>
             <div className="flex hidden items-center space-x-4 text-xs text-gray-400 sm:flex">
-              <NextLink href="mailto:aaron.transcend@gmail.com" className="transition-colors hover:text-white">
+              <NextLink
+                href="mailto:aaron.transcend@gmail.com"
+                className="transition-colors hover:text-white"
+                style={{ fontFamily: "AOMono" }}
+              >
                 Contact Us
               </NextLink>
               <span>•</span>
-              <NextLink href="/location" className="transition-colors hover:text-white">
+              <NextLink
+                href="/location"
+                className="transition-colors hover:text-white"
+                style={{ fontFamily: "AOMono" }}
+              >
                 Silver Lake Location
               </NextLink>
             </div>
@@ -151,7 +164,13 @@ export function HeaderSection() {
           <NextLink href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Transcend</span>
             <div className="flex items-center space-x-2">
-              <Image src="/images/logo-white.png" alt="Transcend Logo" width={32} height={32} className="h-8 w-10" />
+              <Image
+                src="/images/transcend logo website.png"
+                alt="Transcend Logo"
+                width={300}
+                height={100}
+                className="h-16 w-auto"
+              />
               {/* <Image
                 src="/images/transcend-text.png"
                 alt="Transcend"
@@ -203,18 +222,18 @@ export function HeaderSection() {
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
         <div className="fixed inset-0 z-10 bg-black/50 backdrop-blur-sm" />
-        <DialogPanel className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-top-[2%] data-[state=open]:slide-in-from-top-[2%] fixed top-0 right-0 left-0 z-20 mt-4 transform border-r border-b border-l border-white bg-black shadow-2xl transition-all duration-400 ease-in-out">
+        <DialogPanel className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-top-[2%] data-[state=open]:slide-in-from-top-[2%] fixed top-0 right-0 left-0 z-20 mt-20 transform border-r border-b border-l border-white bg-black shadow-2xl transition-all duration-400 ease-in-out">
           <div className="flex flex-col">
             <div className="flex items-center justify-between border-b border-gray-700 p-6">
               <NextLink href="/" className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
                 <span className="sr-only">Transcend</span>
                 <div className="flex items-center space-x-2">
                   <Image
-                    src="/images/logo-white.png"
+                    src="/images/transcend logo website.png"
                     alt="Transcend Logo"
-                    width={32}
-                    height={32}
-                    className="h-8 w-10"
+                    width={150}
+                    height={50}
+                    className="h-12 w-auto"
                   />
                 </div>
               </NextLink>

@@ -7,6 +7,32 @@ export function HeroSection() {
   const mobileEllipseRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const [animationTriggered, setAnimationTriggered] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Slideshow images - Desktop (keep the same)
+  const desktopSlideshowImages = ["/images/hero.JPG", "/images/TRANSCEND_TEAM.jpg", "/images/cover3.png"];
+
+  // Slideshow images - Mobile (new images as requested)
+  const mobileSlideshowImages = [
+    "/images/hero.JPG",
+    "/images/cover.jpg",
+    "/images/section4.png",
+    "/images/mobile-cover.jpg",
+  ];
+
+  // Auto-advance slideshow
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => {
+        // Use mobile images length for mobile, desktop images length for desktop
+        const isMobile = window.innerWidth < 1024; // lg breakpoint
+        const maxIndex = isMobile ? mobileSlideshowImages.length - 1 : desktopSlideshowImages.length - 1;
+        return (prevIndex + 1) % (maxIndex + 1);
+      });
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [mobileSlideshowImages.length, desktopSlideshowImages.length]);
 
   useEffect(() => {
     const createAnimation = ({
@@ -66,7 +92,7 @@ export function HeroSection() {
           duration: 21,
           reversed: true,
           target: ellipseRef.current.querySelector("svg")!,
-          text: "Intelligent Design for Digital Minds. Evolve.",
+          text: "Designs that push the boundaries for creatives.".toUpperCase(),
           textProperties: { fontSize: /iPhone/.test(navigator.userAgent) ? "19px" : "17px" },
         });
       }
@@ -77,7 +103,7 @@ export function HeroSection() {
           duration: 21,
           reversed: true,
           target: mobileEllipseRef.current.querySelector("svg")!,
-          text: "Intelligent Design for a Digital Age...",
+          text: "Designs that push the boundaries for creatives.".toUpperCase(),
           textProperties: { fontSize: /iPhone/.test(navigator.userAgent) ? "19px" : "17px" },
         });
       }
@@ -118,17 +144,50 @@ export function HeroSection() {
         ref={sectionRef}
         className="relative m-0 min-h-[500px] w-full overflow-visible border-b-2 border-white bg-black lg:min-h-[600px]"
       >
-        {/* Mobile Background - Hero Image (full height on mobile) */}
+        {/* Slideshow Navigation Dots - Mobile */}
+        <div className="absolute top-4 left-1/2 z-20 flex -translate-x-1/2 space-x-2 lg:hidden">
+          {mobileSlideshowImages.map((_, index: number) => (
+            <button
+              key={index}
+              onClick={() => setCurrentImageIndex(index)}
+              className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                index === currentImageIndex ? "scale-125 bg-white" : "bg-white/50 hover:bg-white/75"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Slideshow Navigation Dots - Desktop */}
+        <div className="absolute top-6 right-0 z-20 hidden w-3/5 justify-center space-x-2 lg:flex">
+          {desktopSlideshowImages.map((_, index: number) => (
+            <button
+              key={index}
+              onClick={() => setCurrentImageIndex(index)}
+              className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                index === currentImageIndex ? "scale-125 bg-white" : "bg-white/50 hover:bg-white/75"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Mobile Background - Hero Image Slideshow (full height on mobile) */}
         <div className="absolute inset-0 h-[500px] w-full overflow-hidden lg:hidden">
-          <div
-            className="h-full w-full bg-cover bg-center"
-            style={{
-              backgroundImage: "url(/images/hero.JPG)",
-              backgroundPosition: "center center",
-              backgroundSize: "cover",
-              filter: "saturate(1.3)",
-            }}
-          />
+          {mobileSlideshowImages.map((image: string, index: number) => (
+            <div
+              key={image}
+              className={`absolute inset-0 h-full w-full bg-cover bg-center transition-opacity duration-1000 ${
+                index === currentImageIndex ? "opacity-100" : "opacity-0"
+              }`}
+              style={{
+                backgroundImage: `url(${image})`,
+                backgroundPosition: "center center",
+                backgroundSize: "cover",
+                filter: "saturate(1.3)",
+              }}
+            />
+          ))}
         </div>
 
         {/* Mobile Background - Cyber Grid Overlay (full height on mobile) */}
@@ -147,30 +206,19 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Mobile Darkened Overlay - positioned above image but below text */}
-        <div className="absolute inset-0 z-100 lg:hidden"></div>
-
         {/* Responsive Layout - Stacked on Mobile, Two Columns on Desktop */}
         <div className="relative flex flex-col lg:h-[600px] lg:flex-row">
           {/* Left Column - Text Content Only (40% on desktop, full width on mobile) */}
           <div className="relative z-10 flex w-full items-center justify-center px-6 py-8 lg:w-2/5 lg:px-16 lg:py-0">
             <div className="w-full max-w-md space-y-4 lg:min-w-[400px]">
               <div className="space-y-4">
-                <h1 className="text-center text-4xl leading-tight font-bold text-white lg:text-left lg:text-5xl">
-                  <span className="bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400 bg-clip-text font-[800] text-transparent">
-                    TRANSCEND
-                  </span>
-                  <br />
-                  <span className="font-[800] text-white">COLLECTIVE</span>
-                </h1>
-
                 {/* Animated Ellipse - Hidden on mobile, shown on desktop */}
                 <div
                   ref={ellipseRef}
                   className="ellipse hidden lg:block"
                   style={{
-                    width: "min(63vw, 63vh)",
-                    maxWidth: "300px",
+                    width: "min(80vw, 80vh)",
+                    maxWidth: "450px",
                   }}
                 >
                   <svg
@@ -202,8 +250,8 @@ export function HeroSection() {
                   ref={mobileEllipseRef}
                   className="ellipse lg:hidden"
                   style={{
-                    width: "min(63vw, 63vh)",
-                    maxWidth: "250px",
+                    width: "min(80vw, 80vh)",
+                    maxWidth: "350px",
                     margin: "0 auto",
                   }}
                 >
@@ -234,17 +282,22 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column - Hero Image (60% on desktop, full width on mobile) */}
+          {/* Right Column - Hero Image Slideshow (60% on desktop, full width on mobile) */}
           <div className="relative hidden h-auto w-3/5 overflow-hidden lg:block">
-            <div
-              className="absolute inset-0 bg-cover bg-center object-cover"
-              style={{
-                backgroundImage: "url(/images/hero.JPG)",
-                backgroundPosition: "left center",
-                backgroundSize: "cover",
-                filter: "saturate(1.3)",
-              }}
-            />
+            {desktopSlideshowImages.map((image: string, index: number) => (
+              <div
+                key={image}
+                className={`absolute inset-0 bg-cover bg-center object-cover transition-opacity duration-1000 ${
+                  index === currentImageIndex ? "opacity-100" : "opacity-0"
+                }`}
+                style={{
+                  backgroundImage: `url(${image})`,
+                  backgroundPosition: "left center",
+                  backgroundSize: "cover",
+                  filter: "saturate(1.3)",
+                }}
+              />
+            ))}
 
             {/* Cyber Grid Overlay - Only on desktop */}
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-500/10">
@@ -265,7 +318,11 @@ export function HeroSection() {
 
       {/* Hero Button Row - Positioned to hang off the bottom on mobile */}
       <div className="xs:-mt-20 relative -mt-8 sm:-mt-16 lg:-mt-8 lg:-mb-6">
-        <HeroButtonRow />
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="flex justify-center lg:ml-[-20px] lg:justify-start">
+            <HeroButtonRow />
+          </div>
+        </div>
       </div>
     </>
   );

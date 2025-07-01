@@ -76,10 +76,10 @@ export function ProductRecommendationsSection(props: DataProps<typeof fetchProdu
               </div>
 
               <div className="p-4">
-                <h3 className="mb-2 line-clamp-2 text-lg font-semibold text-white">{product.title}</h3>
+                <div className="mb-2 line-clamp-2 text-lg font-semibold text-white">{product.title}</div>
 
                 <div className="mb-4 flex items-center justify-between">
-                  <div className="text-xl font-bold text-white">
+                  <div className="font-mono text-xl font-bold text-white">
                     <Money data={product.priceRange.minVariantPrice} />
                   </div>
                 </div>

@@ -12,7 +12,7 @@ export async function fetchNewDropsSection(cursor?: string) {
   try {
     const { collection } = await storefront.query({
       collection: [
-        { handle: "staff-picks" },
+        { handle: "2-0" },
         {
           id: true,
           handle: true,
@@ -87,9 +87,14 @@ export async function fetchNewDropsSection(cursor?: string) {
       ],
     });
 
-    return collection?.products;
+    if (!collection) {
+      console.error("Collection '2-0' not found");
+      return null;
+    }
+
+    return collection.products;
   } catch (error) {
-    console.error("Error fetching Staff Picks collection:", error);
+    console.error("Error fetching 2-0 collection:", error);
     return null;
   }
 }
@@ -179,9 +184,9 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
           >
             <span className="text-neon-green neon-glow">{displayText}</span>
           </h2>
-          <p className="text-gray-400">Staff picks - the latest and greatest</p>
+          <p className="text-gray-400">Latest drops - the newest arrivals</p>
         </div>
-        <p className="text-gray-400">No products found in Staff Picks collection.</p>
+        <p className="text-gray-400">No products found in 2-0 collection.</p>
       </section>
     );
   }
@@ -196,7 +201,7 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
         >
           <span className="text-neon-green neon-glow">{displayText}</span>
         </h2>
-        <p className="text-gray-400">Staff picks - the latest and greatest</p>
+        <p className="text-gray-400">Latest drops - the newest arrivals</p>
       </div>
 
       <div className="mb-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
@@ -235,10 +240,10 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
                         />
                       )}
                     </div>
-                    <h3 className="mt-4 text-sm text-gray-300">{node.title}</h3>
+                    <div className="mt-4 text-sm text-gray-300">{node.title}</div>
 
                     <div className="mt-1 flex items-baseline justify-between">
-                      <div className="text-lg font-medium text-white">
+                      <div className="font-mono text-lg font-medium text-white">
                         <Money data={node.priceRange.minVariantPrice}></Money>
                       </div>
                       {firstVariant && (

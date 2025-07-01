@@ -11,7 +11,7 @@ interface CyberProgressBarProps {
 }
 
 const CyberProgressBar: React.FC<CyberProgressBarProps> = ({
-  color = "#ff0000",
+  color = "#dcff07",
   className = "",
   size = 60,
   type = 1,
