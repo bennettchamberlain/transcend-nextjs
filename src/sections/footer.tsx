@@ -5,17 +5,52 @@ import React, { useState } from "react";
 function Footer() {
   const [email, setEmail] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle newsletter subscription
-    setShowSuccess(true);
-    setEmail("");
 
-    // Hide success message after 3 seconds
-    setTimeout(() => {
-      setShowSuccess(false);
-    }, 3000);
+    if (!email || !email.includes("@")) {
+      setErrorMessage("Please enter a valid email address");
+      setShowError(true);
+      setTimeout(() => setShowError(false), 3000);
+      return;
+    }
+
+    setIsLoading(true);
+    setShowError(false);
+    setShowSuccess(false);
+
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setShowSuccess(true);
+        setEmail("");
+        setTimeout(() => setShowSuccess(false), 3000);
+      } else {
+        setErrorMessage(data.message || "Failed to subscribe. Please try again.");
+        setShowError(true);
+        setTimeout(() => setShowError(false), 3000);
+      }
+    } catch (error) {
+      console.error("Subscription error:", error);
+      setErrorMessage("Network error. Please try again.");
+      setShowError(true);
+      setTimeout(() => setShowError(false), 3000);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const generateNoise = (e: any, type: string) => {
@@ -273,13 +308,19 @@ function Footer() {
                   <p className="pt-2 text-sm font-semibold tracking-wider text-[#dcff07]">DEALS INCOMING</p>
                 </div>
               )}
+              {showError && (
+                <div className="error-message">
+                  <p className="pt-2 text-sm font-semibold tracking-wider text-[#ff0707]">{errorMessage}</p>
+                </div>
+              )}
               <button
                 type="submit"
                 className="btn btn--primary"
                 onMouseOver={(e) => generateNoise(e.target, "button")}
                 onMouseOut={(e) => removeNoise(e.target, "button")}
+                disabled={isLoading}
               >
-                <div className="btn__container">Subscribe</div>
+                <div className="btn__container">{isLoading ? "Subscribing..." : "Subscribe"}</div>
                 <div className="btn__bottom"></div>
                 <div className="btn__noise"></div>
               </button>
@@ -592,6 +633,14 @@ function Footer() {
           padding: 8px 12px;
           background: rgba(34, 197, 94, 0.1);
           border: 1px solid rgba(34, 197, 94, 0.3);
+          border-radius: 4px;
+        }
+
+        .error-message {
+          margin-top: 8px;
+          padding: 8px 12px;
+          background: rgba(255, 7, 7, 0.1);
+          border: 1px solid rgba(255, 7, 7, 0.3);
           border-radius: 4px;
         }
 
