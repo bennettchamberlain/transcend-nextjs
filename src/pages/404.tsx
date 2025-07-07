@@ -7,11 +7,16 @@ export default function Custom404() {
       <NextSeo title="404 - Page Not Found" description="The page you're looking for doesn't exist." />
 
       <div
-        className="mx-auto my-20 w-1/2 px-0 py-20 sm:my-10 sm:w-11/12 sm:px-0 sm:py-10 md:my-10 md:w-5/6 md:px-0 md:py-10 lg:my-5 lg:w-1/2 lg:px-0 lg:py-20"
-        style={{ margin: "5% 50% 0 25%", width: "50%", display: "block", padding: "80px 0" }}
+        className="error-container mx-auto my-20 w-1/2 px-0 py-20 sm:my-10 sm:w-11/12 sm:px-0 sm:py-10 md:my-10 md:w-5/6 md:px-0 md:py-10 lg:my-5 lg:w-1/2 lg:px-0 lg:py-20"
+        style={{
+          margin: "5% 50% 0 25%",
+          width: "50%",
+          display: "block",
+          padding: "80px 0",
+        }}
       >
         <span
-          className="text-sm font-medium tracking-widest text-gray-300 uppercase"
+          className="error-header text-sm font-medium tracking-widest text-gray-300 uppercase"
           style={{
             textTransform: "uppercase",
             fontSize: "1em",
@@ -24,7 +29,7 @@ export default function Custom404() {
           :: CNFG.CNSL
         </span>
         <span
-          className="text-sm font-medium tracking-widest text-gray-500 uppercase"
+          className="error-header text-sm font-medium tracking-widest text-gray-500 uppercase"
           style={{
             textTransform: "uppercase",
             fontSize: "1em",
@@ -37,7 +42,7 @@ export default function Custom404() {
           04C
         </span>
         <span
-          className="text-sm font-medium tracking-widest text-gray-300 uppercase"
+          className="error-header text-sm font-medium tracking-widest text-gray-300 uppercase"
           style={{
             textTransform: "uppercase",
             fontSize: "1em",
@@ -52,7 +57,7 @@ export default function Custom404() {
         <br />
         <br />
         <span
-          className="text-2xl font-medium tracking-widest text-gray-300 uppercase"
+          className="error-status text-2xl font-medium tracking-widest text-gray-300 uppercase"
           style={{
             textTransform: "uppercase",
             fontSize: "2em",
@@ -65,7 +70,7 @@ export default function Custom404() {
           Status
         </span>
         <span
-          className="text-2xl font-medium tracking-widest text-gray-500 uppercase"
+          className="error-status text-2xl font-medium tracking-widest text-gray-500 uppercase"
           style={{
             textTransform: "uppercase",
             fontSize: "2em",
@@ -85,6 +90,7 @@ export default function Custom404() {
         {/* Glitch animated ERROR text */}
         <div
           title="ERROR"
+          className="error-text"
           style={{
             position: "relative",
             textTransform: "uppercase",
@@ -109,7 +115,7 @@ export default function Custom404() {
         />
 
         <span
-          className="mr-6 border-2 border-white/10 px-1.5 font-semibold tracking-widest uppercase"
+          className="error-badge mr-6 border-2 border-white/10 px-1.5 font-semibold tracking-widest uppercase"
           style={{
             border: "2px solid rgba(255, 255, 255, 0.1)",
             textTransform: "uppercase",
@@ -125,7 +131,7 @@ export default function Custom404() {
         </span>
 
         <span
-          className="mr-6 border-2 border-white/10 px-1.5 font-semibold tracking-widest uppercase"
+          className="error-badge mr-6 border-2 border-white/10 px-1.5 font-semibold tracking-widest uppercase"
           style={{
             border: "2px solid rgba(255, 255, 255, 0.1)",
             textTransform: "uppercase",
@@ -142,7 +148,7 @@ export default function Custom404() {
         </span>
 
         <span
-          className="mr-6 border-0 px-1.5 font-semibold tracking-widest uppercase"
+          className="error-badge mr-6 border-0 px-1.5 font-semibold tracking-widest uppercase"
           style={{
             border: "0px solid rgba(255, 255, 255, 0.1)",
             textTransform: "uppercase",
@@ -157,7 +163,7 @@ export default function Custom404() {
         ></span>
 
         <span
-          className="mr-6 border-2 border-white/10 px-1.5 font-semibold tracking-widest uppercase"
+          className="error-badge mr-6 border-2 border-white/10 px-1.5 font-semibold tracking-widest uppercase"
           style={{
             border: "2px solid rgba(255, 255, 255, 0.1)",
             textTransform: "uppercase",
@@ -176,7 +182,7 @@ export default function Custom404() {
 
         <NextLink
           href="/"
-          className="text-center text-sm font-medium tracking-widest text-yellow-600 uppercase no-underline hover:text-white hover:line-through"
+          className="error-link text-center text-sm font-medium tracking-widest text-yellow-600 uppercase no-underline hover:text-white hover:line-through"
           style={{
             textAlign: "center",
             textTransform: "uppercase",
@@ -257,6 +263,51 @@ export default function Custom404() {
           animation: glitchBottom 2.5s linear infinite;
           clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
           -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+        }
+
+        @media (max-width: 768px) {
+          .error-container {
+            margin: 10% 5% 0 5% !important;
+            width: 90% !important;
+            padding: 40px 0 !important;
+          }
+
+          .error-header {
+            font-size: 0.8em !important;
+            letter-spacing: 5px !important;
+          }
+
+          .error-status {
+            font-size: 1.5em !important;
+            letter-spacing: 5px !important;
+          }
+
+          .error-text {
+            font-size: 3em !important;
+            letter-spacing: 10px !important;
+          }
+
+          .error-badge {
+            padding: 0px 4px 0px 4px !important;
+            margin: 0px 10px 0px 0px !important;
+            font-size: 0.8em !important;
+            letter-spacing: 3px !important;
+          }
+
+          .error-badge:nth-child(3) {
+            margin: 0px 10px 0px -10px !important;
+          }
+
+          .error-link {
+            font-size: 0.8em !important;
+            letter-spacing: 5px !important;
+          }
+
+          div[title="ERROR"]:before,
+          div[title="ERROR"]:after {
+            font-size: 3em !important;
+            letter-spacing: 10px !important;
+          }
         }
       `}</style>
     </StoreLayout>
