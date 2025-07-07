@@ -22,7 +22,7 @@ export function CartSection() {
 
   return (
     <section className="mt-8 flex justify-center">
-      <div className="w-full max-w-7xl">
+      <div className="w-full max-w-7xl px-4 sm:px-0">
         {/* Free Shipping Banner */}
         <FreeShippingBanner subtotal={subtotal} className="mb-6" />
 
@@ -45,7 +45,7 @@ export function CartSection() {
                   <div className="h-24 w-24 shrink-0 overflow-hidden rounded-md border border-gray-700">
                     <NextImage
                       src={line?.merchandise?.image?.url as string}
-                      alt={line?.merchandise?.image?.altText as string}
+                      alt={line?.merchandise?.product?.title || "Product image"}
                       width={line?.merchandise?.image?.width as number}
                       height={line?.merchandise?.image?.height as number}
                       className="h-full w-full object-cover object-center"
