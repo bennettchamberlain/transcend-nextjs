@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/next";
+
 import type { ReactNode } from "@site/utilities/deps";
 
 import Footer from "@site/sections/footer";
@@ -10,6 +12,7 @@ interface Props {
 export function StoreLayout(props: Props) {
   return (
     <>
+      <Analytics />
       <HeaderSection />
       <main className="mx-auto">{props.children}</main>
       <Footer />
