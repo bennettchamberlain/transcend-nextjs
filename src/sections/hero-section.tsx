@@ -103,7 +103,7 @@ export function HeroSection() {
           duration: 21,
           reversed: true,
           target: mobileEllipseRef.current.querySelector("svg")!,
-          text: "Designs that push the boundaries for creatives.".toUpperCase(),
+          text: "Designs that push boundaries for creatives ".toUpperCase(),
           textProperties: { fontSize: /iPhone/.test(navigator.userAgent) ? "19px" : "17px" },
         });
       }
