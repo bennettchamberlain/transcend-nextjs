@@ -169,13 +169,13 @@ export default function EnterStorePage() {
               <div className="absolute bottom-0 left-[10px] h-[1px] w-[14px] origin-bottom-right -rotate-45 transform bg-white opacity-30"></div>
             </div>
             <div className="flex items-center gap-2 px-2 py-1">
-              <CyberButton
+              {/* <CyberButton
                 type={3}
                 size={30}
-                color="#00ff88"
+                color="#dcff07"
                 onClick={handleEnterStore}
                 className="cyber-enter-button"
-              />
+              /> */}
               <span className="text-xs font-bold tracking-wider text-white">ENTER STORE</span>
             </div>
           </div>
@@ -187,7 +187,7 @@ export default function EnterStorePage() {
         <div className="absolute inset-0 z-20 flex items-center justify-center bg-black">
           <div className="text-center">
             <div className="mb-6 flex justify-center">
-              <CyberProgressBar color="#00ff88" size={120} type={3} className="cyber-loading-progress" />
+              <CyberProgressBar color="#dcff07" size={120} type={3} className="cyber-loading-progress" />
             </div>
             <p className="text-lg text-white">Loading Experience...</p>
             <p className="mt-2 text-sm text-gray-400">Preparing your journey into the future</p>

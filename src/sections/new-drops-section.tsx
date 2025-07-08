@@ -240,7 +240,9 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
                         />
                       )}
                     </div>
-                    <div className="mt-4 text-sm text-gray-300">{node.title}</div>
+                    <div className="mt-4 text-xs text-gray-300" style={{ fontFamily: "AOMono" }}>
+                      {node.title}
+                    </div>
 
                     <div className="mt-1 flex items-baseline justify-between">
                       <div className="font-mono text-lg font-medium text-white">
