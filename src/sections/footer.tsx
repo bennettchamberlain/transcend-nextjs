@@ -235,13 +235,11 @@ function Footer() {
             <h3 className="mb-6 text-lg font-semibold text-lime-400">Quick Links</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400">
+                <a
+                  href="/return-policy"
+                  className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400"
+                >
                   Return Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400">
-                  Frequently Asked Questions
                 </a>
               </li>
               <li>
@@ -250,12 +248,18 @@ function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400">
+                <a
+                  href="/return-policy"
+                  className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400"
+                >
                   Return Your Order
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400">
+                <a
+                  href="mailto:aaron.transcend@gmail.com?subject=Transcend%20Collective%20Support%20Request"
+                  className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400"
+                >
                   Contact Support
                 </a>
               </li>
@@ -267,12 +271,12 @@ function Footer() {
             <h3 className="mb-6 text-lg font-semibold text-lime-400">About</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400">
+                <a href="/about" className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400">
                   The Story of Transcend
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400">
+                <a href="/reviews" className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400">
                   What Customers Say
                 </a>
               </li>
