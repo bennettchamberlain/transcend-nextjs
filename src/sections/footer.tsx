@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 function Footer() {
   const [email, setEmail] = useState("");
@@ -8,16 +8,6 @@ function Footer() {
   const [showError, setShowError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
-  // Generate background noise on component mount
-  useEffect(() => {
-    // Small delay to ensure DOM is ready
-    const timer = setTimeout(() => {
-      generateBackgroundNoise();
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -223,10 +213,12 @@ function Footer() {
   // Generate persistent background noise
   const generateBackgroundNoise = () => {
     const footer = document.querySelector("footer");
-    if (!footer) return;
+    if (!footer) 
+      return;
 
     const footerNoise = footer.querySelector(".footer-background-noise");
-    if (!footerNoise) return;
+    if (!footerNoise) 
+      return;
 
     // Clear existing noise
     while (footerNoise.firstChild) {
@@ -282,6 +274,16 @@ function Footer() {
 
     footerNoise.appendChild(svg);
   };
+
+    // Generate background noise on component mount
+    useEffect(() => {
+      // Small delay to ensure DOM is ready
+      const timer = setTimeout(() => {
+        generateBackgroundNoise();
+      }, 100);
+  
+      return () => clearTimeout(timer);
+    }, []);
 
   return (
     <footer

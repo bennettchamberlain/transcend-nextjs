@@ -16,7 +16,7 @@ interface ProductSearchSortSectionProps {
   onSortChange: (option: SortOption) => void;
 }
 
-const generateNoise = (e: any, type: string) => {
+function generateNoise(e: any, type: string) {
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   let input, inputNoise, noiseColor;
 
@@ -156,9 +156,9 @@ const generateNoise = (e: any, type: string) => {
   }
 
   inputNoise.appendChild(svg);
-};
+}
 
-const removeNoise = (e: any, type: string) => {
+function removeNoise(e: any, type: string) {
   let inputNoise;
   if (type === "input") {
     // Navigate up to the editor-field container and find the noise element
@@ -171,7 +171,7 @@ const removeNoise = (e: any, type: string) => {
   if (inputNoise && inputNoise.childNodes[0]) {
     inputNoise.removeChild(inputNoise.childNodes[0]);
   }
-};
+}
 
 const sortOptions = [
   { value: "best-selling" as const, label: "Best Selling" },
