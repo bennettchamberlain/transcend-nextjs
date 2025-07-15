@@ -142,38 +142,8 @@ export function HeroSection() {
     <>
       <section
         ref={sectionRef}
-        className="relative m-0 min-h-[500px] w-full overflow-visible border-b-2 border-white bg-black lg:min-h-[600px]"
+        className="relative m-0 min-h-[500px] w-full overflow-visible border-b border-white/70 bg-black lg:min-h-[600px]"
       >
-        {/* Slideshow Navigation Dots - Mobile */}
-        <div className="absolute top-4 left-1/2 z-20 flex -translate-x-1/2 space-x-2 lg:hidden">
-          {mobileSlideshowImages.map((image: string, index: number) => (
-            <button
-              key={`mobile-dot-${image}`}
-              type="button"
-              onClick={() => setCurrentImageIndex(index)}
-              className={`h-2 w-2 rounded-full transition-all duration-300 ${
-                index === currentImageIndex ? "scale-125 bg-white" : "bg-white/50 hover:bg-white/75"
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-
-        {/* Slideshow Navigation Dots - Desktop */}
-        <div className="absolute top-6 right-0 z-20 hidden w-3/5 justify-center space-x-2 lg:flex">
-          {desktopSlideshowImages.map((image: string, index: number) => (
-            <button
-              key={`desktop-dot-${image}`}
-              type="button"
-              onClick={() => setCurrentImageIndex(index)}
-              className={`h-2 w-2 rounded-full transition-all duration-300 ${
-                index === currentImageIndex ? "scale-125 bg-white" : "bg-white/50 hover:bg-white/75"
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-
         {/* Mobile Background - Hero Image Slideshow (full height on mobile) */}
         <div className="absolute inset-0 h-[500px] w-full overflow-hidden lg:hidden">
           {mobileSlideshowImages.map((image: string, index: number) => (

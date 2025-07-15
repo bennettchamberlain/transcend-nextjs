@@ -8,7 +8,7 @@ export function HeroButtonRow() {
   return (
     <section className="relative z-20 flex items-center justify-center">
       <div
-        className="group relative flex cursor-pointer items-center justify-center bg-white px-px py-px shadow-lg transition-colors duration-200 hover:bg-gray-100"
+        className="group relative flex cursor-pointer items-center justify-center bg-white/70 px-px py-px shadow-lg transition-colors duration-200 hover:bg-gray-100/70"
         style={{
           clipPath: "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px))",
         }}

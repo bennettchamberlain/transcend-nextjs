@@ -109,7 +109,7 @@ export async function fetchProductListSection(cursor?: string, searchQuery?: str
 export function ProductListSection(props: DataProps<typeof fetchProductListSection>) {
   const [pages, setPages] = useState([props.data]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortOption, setSortOption] = useState<SortOption>("best-selling");
+  const [sortOption, setSortOption] = useState<SortOption>("created-desc");
   const [isSearching, setIsSearching] = useState(false);
 
   const lastPage = pages[pages.length - 1];
@@ -158,7 +158,7 @@ export function ProductListSection(props: DataProps<typeof fetchProductListSecti
 
   // Perform search/sort when dependencies change
   useMemo(() => {
-    if (searchQuery || sortOption !== "best-selling") {
+    if (searchQuery || sortOption !== "created-desc") {
       performSearch();
     }
   }, [searchQuery, sortOption, performSearch]);

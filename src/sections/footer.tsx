@@ -77,10 +77,10 @@ function Footer() {
     const inputWidth = input.offsetWidth;
 
     svg.setAttribute("width", "300");
-    svg.setAttribute("height", "66");
+    svg.setAttribute("height", "48");
 
     const maxNumberOfHorizontalNoise = Math.round(inputWidth / inputHeight);
-    const maxNumberOfVerticalNoise = Math.round(inputHeight / 10 / 2);
+    const maxNumberOfVerticalNoise = Math.round(inputHeight / 8 / 2);
 
     const createSvg = (config: any) => {
       const svgGroup = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -120,18 +120,18 @@ function Footer() {
     const commonVerticalConfig = {
       inputWidth,
       noiseHeight: 2,
-      rectX: "4",
-      rectBorderX: "4",
-      rectBorderY: "14",
+      rectX: "3",
+      rectBorderX: "3",
+      rectBorderY: "10",
       noiseColor,
     };
 
     const commonHorizontalConfig = {
       inputWidth,
-      maxNoiseWidth: 8,
+      maxNoiseWidth: 6,
       minNoiseWidth: 2,
       noiseWidth: 2,
-      rectBorderY: 14,
+      rectBorderY: 10,
       noiseColor,
     };
 
@@ -142,7 +142,7 @@ function Footer() {
           noiseWidth: Math.floor(Math.random() * (16 - 4) + 4),
           svgGroupX: Math.floor(Math.random() * (inputWidth - 1) + 1),
           rectY: Math.floor(Math.random() * (16 - 8) + 8),
-          svgGroupY: 46,
+          svgGroupY: 34,
           id: `bottom${i}`,
         }),
       );
@@ -155,7 +155,7 @@ function Footer() {
           ...commonVerticalConfig,
           noiseWidth: Math.floor(Math.random() * (16 - 4) + 4),
           svgGroupX: Math.floor(Math.random() * (inputWidth - 1) + 1),
-          rectY: Math.floor(Math.random() * (20 - 8) + 8),
+          rectY: Math.floor(Math.random() * (16 - 6) + 6),
           svgGroupY: 0,
           id: `top${i}`,
         }),
@@ -168,9 +168,9 @@ function Footer() {
           ...commonHorizontalConfig,
           noiseHeight: Math.floor(Math.random() * (8 - 2) + 2),
           rectX: "2",
-          rectY: Math.floor(Math.random() * (20 - 12) + 12),
+          rectY: Math.floor(Math.random() * (16 - 10) + 10),
           svgGroupX: 0,
-          svgGroupY: Math.floor(Math.random() * (20 - 1) + 1),
+          svgGroupY: Math.floor(Math.random() * (16 - 1) + 1),
           id: `left${i}`,
           rectBorderX: 0,
         }),
@@ -183,9 +183,9 @@ function Footer() {
           ...commonHorizontalConfig,
           noiseHeight: Math.floor(Math.random() * (8 - 2) + 2),
           rectX: "0",
-          rectY: Math.floor(Math.random() * (20 - 12) + 12),
-          svgGroupX: inputWidth - 4,
-          svgGroupY: Math.floor(Math.random() * (20 - 5) + 5),
+          rectY: Math.floor(Math.random() * (16 - 10) + 10),
+          svgGroupX: inputWidth - 3,
+          svgGroupY: Math.floor(Math.random() * (16 - 3) + 3),
           id: `right${i}`,
           rectBorderX: 2,
         }),
@@ -198,22 +198,24 @@ function Footer() {
   const removeNoise = (e: any, type: string) => {
     let inputNoise;
     if (type === "input") {
-      inputNoise = e.offsetParent.lastElementChild;
-      e.offsetParent.classList.remove("is-focused");
+      // Navigate up to the editor-field container and find the noise element
+      const editorField = e.parentElement.parentElement.parentElement;
+      inputNoise = editorField.querySelector(".editor-field__noise");
+      editorField.classList.remove("is-focused");
     } else {
       inputNoise = e.lastElementChild;
     }
-    if (inputNoise.childNodes[0]) {
+    if (inputNoise && inputNoise.childNodes[0]) {
       inputNoise.removeChild(inputNoise.childNodes[0]);
     }
   };
 
   return (
     <footer
-      className="bg-black px-4 py-16 text-white"
+      className="bg-black px-4 pt-16 pb-16 text-white"
       style={{
         backgroundImage: 'url("/images/Transcend 2.0 SYMBOL.png")',
-        backgroundSize: "contain",
+        backgroundSize: "30%",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center bottom",
       }}
@@ -223,7 +225,7 @@ function Footer() {
           {/* Logo Section */}
           <div className="lg:col-span-1">
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-lime-500">TRANSCEND</h2>
+              <img src="/images/transcend logo website.png" alt="Transcend" className="h-18 w-auto" />
             </div>
             <p className="text-sm leading-relaxed text-gray-400">
               Transcend Collective is a group of inviduals that seek a higher calling and purpose to thier lives
@@ -232,7 +234,7 @@ function Footer() {
 
           {/* Quick Links */}
           <div className="lg:col-span-1">
-            <h3 className="mb-6 text-lg font-semibold text-lime-400">Quick Links</h3>
+            <h3 className="mb-6 font-[AOMono] text-lg text-white">Quick Links</h3>
             <ul className="space-y-3">
               <li>
                 <a
@@ -268,7 +270,7 @@ function Footer() {
 
           {/* About Links */}
           <div className="lg:col-span-1">
-            <h3 className="mb-6 text-lg font-semibold text-lime-400">About</h3>
+            <h3 className="mb-6 font-[AOMono] text-lg text-white">About</h3>
             <ul className="space-y-3">
               <li>
                 <a href="/about" className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400">
@@ -285,7 +287,7 @@ function Footer() {
 
           {/* Newsletter Subscription */}
           <div className="lg:col-span-1">
-            <h3 className="mb-6 text-lg font-semibold text-lime-400">Newsletter</h3>
+            <h3 className="mb-6 font-[AOMono] text-lg text-white">Newsletter</h3>
             <p className="mb-4 text-sm text-gray-400">Keep up...</p>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="editor-field editor-field__textbox">
@@ -324,7 +326,7 @@ function Footer() {
                 onMouseOut={(e) => removeNoise(e.target, "button")}
                 disabled={isLoading}
               >
-                <div className="btn__container">{isLoading ? "Subscribing..." : "Subscribe"}</div>
+                <div className="btn__container text-xs">{isLoading ? "Subscribing..." : "Subscribe"}</div>
                 <div className="btn__bottom"></div>
                 <div className="btn__noise"></div>
               </button>
@@ -333,28 +335,48 @@ function Footer() {
         </div>
 
         {/* Social Icons */}
-        <div className="mt-12 border-t border-gray-800 pt-8">
+        <div className="mt-62 border-t border-gray-800 pt-8">
           <div className="flex flex-col items-center justify-between md:flex-row">
             <div className="mb-4 md:mb-0">
               <p className="text-sm text-gray-400">© 2025 Transcend. All rights reserved.</p>
             </div>
             <div className="flex space-x-6">
-              <a href="#" className="text-gray-400 transition-colors duration-200 hover:text-lime-400">
+              <a
+                href="https://www.tiktok.com/@transcendvisuals"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 transition-colors duration-200 hover:text-lime-400"
+              >
                 <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
                 </svg>
               </a>
-              <a href="#" className="text-gray-400 transition-colors duration-200 hover:text-lime-400">
+              <a
+                href="https://www.instagram.com/transcend.collective/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 transition-colors duration-200 hover:text-lime-400"
+              >
                 <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                 </svg>
               </a>
-              <a href="#" className="text-gray-400 transition-colors duration-200 hover:text-lime-400">
+              <a
+                href="https://www.youtube.com/@Transcendvisuals"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 transition-colors duration-200 hover:text-lime-400"
+              >
                 <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                 </svg>
               </a>
-              <a href="#" className="text-gray-400 transition-colors duration-200 hover:text-lime-400">
+              <a
+                href="https://open.spotify.com/playlist/7boM5g2ZoJQHvFzGQZpjtS?si=f5383223664c4546"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 transition-colors duration-200 hover:text-lime-400"
+              >
                 <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.659-2.34-9.239-2.88-13.561-1.62-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15.6 10.561 19.8 13.2c.361.181.54.78.301 1.26zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
                 </svg>
@@ -367,9 +389,9 @@ function Footer() {
       <style jsx>{`
         .editor-field {
           width: 100%;
-          height: 64px;
+          height: 48px;
           position: relative;
-          margin: 14px 0;
+          margin: 10px 0;
         }
 
         .editor-field__noise {
@@ -384,17 +406,17 @@ function Footer() {
         .editor-field__container {
           clip-path: polygon(
             0% 0%,
-            calc(100% - 8px) 0,
-            100% 8px,
+            calc(100% - 6px) 0,
+            100% 6px,
             100% 100%,
             95% 100%,
-            calc(0% + 8px) 100%,
-            0% calc(100% - 8px),
-            0% calc(100% + 8px)
+            calc(0% + 6px) 100%,
+            0% calc(100% - 6px),
+            0% calc(100% + 6px)
           );
           border: 2px solid #ffffff;
           width: 100%;
-          height: 48px;
+          height: 36px;
           position: absolute;
           bottom: 2px;
         }
@@ -403,23 +425,23 @@ function Footer() {
         .editor-field__container:after {
           content: "";
           height: 2px;
-          width: 11.5px;
+          width: 9px;
           background: #ffffff;
           display: block;
           position: absolute;
           z-index: 1;
           transform: rotate(45deg);
-          border-radius: 5px;
+          border-radius: 4px;
         }
 
         .editor-field__container:before {
-          right: -3.1px;
-          top: 1.6px;
+          right: -2.5px;
+          top: 1.2px;
         }
 
         .editor-field__container:after {
-          left: -3.1px;
-          bottom: 1.6px;
+          left: -2.5px;
+          bottom: 1.2px;
         }
 
         .editor-field__bottom {
@@ -444,9 +466,9 @@ function Footer() {
           content: "";
           display: block;
           height: 2px;
-          width: 32px;
+          width: 24px;
           background: #ffffff;
-          right: -29px;
+          right: -22px;
           clip-path: polygon(0 0, calc(100% - 2px) 0%, 100% 100%, 0% 100%);
           bottom: 2px;
         }
@@ -454,19 +476,19 @@ function Footer() {
         .editor-field__label {
           position: relative;
           display: block;
-          height: 16px;
+          height: 14px;
           width: auto;
           background: #ffffff;
           left: 0px;
           color: #0f1020;
-          font-size: 9px;
+          font-size: 8px;
           text-transform: uppercase;
-          letter-spacing: 1.25px;
+          letter-spacing: 1px;
           font-weight: 600;
-          padding: 0 24px 0 16px;
+          padding: 0 18px 0 12px;
           display: flex;
           align-items: center;
-          clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 0% 100%);
+          clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 100%, 0% 100%);
         }
 
         .editor-field__input {
@@ -474,11 +496,12 @@ function Footer() {
           height: 100%;
           border: none;
           outline: none;
-          background: #0f1020;
+          background: rgb(0, 0, 0);
           color: #b3b5d2;
-          padding: 8px 16px;
+          padding: 6px 12px;
           letter-spacing: 0.2px;
           font-family: inherit;
+          font-size: 14px;
         }
 
         .editor-field__input:focus {
@@ -496,43 +519,43 @@ function Footer() {
 
         .editor-field:hover .editor-field__bottom,
         .editor-field.is-focused .editor-field__bottom {
-          background: #70719c;
+          background: #dcff07;
         }
 
         .editor-field:hover .editor-field__container,
         .editor-field.is-focused .editor-field__container {
-          border-color: #70719c;
+          border-color: #dcff07;
         }
 
         .editor-field:hover .editor-field__container:after,
         .editor-field:hover .editor-field__container:before,
         .editor-field.is-focused .editor-field__container:after,
         .editor-field.is-focused .editor-field__container:before {
-          background: #70719c !important;
+          background: #dcff07 !important;
         }
 
         .editor-field:hover .editor-field__label-container:after,
         .editor-field.is-focused .editor-field__label-container:after {
-          background: #70719c;
+          background: #dcff07;
         }
 
         .editor-field:hover .editor-field__label,
         .editor-field.is-focused .editor-field__label {
-          background: #70719c;
+          background: #dcff07;
         }
 
         .btn {
           display: inline-block;
           position: relative;
-          height: 50px;
-          margin-top: 32px;
+          height: 32px;
+          margin-top: 22px;
           cursor: pointer;
         }
 
         .btn__noise {
           position: absolute;
           top: -28%;
-          height: 66px;
+          height: 44px;
           width: 100%;
           pointer-events: none;
         }
@@ -542,20 +565,20 @@ function Footer() {
           border-color: rgb(233, 255, 40);
           display: flex;
           align-items: center;
-          line-height: 10px;
+          line-height: 4px;
           pointer-events: none;
           color: #000000;
           height: 100%;
           border: 2px solid;
-          padding: 0 24px;
+          padding: 0 8px;
           clip-path: polygon(
             0% 0%,
-            calc(100% - 8px) 0,
-            100% 8px,
+            calc(100% - 6px) 0,
+            100% 6px,
             100% 100%,
             95% 100%,
-            calc(0% + 8px) 100%,
-            0% calc(100% - 8px),
+            calc(0% + 6px) 100%,
+            0% calc(100% - 6px),
             0% 20%
           );
         }
@@ -585,7 +608,7 @@ function Footer() {
         .btn:after {
           content: "";
           height: 2px;
-          width: 11px;
+          width: 9px;
           background: #dcff07;
           display: block;
           position: absolute;
@@ -595,26 +618,26 @@ function Footer() {
         }
 
         .btn:before {
-          right: -1.07px;
-          top: 4px;
+          right: -0.8px;
+          top: 3px;
         }
 
         .btn:after {
-          left: -1.07px;
-          bottom: 6px;
+          left: -0.8px;
+          bottom: 5px;
         }
 
         .btn__bottom {
           position: absolute;
           content: "";
           display: block;
-          height: 4px;
+          height: 3px;
           width: 50%;
           background: #22c55e;
           pointer-events: none;
           right: 0px;
           bottom: 0px;
-          clip-path: polygon(0 0, 100% 0%, 100% 100%, calc(0% + 4px) 100%);
+          clip-path: polygon(0 0, 100% 0%, 100% 100%, calc(0% + 3px) 100%);
           border-bottom: 2px solid #16a34a;
           border-right: 2px solid #16a34a;
         }
@@ -622,12 +645,12 @@ function Footer() {
         .btn__bottom:before {
           content: "";
           height: 2px;
-          width: 11px;
+          width: 9px;
           background: #16a34a;
           display: block;
           position: absolute;
-          left: -5px;
-          bottom: 2px;
+          left: -4px;
+          bottom: 1px;
           z-index: 1;
           transform: rotate(45deg);
         }

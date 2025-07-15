@@ -124,7 +124,7 @@ export function HeaderSection() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-800 bg-black shadow-sm">
+    <header className="sticky top-0 z-50 border-b border-white/60 bg-black shadow-sm">
       {/* Top Bar */}
       <div
         className={clsx(
@@ -199,9 +199,12 @@ export function HeaderSection() {
           <NextLink href="/cart">
             <span className="sr-only">Cart</span>
             <span className="relative inline-block">
-              <ShoppingCartIcon className="h-6 w-6 text-white"></ShoppingCartIcon>
+              <ShoppingCartIcon className="h-6 w-6" style={{ color: "#dcff07" }}></ShoppingCartIcon>
               {!!totalQuantity && (
-                <span className="absolute top-0 right-0 inline-flex translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-red-600 px-2 py-1 text-xs leading-none font-bold text-red-100">
+                <span
+                  className="absolute top-0 right-0 inline-flex translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full px-2 py-1 text-xs leading-none font-bold text-black"
+                  style={{ backgroundColor: "#dcff07" }}
+                >
                   {totalQuantity}
                 </span>
               )}

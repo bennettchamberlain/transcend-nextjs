@@ -58,9 +58,11 @@ export function CartSection() {
                         <h3>
                           <NextLink
                             href={`/products/${line?.merchandise?.product?.handle}`}
-                            className="text-gray-300 transition-colors duration-200 hover:text-white"
+                            className="font-[AOMono] text-gray-300 transition-colors duration-200 hover:text-white"
                           >
-                            {line?.merchandise?.product?.title}
+                            <h3 className="font-[AOMono] text-gray-300 transition-colors duration-200 hover:text-white">
+                              {line?.merchandise?.product?.title}
+                            </h3>
                           </NextLink>
                         </h3>
                         <Money className="ml-4" data={line?.cost?.totalAmount as MoneyV2}></Money>
