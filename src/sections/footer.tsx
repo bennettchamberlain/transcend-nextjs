@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Footer() {
   const [email, setEmail] = useState("");
@@ -8,6 +8,16 @@ function Footer() {
   const [showError, setShowError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  // Generate background noise on component mount
+  useEffect(() => {
+    // Small delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      generateBackgroundNoise();
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -210,9 +220,72 @@ function Footer() {
     }
   };
 
+  // Generate persistent background noise
+  const generateBackgroundNoise = () => {
+    const footer = document.querySelector("footer");
+    if (!footer) return;
+
+    const footerNoise = footer.querySelector(".footer-background-noise");
+    if (!footerNoise) return;
+
+    // Clear existing noise
+    while (footerNoise.firstChild) {
+      footerNoise.removeChild(footerNoise.firstChild);
+    }
+
+    const footerHeight = footer.offsetHeight;
+    const footerWidth = footer.offsetWidth;
+
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", footerWidth.toString());
+    svg.setAttribute("height", footerHeight.toString());
+
+    const createNoiseElement = (x: number, y: number, width: number, height: number, id: string) => {
+      const svgGroup = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svgGroup.setAttribute("x", x.toString());
+      svgGroup.setAttribute("y", y.toString());
+
+      const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      rect.setAttribute("x", "0");
+      rect.setAttribute("y", "0");
+      rect.setAttribute("width", width.toString());
+      rect.setAttribute("height", height.toString());
+      rect.setAttribute("class", "noise__el");
+      svgGroup.appendChild(rect);
+
+      const animate = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+      animate.setAttribute("attributeType", "CSS");
+      animate.setAttribute("attributeName", "opacity");
+      animate.setAttribute("id", id);
+      animate.setAttribute("from", "0");
+      animate.setAttribute("to", "1");
+      animate.setAttribute("dur", `${Math.random() * 2 + 0.5}s`);
+      animate.setAttribute("repeatCount", "indefinite");
+      animate.setAttribute("begin", `${Math.random() * 1}s;${id}.end+${Math.random() * 1}s`);
+      svgGroup.appendChild(animate);
+
+      return svgGroup;
+    };
+
+    // Generate noise elements across the entire footer area
+    const numberOfNoiseElements = Math.floor((footerWidth * footerHeight) / 2000); // Reduced density for performance
+
+    for (let i = 0; i < numberOfNoiseElements; i++) {
+      const x = Math.floor(Math.random() * footerWidth);
+      const y = Math.floor(Math.random() * footerHeight);
+      const width = Math.floor(Math.random() * 12) + 6;
+      const height = Math.floor(Math.random() * 12) + 6;
+      const id = `bg-noise-${i}`;
+
+      svg.appendChild(createNoiseElement(x, y, width, height, id));
+    }
+
+    footerNoise.appendChild(svg);
+  };
+
   return (
     <footer
-      className="bg-black px-4 pt-16 pb-16 text-white"
+      className="relative overflow-hidden bg-black px-4 pt-16 pb-16 text-white"
       style={{
         backgroundImage: 'url("/images/Transcend 2.0 SYMBOL.png")',
         backgroundSize: "30%",
@@ -220,7 +293,9 @@ function Footer() {
         backgroundPosition: "center bottom",
       }}
     >
-      <div className="mx-auto max-w-7xl">
+      {/* Persistent background noise overlay */}
+      <div className="footer-background-noise"></div>
+      <div className="relative z-10 mx-auto max-w-7xl">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Logo Section */}
           <div className="lg:col-span-1">
@@ -673,6 +748,16 @@ function Footer() {
 
         .noise__el {
           fill: #70719c;
+        }
+
+        .footer-background-noise {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          z-index: 0;
         }
 
         @media (max-width: 768px) {
