@@ -193,7 +193,7 @@ export function ProductSearchSortSection({
     <section className="mx-auto mb-8 max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         {/* Search Bar */}
-        <div className="editor-field editor-field__textbox max-w-md flex-1">
+        <div className="editor-field editor-field__textbox max-w-md flex-1 pt-12">
           <div className="editor-field__label-container">
             <label className="editor-field__label">Search</label>
           </div>

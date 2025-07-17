@@ -213,12 +213,10 @@ function Footer() {
   // Generate persistent background noise
   const generateBackgroundNoise = () => {
     const footer = document.querySelector("footer");
-    if (!footer) 
-      return;
+    if (!footer) return;
 
     const footerNoise = footer.querySelector(".footer-background-noise");
-    if (!footerNoise) 
-      return;
+    if (!footerNoise) return;
 
     // Clear existing noise
     while (footerNoise.firstChild) {
@@ -275,22 +273,21 @@ function Footer() {
     footerNoise.appendChild(svg);
   };
 
-    // Generate background noise on component mount
-    useEffect(() => {
-      // Small delay to ensure DOM is ready
-      const timer = setTimeout(() => {
-        generateBackgroundNoise();
-      }, 100);
-  
-      return () => clearTimeout(timer);
-    }, []);
+  // Generate background noise on component mount
+  useEffect(() => {
+    // Small delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      generateBackgroundNoise();
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <footer
-      className="relative overflow-hidden bg-black px-4 pt-16 pb-16 text-white"
+      className="relative overflow-hidden bg-black bg-[length:90%] px-4 pt-16 pb-16 text-white md:bg-[length:30%]"
       style={{
         backgroundImage: 'url("/images/Transcend 2.0 SYMBOL.png")',
-        backgroundSize: "30%",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center bottom",
       }}
