@@ -55,8 +55,8 @@ export default function LocationPage() {
 
                 <div>
                   <h3 className="mb-2 font-semibold text-white">Contact</h3>
-                  <p>Phone: (323) 555-0123</p>
-                  <p>Email: silverlake@transcend.com</p>
+                  <p>Phone: (804) 357-6709</p>
+                  <p>Email: aaron.transcend@gmail.com</p>
                 </div>
               </div>
             </div>
