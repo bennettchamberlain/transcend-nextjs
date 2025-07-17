@@ -173,12 +173,12 @@ function ReturnPolicy() {
                     service team is here to help.
                   </p>
                   <div className="flex flex-col justify-center gap-4 sm:flex-row">
-                    <Link
-                      href="/contact"
+                    <a
+                      href="mailto:aaron.transcend@gmail.com"
                       className="rounded bg-lime-500 px-8 py-3 font-semibold text-black transition-colors hover:bg-lime-400"
                     >
                       Contact Support
-                    </Link>
+                    </a>
                     <Link
                       href="/store"
                       className="rounded border border-lime-500 px-8 py-3 font-semibold text-lime-500 transition-colors hover:bg-lime-500 hover:text-black"
