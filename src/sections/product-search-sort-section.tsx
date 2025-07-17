@@ -174,13 +174,13 @@ function removeNoise(e: any, type: string) {
 }
 
 const sortOptions = [
-  { value: "best-selling" as const, label: "Best Selling" },
-  { value: "title-asc" as const, label: "Alphabetically, A-Z" },
-  { value: "title-desc" as const, label: "Alphabetically, Z-A" },
-  { value: "price-asc" as const, label: "Price, Low to High" },
-  { value: "price-desc" as const, label: "Price, High to Low" },
-  { value: "created-desc" as const, label: "Date Added, Newest to Oldest" },
-  { value: "created-asc" as const, label: "Date Added, Oldest to Newest" },
+  { value: "best-selling" as const, label: "BEST SELLING" },
+  { value: "title-asc" as const, label: "ALPHABETICALLY, A-Z" },
+  { value: "title-desc" as const, label: "ALPHABETICALLY, Z-A" },
+  { value: "price-asc" as const, label: "PRICE, LOW TO HIGH" },
+  { value: "price-desc" as const, label: "PRICE, HIGH TO LOW" },
+  { value: "created-desc" as const, label: "NEWEST TO OLDEST" },
+  { value: "created-asc" as const, label: "OLDEST TO NEWEST" },
 ];
 
 export function ProductSearchSortSection({
