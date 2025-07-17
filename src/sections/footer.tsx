@@ -214,7 +214,6 @@ function Footer() {
   const generateBackgroundNoise = () => {
     const footer = document.querySelector("footer");
     if (!footer) {
-      
       return;
     }
 
@@ -222,7 +221,6 @@ function Footer() {
     if (!footerNoise) {
       return;
     }
-      
 
     // Clear existing noise
     while (footerNoise.firstChild) {
@@ -318,15 +316,18 @@ function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
+                  href="/products"
+                  className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400"
+                >
+                  All Products
+                </a>
+              </li>
+              <li>
+                <a
                   href="/return-policy"
                   className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400"
                 >
                   Return Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400">
-                  Track Your Order
                 </a>
               </li>
               <li>

@@ -1,5 +1,5 @@
 import { Money } from "@shopify/hydrogen-react";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState as useReactState } from "react";
 
 import type { DataProps } from "@site/utilities/deps";
 
@@ -106,16 +106,17 @@ export async function fetchProductListSection(cursor?: string, searchQuery?: str
   return products;
 }
 
-export function ProductListSection(props: DataProps<typeof fetchProductListSection>) {
-  const [pages, setPages] = useState([props.data]);
+export function ProductListSection(_props: DataProps<typeof fetchProductListSection>) {
+  const [pages, setPages] = useState<Array<typeof _props.data>>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState<SortOption>("created-desc");
   const [isSearching, setIsSearching] = useState(false);
+  const [imageStates, setImageStates] = useReactState<Record<string, number>>({});
 
   const lastPage = pages[pages.length - 1];
   const lastCursor =
-    lastPage.edges.length > 0 ? lastPage.edges[lastPage.edges.length - 1].cursor || undefined : undefined;
-  const hasNextPage = lastPage.pageInfo.hasNextPage;
+    lastPage?.edges.length > 0 ? lastPage.edges[lastPage.edges.length - 1].cursor || undefined : undefined;
+  const hasNextPage = lastPage?.pageInfo.hasNextPage || false;
 
   // Debounced search effect
   const [searchLoader, performSearch] = useAsyncFn(async () => {
@@ -143,7 +144,7 @@ export function ProductListSection(props: DataProps<typeof fetchProductListSecti
     setSearchQuery(query);
     // Reset pages when searching
     if (query !== searchQuery) {
-      setPages([props.data]);
+      setPages([]);
     }
   };
 
@@ -152,18 +153,37 @@ export function ProductListSection(props: DataProps<typeof fetchProductListSecti
     setSortOption(option);
     // Reset pages when sorting
     if (option !== sortOption) {
-      setPages([props.data]);
+      setPages([]);
     }
   };
 
-  // Perform search/sort when dependencies change
-  useMemo(() => {
-    if (searchQuery || sortOption !== "created-desc") {
+  // Initial load with correct sort
+  useEffect(() => {
+    if (pages.length === 0) {
       performSearch();
     }
-  }, [searchQuery, sortOption, performSearch]);
+  }, [pages.length, performSearch]);
+
+  // Perform search/sort when dependencies change
+  useMemo(() => {
+    // Always perform search/sort to ensure proper ordering, even for default sort
+    if (pages.length > 0) {
+      performSearch();
+    }
+  }, [searchQuery, sortOption, performSearch, pages.length]);
 
   const allProducts = pages.flatMap(({ edges }) => edges);
+
+  const toggleImage = (productHandle: string, hasSecondImage: boolean) => {
+    if (!hasSecondImage) {
+      return;
+    }
+
+    setImageStates((prev) => ({
+      ...prev,
+      [productHandle]: prev[productHandle] === 1 ? 0 : 1,
+    }));
+  };
 
   return (
     <div className="mt-8">
@@ -201,6 +221,10 @@ export function ProductListSection(props: DataProps<typeof fetchProductListSecti
                 const images = node.images?.nodes || [];
                 const firstImage = images[0] || node.featuredImage;
                 const secondImage = images[1];
+                const hasSecondImage = !!secondImage;
+                const currentImageIndex = imageStates[node.handle] || 0;
+                const currentImage = currentImageIndex === 1 && secondImage ? secondImage : firstImage;
+                const nextImage = currentImageIndex === 0 && secondImage ? secondImage : firstImage;
 
                 return (
                   <div key={node.handle} className="group">
@@ -211,20 +235,47 @@ export function ProductListSection(props: DataProps<typeof fetchProductListSecti
                           clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%)",
                         }}
                       >
+                        {/* Mobile-only image toggle button */}
+                        {hasSecondImage && (
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              toggleImage(node.handle, hasSecondImage);
+                            }}
+                            className="absolute top-2 right-2 z-10 block bg-black/50 p-1 text-white backdrop-blur-sm transition-all hover:bg-black/70 sm:hidden"
+                          >
+                            <svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <path d="M23 4v6h-6" />
+                              <path d="M1 20v-6h6" />
+                              <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" />
+                            </svg>
+                          </button>
+                        )}
+
                         <NextImage
-                          src={firstImage!.url as string}
-                          alt={firstImage!.altText as string}
-                          height={firstImage!.height as number}
-                          width={firstImage!.width as number}
-                          className="h-full w-full object-cover object-center transition-opacity duration-300 group-hover:opacity-0"
+                          src={currentImage!.url as string}
+                          alt={currentImage!.altText as string}
+                          height={currentImage!.height as number}
+                          width={currentImage!.width as number}
+                          className="h-full w-full object-cover object-center transition-opacity duration-300 group-hover:opacity-0 sm:group-hover:opacity-0"
                         />
-                        {secondImage && (
+                        {hasSecondImage && (
                           <NextImage
-                            src={secondImage.url as string}
-                            alt={secondImage.altText as string}
-                            height={secondImage.height as number}
-                            width={secondImage.width as number}
-                            className="absolute inset-0 h-full w-full object-cover object-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                            src={nextImage!.url as string}
+                            alt={nextImage!.altText as string}
+                            height={nextImage!.height as number}
+                            width={nextImage!.width as number}
+                            className="absolute inset-0 h-full w-full object-cover object-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:group-hover:opacity-100"
                           />
                         )}
                       </div>

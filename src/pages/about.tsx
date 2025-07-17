@@ -53,7 +53,7 @@ function About() {
                 </div>
                 <div className="relative">
                   <Image
-                    src="https://checkout.transcendcollective.la/cdn/shop/files/Untitled-2.png?v=1716979542&width=1426"
+                    src="/images/hero.JPG"
                     alt="Transcend Collective Story"
                     width={600}
                     height={400}
@@ -135,7 +135,7 @@ function About() {
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                   <div className="relative">
                     <Image
-                      src="https://checkout.transcendcollective.la/cdn/shop/files/Untitled-2.png?v=1716979542&width=1426"
+                      src="/images/TRANSCEND_TEAM.jpg"
                       alt="Transcend Collective Journey"
                       width={400}
                       height={300}
@@ -144,7 +144,7 @@ function About() {
                   </div>
                   <div className="relative">
                     <Image
-                      src="https://checkout.transcendcollective.la/cdn/shop/files/Untitled-2.png?v=1716979542&width=1426"
+                      src="/images/cover3.png"
                       alt="Transcend Collective Journey"
                       width={400}
                       height={300}
@@ -153,7 +153,7 @@ function About() {
                   </div>
                   <div className="relative">
                     <Image
-                      src="https://checkout.transcendcollective.la/cdn/shop/files/Untitled-2.png?v=1716979542&width=1426"
+                      src="/images/cover.jpg"
                       alt="Transcend Collective Journey"
                       width={400}
                       height={300}
@@ -162,7 +162,7 @@ function About() {
                   </div>
                   <div className="relative">
                     <Image
-                      src="https://checkout.transcendcollective.la/cdn/shop/files/Untitled-2.png?v=1716979542&width=1426"
+                      src="/images/section4.png"
                       alt="Transcend Collective Journey"
                       width={400}
                       height={300}
@@ -171,16 +171,7 @@ function About() {
                   </div>
                   <div className="relative">
                     <Image
-                      src="https://checkout.transcendcollective.la/cdn/shop/files/Untitled-2.png?v=1716979542&width=1426"
-                      alt="Transcend Collective Journey"
-                      width={400}
-                      height={300}
-                      className="rounded-lg object-cover"
-                    />
-                  </div>
-                  <div className="relative">
-                    <Image
-                      src="https://checkout.transcendcollective.la/cdn/shop/files/Untitled-2.png?v=1716979542&width=1426"
+                      src="/images/mobile-cover.jpg"
                       alt="Transcend Collective Journey"
                       width={400}
                       height={300}
@@ -200,7 +191,7 @@ function About() {
                   </p>
                   <div className="flex flex-col justify-center gap-4 sm:flex-row">
                     <a
-                      href="/store"
+                      href="/products"
                       className="rounded bg-lime-500 px-8 py-3 font-semibold text-black transition-colors hover:bg-lime-400"
                     >
                       Shop Our Collection

@@ -104,6 +104,7 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
   const [isAnimated, setIsAnimated] = useState(false);
   const [displayText, setDisplayText] = useState("NEW DROPS");
   const [pages, setPages] = useState([props.data || { edges: [], pageInfo: { hasNextPage: false } }]);
+  const [imageStates, setImageStates] = useState<Record<string, number>>({});
 
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const targetText = "NEW DROPS";
@@ -172,6 +173,17 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
     }
   }, [lastCursor, pages]);
 
+  const toggleImage = (productHandle: string, hasSecondImage: boolean) => {
+    if (!hasSecondImage) {
+      return;
+    }
+
+    setImageStates((prev) => ({
+      ...prev,
+      [productHandle]: prev[productHandle] === 1 ? 0 : 1,
+    }));
+  };
+
   // Handle case where collection doesn't exist
   if (!props.data) {
     return (
@@ -211,6 +223,10 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
             const images = node.images?.nodes || [];
             const firstImage = images[0] || node.featuredImage;
             const secondImage = images[1];
+            const hasSecondImage = !!secondImage;
+            const currentImageIndex = imageStates[node.handle] || 0;
+            const currentImage = currentImageIndex === 1 && secondImage ? secondImage : firstImage;
+            const nextImage = currentImageIndex === 0 && secondImage ? secondImage : firstImage;
             const firstVariant = node.variants?.nodes?.[0];
 
             return (
@@ -223,20 +239,47 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
                         clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%)",
                       }}
                     >
+                      {/* Mobile-only image toggle button */}
+                      {hasSecondImage && (
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            toggleImage(node.handle, hasSecondImage);
+                          }}
+                          className="absolute top-2 right-2 z-10 block bg-black/50 p-1 text-white backdrop-blur-sm transition-all hover:bg-black/70 sm:hidden"
+                        >
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M23 4v6h-6" />
+                            <path d="M1 20v-6h6" />
+                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" />
+                          </svg>
+                        </button>
+                      )}
+
                       <NextImage
-                        src={firstImage!.url as string}
-                        alt={firstImage!.altText as string}
-                        height={firstImage!.height as number}
-                        width={firstImage!.width as number}
-                        className="h-full w-full object-cover object-center transition-opacity duration-300 group-hover:opacity-0"
+                        src={currentImage!.url as string}
+                        alt={currentImage!.altText as string}
+                        height={currentImage!.height as number}
+                        width={currentImage!.width as number}
+                        className="h-full w-full object-cover object-center transition-opacity duration-300 group-hover:opacity-0 sm:group-hover:opacity-0"
                       />
-                      {secondImage && (
+                      {hasSecondImage && (
                         <NextImage
-                          src={secondImage.url as string}
-                          alt={secondImage.altText as string}
-                          height={secondImage.height as number}
-                          width={secondImage.width as number}
-                          className="absolute inset-0 h-full w-full object-cover object-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                          src={nextImage!.url as string}
+                          alt={nextImage!.altText as string}
+                          height={nextImage!.height as number}
+                          width={nextImage!.width as number}
+                          className="absolute inset-0 h-full w-full object-cover object-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:group-hover:opacity-100"
                         />
                       )}
                     </div>
