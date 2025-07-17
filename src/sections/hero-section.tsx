@@ -7,32 +7,45 @@ export function HeroSection() {
   const mobileEllipseRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const [animationTriggered, setAnimationTriggered] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isMuted, setIsMuted] = useState(true);
+  const mobileVideoRef = useRef<HTMLVideoElement>(null);
+  const desktopVideoRef = useRef<HTMLVideoElement>(null);
+  // const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Slideshow images - Desktop (keep the same)
-  const desktopSlideshowImages = ["/images/hero.JPG", "/images/TRANSCEND_TEAM.jpg", "/images/cover3.png"];
+  const toggleSound = () => {
+    setIsMuted(!isMuted);
+    if (mobileVideoRef.current) {
+      mobileVideoRef.current.muted = !isMuted;
+    }
+    if (desktopVideoRef.current) {
+      desktopVideoRef.current.muted = !isMuted;
+    }
+  };
 
-  // Slideshow images - Mobile (new images as requested)
-  const mobileSlideshowImages = [
-    "/images/hero.JPG",
-    "/images/cover.jpg",
-    "/images/section4.png",
-    "/images/mobile-cover.jpg",
-  ];
+  // // Slideshow images - Desktop (keep the same)
+  // const desktopSlideshowImages = ["/images/hero.JPG", "/images/TRANSCEND_TEAM.jpg", "/images/cover3.png"];
+
+  // // Slideshow images - Mobile (new images as requested)
+  // const mobileSlideshowImages = [
+  //   "/images/hero.JPG",
+  //   "/images/cover.jpg",
+  //   "/images/section4.png",
+  //   "/images/mobile-cover.jpg",
+  // ];
 
   // Auto-advance slideshow
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => {
-        // Use mobile images length for mobile, desktop images length for desktop
-        const isMobile = window.innerWidth < 1024; // lg breakpoint
-        const maxIndex = isMobile ? mobileSlideshowImages.length - 1 : desktopSlideshowImages.length - 1;
-        return (prevIndex + 1) % (maxIndex + 1);
-      });
-    }, 5000); // Change image every 5 seconds
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCurrentImageIndex((prevIndex) => {
+  //       // Use mobile images length for mobile, desktop images length for desktop
+  //       const isMobile = window.innerWidth < 1024; // lg breakpoint
+  //       const maxIndex = isMobile ? mobileSlideshowImages.length - 1 : desktopSlideshowImages.length - 1;
+  //       return (prevIndex + 1) % (maxIndex + 1);
+  //     });
+  //   }, 5000); // Change image every 5 seconds
 
-    return () => clearInterval(interval);
-  }, [mobileSlideshowImages.length, desktopSlideshowImages.length]);
+  //   return () => clearInterval(interval);
+  // }, [mobileSlideshowImages.length, desktopSlideshowImages.length]);
 
   useEffect(() => {
     const createAnimation = ({
@@ -142,24 +155,41 @@ export function HeroSection() {
     <>
       <section
         ref={sectionRef}
-        className="relative m-0 min-h-[500px] w-full overflow-visible border-b border-white/70 bg-black lg:min-h-[600px]"
+        className="relative m-0 min-h-[350px] w-full overflow-visible border-b border-white/70 bg-black lg:min-h-[600px]"
       >
-        {/* Mobile Background - Hero Image Slideshow (full height on mobile) */}
-        <div className="absolute inset-0 h-[500px] w-full overflow-hidden lg:hidden">
-          {mobileSlideshowImages.map((image: string, index: number) => (
-            <div
-              key={image}
-              className={`absolute inset-0 h-full w-full bg-cover bg-center transition-opacity duration-1000 ${
-                index === currentImageIndex ? "opacity-100" : "opacity-0"
-              }`}
-              style={{
-                backgroundImage: `url(${image})`,
-                backgroundPosition: "center center",
-                backgroundSize: "cover",
-                filter: "saturate(1.3)",
-              }}
-            />
-          ))}
+        {/* Mobile Background - Video Background (full height on mobile) */}
+        <div className="absolute inset-0 h-full w-full overflow-hidden lg:hidden">
+          <video
+            ref={mobileVideoRef}
+            className="absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+            onLoadedMetadata={(e) => {
+              e.currentTarget.currentTime = 5;
+            }}
+          >
+            <source src="https://cdn.shopify.com/videos/c/o/v/fe32cdc9c6694f3b80600c0624b4bf85.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+
+          {/* Sound Toggle Button - Mobile */}
+          <button
+            onClick={toggleSound}
+            className="absolute right-4 bottom-4 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition-all hover:bg-black/70"
+            aria-label={isMuted ? "Unmute video" : "Mute video"}
+          >
+            {isMuted ? (
+              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
+              </svg>
+            ) : (
+              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+              </svg>
+            )}
+          </button>
         </div>
 
         {/* Mobile Background - Cyber Grid Overlay (full height on mobile) */}
@@ -254,22 +284,42 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column - Hero Image Slideshow (60% on desktop, full width on mobile) */}
+          {/* Right Column - Video Background (60% on desktop, full width on mobile) */}
           <div className="relative hidden h-auto w-3/5 overflow-hidden lg:block">
-            {desktopSlideshowImages.map((image: string, index: number) => (
-              <div
-                key={image}
-                className={`absolute inset-0 bg-cover bg-center object-cover transition-opacity duration-1000 ${
-                  index === currentImageIndex ? "opacity-100" : "opacity-0"
-                }`}
-                style={{
-                  backgroundImage: `url(${image})`,
-                  backgroundPosition: "left center",
-                  backgroundSize: "cover",
-                  filter: "saturate(1.3)",
-                }}
+            <video
+              ref={desktopVideoRef}
+              className="absolute inset-0 h-full w-full object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+              onLoadedMetadata={(e) => {
+                e.currentTarget.currentTime = 5;
+              }}
+            >
+              <source
+                src="https://cdn.shopify.com/videos/c/o/v/fe32cdc9c6694f3b80600c0624b4bf85.mp4"
+                type="video/mp4"
               />
-            ))}
+              Your browser does not support the video tag.
+            </video>
+
+            {/* Sound Toggle Button - Desktop */}
+            <button
+              onClick={toggleSound}
+              className="absolute right-4 bottom-4 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition-all hover:bg-black/70"
+              aria-label={isMuted ? "Unmute video" : "Mute video"}
+            >
+              {isMuted ? (
+                <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
+                </svg>
+              ) : (
+                <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                </svg>
+              )}
+            </button>
 
             {/* Cyber Grid Overlay - Only on desktop */}
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-500/10">

@@ -166,7 +166,7 @@ export default function EnterStorePage() {
 
               {/* White beveled corner lines */}
               <div className="absolute top-0 right-[-5px] h-[1px] w-[14px] origin-top-left rotate-45 transform bg-white opacity-30"></div>
-              <div className="absolute bottom-0 left-[10px] h-[1px] w-[14px] origin-bottom-right -rotate-45 transform bg-white opacity-30"></div>
+              <div className="absolute bottom-0 left-[-2px] h-[18px] w-[14px] origin-bottom-right -rotate-45 transform bg-white opacity-30"></div>
             </div>
             <div className="flex items-center gap-2 px-2 py-1">
               {/* <CyberButton
