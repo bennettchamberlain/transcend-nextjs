@@ -48,7 +48,7 @@ export function FreeShippingBanner({ subtotal, className = "" }: FreeShippingBan
             style={{ width: `${progressPercentage}%` }}
           />
         </div>
-        <div className="mt-1 text-xs text-gray-400">{subtotalAmount.toFixed(2)} / $100.00</div>
+        <div className="mt-1 text-xs text-gray-300">{subtotalAmount.toFixed(2)} / $100.00</div>
       </div>
     </div>
   );

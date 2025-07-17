@@ -29,7 +29,7 @@ export function CartSection() {
         {!cart.lines || cart.lines.length === 0 ? (
           <div className="py-12 text-center">
             <h2 className="mb-4 text-2xl font-medium text-white">Your cart is empty</h2>
-            <p className="mb-6 text-gray-400">Looks like you haven't added any items to your cart yet.</p>
+            <p className="mb-6 text-gray-300">Looks like you haven't added any items to your cart yet.</p>
             <NextLink
               href="/products"
               className="inline-flex items-center rounded-md border border-transparent bg-lime-400 px-6 py-3 text-base font-medium text-black transition-colors duration-200 hover:bg-lime-300"
@@ -67,7 +67,7 @@ export function CartSection() {
                         </h3>
                         <Money className="ml-4" data={line?.cost?.totalAmount as MoneyV2}></Money>
                       </div>
-                      <p className="mt-1 text-sm text-gray-400">
+                      <p className="mt-1 text-sm text-gray-300">
                         {line?.merchandise?.selectedOptions?.map((option, index) => (
                           <span key={option?.name}>
                             {index ? " / " : ""}
@@ -79,7 +79,7 @@ export function CartSection() {
 
                     <div className="flex flex-1 items-end justify-between text-sm">
                       <div className="flex items-center space-x-2">
-                        <span className="text-gray-400">Qty</span>
+                        <span className="text-gray-300">Qty</span>
                         <div className="flex items-center rounded-md border border-gray-600">
                           <CartLineQuantityAdjustButton
                             className="px-2 py-1 text-lime-400 transition-colors duration-200 hover:text-lime-300 disabled:cursor-not-allowed disabled:opacity-50"
@@ -146,25 +146,25 @@ export function CartSection() {
                 </div>
               ) : (
                 <div className="flex flex-col text-sm sm:flex-row sm:items-center sm:justify-between">
-                  <div className="text-gray-400">
+                  <div className="text-gray-300">
                     <span>Add </span>
                     {remainingForFreeShipping && (
                       <Money data={remainingForFreeShipping as MoneyV2} className="font-medium text-lime-400" />
                     )}
                     <span> more for free shipping</span>
                   </div>
-                  <span className="mt-1 text-gray-400 sm:mt-0">Shipping calculated at checkout</span>
+                  <span className="mt-1 text-gray-300 sm:mt-0">Shipping calculated at checkout</span>
                 </div>
               )}
             </div>
 
-            <p className="mt-0.5 text-sm text-gray-400">Taxes calculated at checkout.</p>
+            <p className="mt-0.5 text-sm text-gray-300">Taxes calculated at checkout.</p>
             <div className="mt-6 flex">
               <CartCheckoutButton className="flex-1 rounded-md border border-transparent bg-lime-400 px-6 py-3 text-base font-medium text-black shadow-sm transition-colors duration-200 hover:bg-lime-300">
                 Checkout
               </CartCheckoutButton>
             </div>
-            <div className="mt-6 flex justify-center text-center text-sm text-gray-400">
+            <div className="mt-6 flex justify-center text-center text-sm text-gray-300">
               <p>
                 <span>or</span>
                 <span> </span>

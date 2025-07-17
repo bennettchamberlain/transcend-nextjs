@@ -23,7 +23,7 @@ function ReturnPolicy() {
               {/* Page Header */}
               <div className="text-center">
                 <h1 className="mb-4 text-4xl font-bold text-lime-500">Return Policy</h1>
-                <p className="mx-auto max-w-2xl text-xl text-gray-400">
+                <p className="mx-auto max-w-2xl text-xl text-gray-300">
                   We want you to be completely satisfied with your Transcend Collective purchase. Here's everything you
                   need to know about our return process.
                 </p>
@@ -67,7 +67,7 @@ function ReturnPolicy() {
                           <p className="font-semibold text-lime-400">Transcend Collective</p>
                           <p>1750 Glendale Blvd</p>
                           <p>Los Angeles, CA 90026</p>
-                          <p className="mt-2 text-sm text-gray-400">United States</p>
+                          <p className="mt-2 text-sm text-gray-300">United States</p>
                         </div>
                       </div>
                     </div>
@@ -131,7 +131,7 @@ function ReturnPolicy() {
                         <p>Questions about your return?</p>
                         <p className="font-medium">Email: support@transcendcollective.com</p>
                         <p className="font-medium">Phone: (323) 555-0123</p>
-                        <p className="text-sm text-gray-400">Response within 24 hours</p>
+                        <p className="text-sm text-gray-300">Response within 24 hours</p>
                       </div>
                     </div>
                   </div>

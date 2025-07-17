@@ -190,7 +190,7 @@ export default function EnterStorePage() {
               <CyberProgressBar color="#dcff07" size={120} type={3} className="cyber-loading-progress" />
             </div>
             <p className="text-lg text-white">Loading Experience...</p>
-            <p className="mt-2 text-sm text-gray-400">Preparing your journey into the future</p>
+            <p className="mt-2 text-sm text-gray-300">Preparing your journey into the future</p>
           </div>
         </div>
       )}

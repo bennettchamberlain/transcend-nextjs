@@ -196,9 +196,9 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
           >
             <span className="text-neon-green neon-glow">{displayText}</span>
           </h2>
-          <p className="text-gray-400">Latest drops - the newest arrivals</p>
+          <p className="text-gray-300">LATEST DROPS - THE NEWEST ARRIVALS</p>
         </div>
-        <p className="text-gray-400">No products found in 2-0 collection.</p>
+        <p className="text-gray-300">No products found in 2-0 collection.</p>
       </section>
     );
   }
@@ -213,7 +213,7 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
         >
           <span className="text-neon-green neon-glow">{displayText}</span>
         </h2>
-        <p className="text-gray-400">Latest drops - the newest arrivals</p>
+        <p className="text-gray-300">LATEST DROPS - THE NEWEST ARRIVALS</p>
       </div>
 
       <div className="mb-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
@@ -294,7 +294,7 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
                       {firstVariant && (
                         <AddToCartButton
                           variantId={firstVariant.id}
-                          className="text-lime-400 transition-colors duration-200 hover:text-lime-300 focus:outline-none disabled:text-gray-400"
+                          className="text-lime-400 transition-colors duration-200 hover:text-lime-300 focus:outline-none disabled:text-gray-300"
                         >
                           <ShoppingCartIcon className="h-5 w-5" />
                         </AddToCartButton>

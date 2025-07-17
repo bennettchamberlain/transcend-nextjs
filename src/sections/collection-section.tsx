@@ -170,9 +170,9 @@ export function CollectionSection(props: DataProps<typeof fetchCollectionSection
           >
             <span className="text-neon-green neon-glow">{displayText}</span>
           </h2>
-          <p className="text-gray-400">Collection not found</p>
+          <p className="text-gray-300">Collection not found</p>
         </div>
-        <p className="text-gray-400">The requested collection could not be found.</p>
+        <p className="text-gray-300">The requested collection could not be found.</p>
       </section>
     );
   }
@@ -187,7 +187,7 @@ export function CollectionSection(props: DataProps<typeof fetchCollectionSection
         >
           <span className="text-neon-green neon-glow">{displayText}</span>
         </h2>
-        {props.data.description && <p className="text-gray-400">{props.data.description}</p>}
+        {props.data.description && <p className="text-gray-300">{props.data.description}</p>}
       </div>
 
       <div className="mb-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">

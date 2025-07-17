@@ -209,7 +209,7 @@ export function ProductSearchSortSection({
               style={{ paddingLeft: "48px" }}
             />
             <div className="pointer-events-none absolute inset-y-0 left-0 z-50 flex items-center pl-3">
-              <MagnifyingGlassIcon className="h-4 w-4 text-gray-400" aria-hidden="true" />
+              <MagnifyingGlassIcon className="h-4 w-4 text-gray-300" aria-hidden="true" />
             </div>
           </div>
           <span className="editor-field__bottom"></span>

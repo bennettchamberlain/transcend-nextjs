@@ -200,14 +200,14 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
         {/* Loading state */}
         {(searchLoader.loading || sortLoader.loading || isSearching) && (
           <div className="py-8 text-center">
-            <div className="text-gray-400">Loading products...</div>
+            <div className="text-gray-300">Loading products...</div>
           </div>
         )}
 
         {/* No results state */}
         {!searchLoader.loading && !sortLoader.loading && !isSearching && allProducts.length === 0 && (
           <div className="py-8 text-center">
-            <div className="text-gray-400">
+            <div className="text-gray-300">
               {searchQuery ? `No products found for "${searchQuery}"` : "No products found"}
             </div>
           </div>

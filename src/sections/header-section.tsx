@@ -134,10 +134,10 @@ export function HeaderSection() {
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex h-10 items-center justify-between">
-            <div className="flex items-center space-x-4 text-xs text-gray-400">
+            <div className="flex items-center space-x-4 text-xs text-gray-300">
               <TypingEffect />
             </div>
-            <div className="flex hidden items-center space-x-4 text-xs text-gray-400 sm:flex">
+            <div className="flex hidden items-center space-x-4 text-xs text-gray-300 sm:flex">
               <NextLink
                 href="mailto:aaron.transcend@gmail.com"
                 className="transition-colors hover:text-white"
@@ -268,7 +268,7 @@ export function HeaderSection() {
 
               {/* Mobile-only contact info */}
               <div className="mt-8 border-t border-gray-700 pt-6">
-                <div className="space-y-3 text-sm text-gray-400">
+                <div className="space-y-3 text-sm text-gray-300">
                   <NextLink
                     href="mailto:aaron.transcend@gmail.com"
                     className="block transition-colors hover:text-white"
