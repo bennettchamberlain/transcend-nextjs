@@ -78,8 +78,29 @@ export function CartSection() {
                     </div>
 
                     <div className="flex flex-1 items-end justify-between text-sm">
-                      <div className="text-gray-400">
-                        Qty <CartLineQuantity></CartLineQuantity>
+                      <div className="flex items-center space-x-2">
+                        <span className="text-gray-400">Qty</span>
+                        <div className="flex items-center rounded-md border border-gray-600">
+                          <CartLineQuantityAdjustButton
+                            className="px-2 py-1 text-lime-400 transition-colors duration-200 hover:text-lime-300 disabled:cursor-not-allowed disabled:opacity-50"
+                            adjust="decrease"
+                          >
+                            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+                            </svg>
+                          </CartLineQuantityAdjustButton>
+                          <span className="min-w-[2rem] px-3 py-1 text-center text-white">
+                            <CartLineQuantity />
+                          </span>
+                          <CartLineQuantityAdjustButton
+                            className="px-2 py-1 text-lime-400 transition-colors duration-200 hover:text-lime-300"
+                            adjust="increase"
+                          >
+                            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                            </svg>
+                          </CartLineQuantityAdjustButton>
+                        </div>
                       </div>
 
                       <div className="flex">
@@ -89,9 +110,6 @@ export function CartSection() {
                         >
                           Remove
                         </CartLineQuantityAdjustButton>
-
-                        {/* <CartLineQuantityAdjustButton adjust="increase">Increase</CartLineQuantityAdjustButton>
-              <CartLineQuantityAdjustButton adjust="decrease">Decrease</CartLineQuantityAdjustButton> */}
                       </div>
                     </div>
                   </div>

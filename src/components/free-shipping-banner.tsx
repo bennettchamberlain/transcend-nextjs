@@ -13,7 +13,7 @@ export function FreeShippingBanner({ subtotal, className = "" }: FreeShippingBan
   const hasFreeShipping = qualifiesForFreeShippingFromCart(subtotal);
   const remainingForFreeShipping = formatRemainingForFreeShippingFromCart(subtotal);
   const subtotalAmount = subtotal?.amount ? Number.parseFloat(subtotal.amount) : 0;
-  const progressPercentage = Math.min((subtotalAmount / 150) * 100, 100);
+  const progressPercentage = Math.min((subtotalAmount / 100) * 100, 100);
 
   if (hasFreeShipping) {
     return (
@@ -48,7 +48,7 @@ export function FreeShippingBanner({ subtotal, className = "" }: FreeShippingBan
             style={{ width: `${progressPercentage}%` }}
           />
         </div>
-        <div className="mt-1 text-xs text-gray-400">{subtotalAmount.toFixed(2)} / $150.00</div>
+        <div className="mt-1 text-xs text-gray-400">{subtotalAmount.toFixed(2)} / $100.00</div>
       </div>
     </div>
   );

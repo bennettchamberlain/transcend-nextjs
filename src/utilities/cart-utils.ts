@@ -2,7 +2,7 @@ import type { MoneyV2 } from "@shopify/hydrogen-react/storefront-api-types";
 
 import { CurrencyCode } from "./storefront/zeus";
 
-const FREE_SHIPPING_THRESHOLD = 150; // $150 USD
+const FREE_SHIPPING_THRESHOLD = 100; // $100 USD
 
 /**
  * Converts a MoneyV2 object to a number for calculations
