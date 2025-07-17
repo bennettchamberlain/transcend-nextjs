@@ -213,10 +213,16 @@ function Footer() {
   // Generate persistent background noise
   const generateBackgroundNoise = () => {
     const footer = document.querySelector("footer");
-    if (!footer) return;
+    if (!footer) {
+      
+      return;
+    }
 
     const footerNoise = footer.querySelector(".footer-background-noise");
-    if (!footerNoise) return;
+    if (!footerNoise) {
+      return;
+    }
+      
 
     // Clear existing noise
     while (footerNoise.firstChild) {
