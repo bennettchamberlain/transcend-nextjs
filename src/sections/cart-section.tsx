@@ -113,7 +113,7 @@ export function CartSection() {
             {/* Shipping Information */}
             <div className="mt-2">
               {hasFreeShipping ? (
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex flex-col text-sm sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex items-center text-green-400">
                     <svg className="mr-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                       <path
@@ -124,10 +124,10 @@ export function CartSection() {
                     </svg>
                     <span>Free shipping applied!</span>
                   </div>
-                  <span className="font-medium text-green-400">FREE</span>
+                  <span className="mt-1 font-medium text-green-400 sm:mt-0">FREE</span>
                 </div>
               ) : (
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex flex-col text-sm sm:flex-row sm:items-center sm:justify-between">
                   <div className="text-gray-400">
                     <span>Add </span>
                     {remainingForFreeShipping && (
@@ -135,7 +135,7 @@ export function CartSection() {
                     )}
                     <span> more for free shipping</span>
                   </div>
-                  <span className="text-gray-400">Shipping calculated at checkout</span>
+                  <span className="mt-1 text-gray-400 sm:mt-0">Shipping calculated at checkout</span>
                 </div>
               )}
             </div>
