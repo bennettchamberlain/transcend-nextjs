@@ -39,7 +39,7 @@ export async function fetchCollectionSection(handle: string, cursor?: string) {
                     },
                   },
                   featuredImage: {
-                    url: [{ transform: { maxWidth: 500 } }, true],
+                    url: [{ transform: { maxWidth: 1200, maxHeight: 1200, scale: 2 } }, true],
                     altText: true,
                     width: true,
                     height: true,
@@ -48,7 +48,7 @@ export async function fetchCollectionSection(handle: string, cursor?: string) {
                     { first: 2 },
                     {
                       nodes: {
-                        url: [{ transform: { maxWidth: 500 } }, true],
+                        url: [{ transform: { maxWidth: 1200, maxHeight: 1200, scale: 2 } }, true],
                         altText: true,
                         width: true,
                         height: true,
@@ -244,6 +244,7 @@ export function CollectionSection(props: DataProps<typeof fetchCollectionSection
                       alt={currentImage!.altText as string}
                       height={currentImage!.height as number}
                       width={currentImage!.width as number}
+                      quality={100}
                       className="h-full w-full object-cover object-center transition-opacity duration-300 group-hover:opacity-0 sm:group-hover:opacity-0"
                     />
                     {hasSecondImage && (
@@ -252,6 +253,7 @@ export function CollectionSection(props: DataProps<typeof fetchCollectionSection
                         alt={nextImage!.altText as string}
                         height={nextImage!.height as number}
                         width={nextImage!.width as number}
+                        quality={100}
                         className="absolute inset-0 h-full w-full object-cover object-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:group-hover:opacity-100"
                       />
                     )}

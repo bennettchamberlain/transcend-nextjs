@@ -20,7 +20,7 @@ export async function fetchProductRecommendationsSection(productId: string) {
             },
           },
           featuredImage: {
-            url: [{ transform: { maxWidth: 500 } }, true],
+            url: [{ transform: { maxWidth: 1200, maxHeight: 1200, scale: 2 } }, true],
             altText: true,
             width: true,
             height: true,
@@ -29,7 +29,7 @@ export async function fetchProductRecommendationsSection(productId: string) {
             { first: 2 },
             {
               nodes: {
-                url: [{ transform: { maxWidth: 500 } }, true],
+                url: [{ transform: { maxWidth: 1200, maxHeight: 1200, scale: 2 } }, true],
                 altText: true,
                 width: true,
                 height: true,
@@ -71,6 +71,7 @@ export function ProductRecommendationsSection(props: DataProps<typeof fetchProdu
                   alt={product.featuredImage?.altText || product.title}
                   width={product.featuredImage?.width || 500}
                   height={product.featuredImage?.height || 500}
+                  quality={100}
                   className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                 />
               </div>

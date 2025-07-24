@@ -35,7 +35,7 @@ export async function fetchNewDropsSection(cursor?: string) {
                     },
                   },
                   featuredImage: {
-                    url: [{ transform: { maxWidth: 500 } }, true],
+                    url: [{ transform: { maxWidth: 1200, maxHeight: 1200, scale: 2 } }, true],
                     altText: true,
                     width: true,
                     height: true,
@@ -44,7 +44,7 @@ export async function fetchNewDropsSection(cursor?: string) {
                     { first: 2 },
                     {
                       nodes: {
-                        url: [{ transform: { maxWidth: 500 } }, true],
+                        url: [{ transform: { maxWidth: 1200, maxHeight: 1200, scale: 2 } }, true],
                         altText: true,
                         width: true,
                         height: true,
@@ -204,7 +204,7 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
   }
 
   return (
-    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-30">
       <div className="mb-4 md:mb-8">
         <h2
           ref={titleRef}
@@ -272,6 +272,7 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
                         alt={currentImage!.altText as string}
                         height={currentImage!.height as number}
                         width={currentImage!.width as number}
+                        quality={100}
                         className="h-full w-full object-cover object-center transition-opacity duration-300 group-hover:opacity-0 sm:group-hover:opacity-0"
                       />
                       {hasSecondImage && (
@@ -280,6 +281,7 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
                           alt={nextImage!.altText as string}
                           height={nextImage!.height as number}
                           width={nextImage!.width as number}
+                          quality={100}
                           className="absolute inset-0 h-full w-full object-cover object-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:group-hover:opacity-100"
                         />
                       )}

@@ -139,7 +139,7 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
 
   return (
     <div className="bg-dark-gradient relative pt-10 pb-2 md:py-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-30">
         {/* Header */}
         <div className="mb-12 text-right">
           <h2
