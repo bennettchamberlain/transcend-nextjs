@@ -16,7 +16,7 @@ export async function fetchProductSingleSection(handle: string) {
       {
         id: true,
         title: true,
-        description: [{}, true],
+        descriptionHtml: true,
         seo: {
           title: true,
           description: true,
@@ -82,17 +82,18 @@ export async function fetchProductSingleSection(handle: string) {
 
   invariant(productByHandle, `Product not found: ${handle}`);
 
-  const { seo, title, description } = productByHandle;
+  const { seo, title, descriptionHtml } = productByHandle;
 
   // Fetch product recommendations
   const recommendations = await fetchProductRecommendationsSection(productByHandle.id);
 
   return {
     ...productByHandle,
+    descriptionHtml: descriptionHtml as string | undefined,
     recommendations: recommendations as any[],
     seo: {
       title: formatTitle(seo.title || title),
-      description: seo.description || description,
+      description: (seo.description || descriptionHtml) as string | undefined,
     },
   };
 }
@@ -174,7 +175,27 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
 
               <h1 className="mb-5 text-2xl font-bold tracking-tight text-white sm:text-3xl">{props.data.title}</h1>
 
-              {props.data.description && <p className="mb-5 text-base text-gray-300">{props.data.description}</p>}
+              {props.data.descriptionHtml && (
+                <div
+                  className="mb-5 text-base text-gray-300"
+                  dangerouslySetInnerHTML={{
+                    __html: props.data.descriptionHtml
+                      .replace(/<ul>/g, "<br><ul>")
+                      .replace(/<\/ul>/g, "</ul><br>")
+                      // Remove size chart table and related content, but preserve spacing
+                      .replace(
+                        /<p><span[^>]*>Size Chart<\/span><\/p>[\s\S]*?<div[^>]*id="item-id"[^>]*>[\s\S]*?<\/div>/,
+                        "<br><br>",
+                      )
+                      .replace(/<div[^>]*style="overflow: auto;">[\s\S]*?<\/div>/, "")
+                      // Also remove any standalone "Size Chart" text that might appear
+                      .replace(/Size Chart/g, "")
+                      // Add line breaks between HTML tags
+                      .replace(/></g, ">\n<")
+                      .replace(/\n\s*\n/g, "\n"),
+                  }}
+                />
+              )}
 
               <div className="mb-5 text-3xl tracking-tight text-white">
                 <ProductPrice data={props.data}></ProductPrice>

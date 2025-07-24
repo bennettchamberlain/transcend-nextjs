@@ -29,7 +29,7 @@ export default function Page(props: PageProps<typeof getStaticProps>) {
 
   return (
     <StoreLayout>
-      <NextSeo title={seo.title} description={seo.description} />
+      <NextSeo title={seo.title} description={seo.description?.toString() || undefined} />
       <ProductSingleSection data={props.data.productSingleSection} />
     </StoreLayout>
   );
