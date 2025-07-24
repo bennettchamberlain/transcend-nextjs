@@ -1,5 +1,4 @@
 import { AddToCartButton, ProductPrice, ProductProvider } from "@shopify/hydrogen-react";
-import { truncate } from "lodash";
 import { useEffect, useRef, useState } from "react";
 
 import type { DataProps } from "@site/utilities/deps";
@@ -17,7 +16,7 @@ export async function fetchProductSingleSection(handle: string) {
       {
         id: true,
         title: true,
-        description: [{ truncateAt: 256 }, true],
+        description: [{}, true],
         seo: {
           title: true,
           description: true,
@@ -91,7 +90,7 @@ export async function fetchProductSingleSection(handle: string) {
     recommendations: recommendations as any[],
     seo: {
       title: formatTitle(seo.title || title),
-      description: seo.description || truncate(description, { length: 256 }),
+      description: seo.description || description,
     },
   };
 }
@@ -171,7 +170,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
 
               <h1 className="mb-5 text-2xl font-bold tracking-tight text-white sm:text-3xl">{props.data.title}</h1>
 
-              <p className="mb-5 text-base text-gray-300">{props.data.description}</p>
+              {props.data.description && <p className="mb-5 text-base text-gray-300">{props.data.description}</p>}
 
               <div className="mb-5 text-3xl tracking-tight text-white">
                 <ProductPrice data={props.data}></ProductPrice>
