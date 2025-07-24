@@ -176,6 +176,7 @@ export function HeroSection() {
 
           {/* Sound Toggle Button - Mobile */}
           <button
+            type="button"
             onClick={toggleSound}
             className="absolute right-4 bottom-4 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition-all hover:bg-black/70"
             aria-label={isMuted ? "Unmute video" : "Mute video"}
@@ -306,6 +307,7 @@ export function HeroSection() {
 
             {/* Sound Toggle Button - Desktop */}
             <button
+              type="button"
               onClick={toggleSound}
               className="absolute right-4 bottom-4 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition-all hover:bg-black/70"
               aria-label={isMuted ? "Unmute video" : "Mute video"}

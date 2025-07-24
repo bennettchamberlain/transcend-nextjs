@@ -214,13 +214,13 @@ export function CollectionSection(props: DataProps<typeof fetchCollectionSection
                     {/* Mobile-only image toggle button */}
                     {hasSecondImage && (
                       <button
+                        type="button"
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
                           toggleImage(node.handle, hasSecondImage);
                         }}
                         className="absolute top-2 right-2 z-10 block bg-black/50 p-1 text-white backdrop-blur-sm transition-all hover:bg-black/70 sm:hidden"
-                      
                       >
                         <svg
                           width="12"

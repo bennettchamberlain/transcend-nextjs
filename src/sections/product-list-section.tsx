@@ -1,5 +1,5 @@
 import { Money } from "@shopify/hydrogen-react";
-import { useEffect, useMemo, useState as useReactState } from "react";
+import { useEffect, useState as useReactState } from "react";
 
 import type { DataProps } from "@site/utilities/deps";
 
@@ -171,7 +171,7 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
     }
     // If we're back to default sort with no search and no pages, restore original data
     else if (pages.length === 0) {
-      setPages([originalData]);
+      setPages(() => [originalData]);
     }
   }, [searchQuery, sortOption, performSearch, performSort, pages.length, originalData]);
 
@@ -241,6 +241,7 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
                         {/* Mobile-only image toggle button */}
                         {hasSecondImage && (
                           <button
+                            type="button"
                             onClick={(e) => {
                               e.preventDefault();
                               e.stopPropagation();

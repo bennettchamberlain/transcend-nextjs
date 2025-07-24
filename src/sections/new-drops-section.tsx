@@ -242,6 +242,7 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
                       {/* Mobile-only image toggle button */}
                       {hasSecondImage && (
                         <button
+                          type="button"
                           onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
