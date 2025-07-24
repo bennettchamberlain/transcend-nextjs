@@ -13,13 +13,14 @@ import { ProductSearchSortSection } from "./product-search-sort-section";
 
 export async function fetchProductListSection(cursor?: string, searchQuery?: string, sortOption?: SortOption) {
   // Build sort parameters based on sort option
-  let sortKey = "BEST_SELLING";
-  let reverse = false;
+  let sortKey = "CREATED_AT";
+  let reverse = true;
 
   if (sortOption) {
     switch (sortOption) {
       case "best-selling":
         sortKey = "BEST_SELLING";
+        reverse = false;
         break;
       case "title-asc":
         sortKey = "TITLE";
@@ -107,11 +108,12 @@ export async function fetchProductListSection(cursor?: string, searchQuery?: str
 }
 
 export function ProductListSection(_props: DataProps<typeof fetchProductListSection>) {
-  const [pages, setPages] = useState<Array<typeof _props.data>>([]);
+  const [pages, setPages] = useState<Array<typeof _props.data>>([_props.data]);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState<SortOption>("created-desc");
   const [isSearching, setIsSearching] = useState(false);
   const [imageStates, setImageStates] = useReactState<Record<string, number>>({});
+  const [originalData] = useState(_props.data); // Store original server data
 
   const lastPage = pages[pages.length - 1];
   const lastCursor =
@@ -127,7 +129,7 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
   }, [searchQuery, sortOption]);
 
   // Sort effect
-  const [sortLoader, _performSort] = useAsyncFn(async () => {
+  const [sortLoader, performSort] = useAsyncFn(async () => {
     setIsSearching(true);
     const productList = await fetchProductListSection(undefined, searchQuery, sortOption);
     setPages([productList]);
@@ -157,20 +159,21 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
     }
   };
 
-  // Initial load with correct sort
-  useEffect(() => {
-    if (pages.length === 0) {
-      performSearch();
-    }
-  }, [pages.length, performSearch]);
-
   // Perform search/sort when dependencies change
-  useMemo(() => {
-    // Always perform search/sort to ensure proper ordering, even for default sort
-    if (pages.length > 0) {
+  useEffect(() => {
+    // If we have a search query, always perform search
+    if (searchQuery) {
       performSearch();
     }
-  }, [searchQuery, sortOption, performSearch, pages.length]);
+    // If we're switching to a non-default sort, perform sort
+    else if (sortOption !== "created-desc") {
+      performSort();
+    }
+    // If we're back to default sort with no search and no pages, restore original data
+    else if (pages.length === 0) {
+      setPages([originalData]);
+    }
+  }, [searchQuery, sortOption, performSearch, performSort, pages.length, originalData]);
 
   const allProducts = pages.flatMap(({ edges }) => edges);
 
