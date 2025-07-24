@@ -35,7 +35,9 @@ export async function fetchProductSingleSection(handle: string) {
               url: [
                 {
                   transform: {
-                    maxHeight: 600,
+                    maxHeight: 1200,
+                    maxWidth: 1200,
+                    scale: 2,
                   },
                 },
                 true,
@@ -126,6 +128,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
                 alt={productImages[selectedImageIndex].altText || ""}
                 width={productImages[selectedImageIndex].width as number}
                 height={productImages[selectedImageIndex].height as number}
+                quality={100}
                 className="min-h-[600px] w-full object-contain object-center"
               />
 
@@ -156,6 +159,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
                       alt={image.altText || ""}
                       width={80}
                       height={80}
+                      quality={100}
                       className="h-20 w-20 object-cover"
                     />
                   </button>
