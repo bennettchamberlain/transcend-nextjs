@@ -208,12 +208,11 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
       <div className="mb-4 md:mb-8">
         <h2
           ref={titleRef}
-          className="mb-4 cursor-pointer text-4xl font-black text-white transition-all duration-200 md:text-5xl"
-          style={{ fontFamily: "'Space Mono', monospace" }}
+          className="mb-4 cursor-pointer text-4xl font-black text-white transition-all duration-200 md:text-5xl font-[Druk] uppercase"
         >
           <span className="text-neon-green neon-glow">{displayText}</span>
         </h2>
-        <p className="text-gray-300">LATEST DROPS - THE NEWEST ARRIVALS</p>
+        <p className="text-gray-300 font-[Druk] uppercase">LATEST DROPS - THE NEWEST ARRIVALS</p>
       </div>
 
       <div className="mb-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">

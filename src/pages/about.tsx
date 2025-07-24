@@ -5,6 +5,25 @@ import React from "react";
 import { StoreLayout } from "@site/layouts/store-layout";
 
 function About() {
+  // Select photos to feature in the gallery
+  const selectPhotos = [
+    { src: "/images/selects/DSC07886.jpg", alt: "Transcend Collective - Behind the Scenes" },
+    { src: "/images/selects/DSC08440.jpg", alt: "Transcend Collective - Creative Process" },
+    { src: "/images/selects/DSC09111.jpg", alt: "Transcend Collective - Team Collaboration" },
+    { src: "/images/selects/DSC08471.jpg", alt: "Transcend Collective - Design Studio" },
+    { src: "/images/selects/Copy of DSC08983-3.jpg", alt: "Transcend Collective - Inspiration" },
+    { src: "/images/selects/DSC08935.jpg", alt: "Transcend Collective - Vision" },
+    { src: "/images/selects/Copy of DSC09125.jpg", alt: "Transcend Collective - Growth" },
+    { src: "/images/selects/DSC08810.jpg", alt: "Transcend Collective - Community" },
+    { src: "/images/selects/Copy of DSC08866.jpg", alt: "Transcend Collective - Movement" },
+  ];
+
+  const featuredPhotos = [
+    { src: "/images/selects/DSC08052-2.jpg", alt: "Transcend Collective - Our Story" },
+    { src: "/images/selects/Copy of DSC09064.jpg", alt: "Transcend Collective - Creative Journey" },
+    { src: "/images/selects/DSC07954.jpg", alt: "Transcend Collective - Innovation" },
+  ];
+
   return (
     <>
       <Head>
@@ -22,17 +41,34 @@ function About() {
             <div className="space-y-16">
               {/* Hero Section */}
               <section className="text-center">
-                <h1 className="mb-6 text-5xl font-bold text-lime-500">About Transcend Collective</h1>
+                <h1 className="mb-6 text-5xl font-bold text-lime-500 font-[Druk] uppercase">About Transcend Collective</h1>
                 <p className="mx-auto max-w-3xl text-xl text-gray-300">
                   A movement dedicated to growth, helping others, and spreading good design through community and
                   creativity.
                 </p>
               </section>
 
+              {/* Featured Images Section */}
+              <section className="space-y-8">
+                <div className="grid gap-6 md:grid-cols-3">
+                  {featuredPhotos.map((photo, index) => (
+                    <div key={index} className="relative overflow-hidden rounded-lg">
+                      <Image
+                        src={photo.src}
+                        alt={photo.alt}
+                        width={400}
+                        height={300}
+                        className="h-64 w-full object-cover transition-transform duration-300 hover:scale-105"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </section>
+
               {/* Main Story Section */}
               <section className="grid gap-12 lg:grid-cols-2 lg:gap-16">
                 <div className="space-y-6">
-                  <h2 className="text-3xl font-semibold text-lime-400">Our Story</h2>
+                  <h2 className="text-3xl font-semibold text-lime-400 font-[Druk] uppercase">Our Story</h2>
                   <div className="space-y-4 leading-relaxed text-gray-300">
                     <p>
                       Transcend Collective was born from a simple yet powerful vision: to create a platform where
@@ -53,7 +89,7 @@ function About() {
                 </div>
                 <div className="relative">
                   <Image
-                    src="/images/hero.JPG"
+                    src="/images/selects/DSC08188.jpg"
                     alt="Transcend Collective Story"
                     width={600}
                     height={400}
@@ -65,7 +101,7 @@ function About() {
               {/* Mission Section */}
               <section className="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900/50 to-gray-800/50 p-8">
                 <div className="space-y-6 text-center">
-                  <h2 className="text-3xl font-semibold text-lime-400">Our Mission</h2>
+                  <h2 className="text-3xl font-semibold text-lime-400 font-[Druk] uppercase">Our Mission</h2>
                   <p className="mx-auto max-w-4xl text-lg leading-relaxed text-gray-300">
                     We are focused on growth and helping others. Our commitment is to spread good design, foster
                     meaningful connections, and create opportunities for creative minds to flourish. We believe that by
@@ -87,7 +123,7 @@ function About() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-semibold text-lime-400">Growth</h3>
+                  <h3 className="text-xl font-semibold text-lime-400 font-[Druk] uppercase">Growth</h3>
                   <p className="text-gray-300">
                     We believe in continuous improvement and helping others reach their full potential through
                     mentorship, resources, and community support.
@@ -104,7 +140,7 @@ function About() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-semibold text-lime-400">Community</h3>
+                  <h3 className="text-xl font-semibold text-lime-400 font-[Druk] uppercase">Community</h3>
                   <p className="text-gray-300">
                     Building meaningful connections and fostering a supportive environment where creativity thrives and
                     collaboration leads to innovation.
@@ -121,7 +157,7 @@ function About() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-semibold text-lime-400">Design</h3>
+                  <h3 className="text-xl font-semibold text-lime-400 font-[Druk] uppercase">Design</h3>
                   <p className="text-gray-300">
                     Spreading good design principles and creating beautiful, functional experiences that inspire and
                     elevate the world around us.
@@ -129,62 +165,29 @@ function About() {
                 </div>
               </section>
 
-              {/* Image Gallery */}
+              {/* Extended Image Gallery - Select Photos */}
               <section className="space-y-8">
-                <h2 className="text-center text-3xl font-semibold text-lime-400">Our Journey</h2>
+                <h2 className="text-center text-3xl font-semibold text-lime-400 font-[Druk] uppercase">Our Journey</h2>
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                  <div className="relative">
-                    <Image
-                      src="/images/TRANSCEND_TEAM.jpg"
-                      alt="Transcend Collective Journey"
-                      width={400}
-                      height={300}
-                      className="rounded-lg object-cover"
-                    />
-                  </div>
-                  <div className="relative">
-                    <Image
-                      src="/images/cover3.png"
-                      alt="Transcend Collective Journey"
-                      width={400}
-                      height={300}
-                      className="rounded-lg object-cover"
-                    />
-                  </div>
-                  <div className="relative">
-                    <Image
-                      src="/images/cover.jpg"
-                      alt="Transcend Collective Journey"
-                      width={400}
-                      height={300}
-                      className="rounded-lg object-cover"
-                    />
-                  </div>
-                  <div className="relative">
-                    <Image
-                      src="/images/section4.png"
-                      alt="Transcend Collective Journey"
-                      width={400}
-                      height={300}
-                      className="rounded-lg object-cover"
-                    />
-                  </div>
-                  <div className="relative">
-                    <Image
-                      src="/images/mobile-cover.jpg"
-                      alt="Transcend Collective Journey"
-                      width={400}
-                      height={300}
-                      className="rounded-lg object-cover"
-                    />
-                  </div>
+                  {selectPhotos.map((photo, index) => (
+                    <div key={index} className="relative overflow-hidden rounded-lg group">
+                      <Image
+                        src={photo.src}
+                        alt={photo.alt}
+                        width={400}
+                        height={300}
+                        className="h-72 w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                  ))}
                 </div>
               </section>
 
               {/* Call to Action */}
               <section className="text-center">
                 <div className="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900/50 to-gray-800/50 p-8">
-                  <h2 className="mb-4 text-3xl font-semibold text-lime-400">Join Our Movement</h2>
+                  <h2 className="mb-4 text-3xl font-semibold text-lime-400 font-[Druk] uppercase">Join Our Movement</h2>
                   <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-300">
                     Ready to be part of something bigger? Join our community of creators, designers, and innovators who
                     are committed to growth, helping others, and spreading good design.

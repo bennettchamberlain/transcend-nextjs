@@ -144,8 +144,7 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
         <div className="mb-12 text-right">
           <h2
             ref={titleRef}
-            className="mb-4 cursor-pointer text-4xl font-black text-white transition-all duration-200 md:text-5xl"
-            style={{ fontFamily: "Modeseven", fontWeight: "900" }}
+            className="mb-4 cursor-pointer text-4xl font-black text-white transition-all duration-200 md:text-5xl font-[Druk] uppercase"
           >
             {/* <span className="text-neon-green neon-glow" style={{ fontFamily: "AOMono", fontWeight: "900" }}>
               {displayText}

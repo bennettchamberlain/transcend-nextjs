@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { SelectPhotosShowcase } from "@site/components/select-photos-showcase";
 
 function Footer() {
   const [email, setEmail] = useState("");
@@ -287,6 +288,46 @@ function Footer() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Select photos for footer
+  const footerPhotos = [
+    "/images/selects/DSC07039-2.jpg",
+    "/images/selects/Copy of DSC07092-2.jpg", 
+    "/images/selects/DSC08094.jpg",
+    "/images/selects/DSC07176-2.jpg",
+  ];
+
+  // Background noise effect
+  useEffect(() => {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    canvas.width = 200;
+    canvas.height = 200;
+
+    const imageData = ctx.createImageData(canvas.width, canvas.height);
+    const data = imageData.data;
+
+    // Generate noise
+    for (let i = 0; i < data.length; i += 4) {
+      const noise = Math.random() * 50;
+      data[i] = noise; // Red
+      data[i + 1] = noise; // Green
+      data[i + 2] = noise; // Blue
+      data[i + 3] = 30; // Alpha
+    }
+
+    ctx.putImageData(imageData, 0, 0);
+    const dataURL = canvas.toDataURL();
+
+    // Apply to footer background
+    const footer = document.querySelector(".footer-background-noise");
+    if (footer) {
+      (footer as HTMLElement).style.backgroundImage = `url(${dataURL})`;
+      (footer as HTMLElement).style.backgroundRepeat = "repeat";
+    }
+  }, []);
+
   return (
     <footer
       className="relative overflow-hidden bg-black bg-[length:90%] px-4 pt-16 pb-16 text-white md:bg-[length:30%]"
@@ -299,6 +340,17 @@ function Footer() {
       {/* Persistent background noise overlay */}
       <div className="footer-background-noise"></div>
       <div className="relative z-10 mx-auto max-w-7xl">
+        {/* Select Photos Showcase */}
+        <div className="mb-12">
+          <SelectPhotosShowcase
+            photos={footerPhotos}
+            title="Transcend Moments"
+            layout="horizontal"
+            showTitle={true}
+            className="mb-8"
+          />
+        </div>
+
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Logo Section */}
           <div className="lg:col-span-1">
@@ -312,7 +364,7 @@ function Footer() {
 
           {/* Quick Links */}
           <div className="lg:col-span-1">
-            <h3 className="mb-6 font-[AOMono] text-lg text-white">QUICK LINKS</h3>
+            <h3 className="mb-6 font-[AOMono] text-lg text-white font-[Druk] uppercase">QUICK LINKS</h3>
             <ul className="space-y-3">
               <li>
                 <a
@@ -351,7 +403,7 @@ function Footer() {
 
           {/* About Links */}
           <div className="lg:col-span-1">
-            <h3 className="mb-6 font-[AOMono] text-lg text-white">ABOUT</h3>
+            <h3 className="mb-6 font-[AOMono] text-lg text-white font-[Druk] uppercase">ABOUT</h3>
             <ul className="space-y-3">
               <li>
                 <a href="/about" className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400">
@@ -368,7 +420,7 @@ function Footer() {
 
           {/* Newsletter Subscription */}
           <div className="lg:col-span-1">
-            <h3 className="mb-6 font-[AOMono] text-lg text-white">NEWSLETTER</h3>
+            <h3 className="mb-6 font-[AOMono] text-lg text-white font-[Druk] uppercase">NEWSLETTER</h3>
             <p className="mb-4 text-sm text-gray-300">Keep up...</p>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="editor-field editor-field__textbox">

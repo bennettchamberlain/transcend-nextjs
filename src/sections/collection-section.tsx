@@ -182,8 +182,7 @@ export function CollectionSection(props: DataProps<typeof fetchCollectionSection
       <div className="mb-8">
         <h2
           ref={titleRef}
-          className="mb-4 cursor-pointer text-4xl font-black text-white transition-all duration-200 md:text-5xl"
-          style={{ fontFamily: "'Space Mono', monospace" }}
+          className="mb-4 cursor-pointer text-4xl font-black text-white transition-all duration-200 md:text-5xl font-[Druk] uppercase"
         >
           <span className="text-neon-green neon-glow">{displayText}</span>
         </h2>
