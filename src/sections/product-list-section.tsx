@@ -1,5 +1,5 @@
 import { Money } from "@shopify/hydrogen-react";
-import { useEffect, useState as useReactState } from "react";
+import { useCallback, useEffect, useState as useReactState } from "react";
 
 import type { DataProps } from "@site/utilities/deps";
 
@@ -11,7 +11,12 @@ import type { SortOption } from "./product-search-sort-section";
 
 import { ProductSearchSortSection } from "./product-search-sort-section";
 
-export async function fetchProductListSection(cursor?: string, searchQuery?: string, sortOption?: SortOption) {
+export async function fetchProductListSection(
+  cursor?: string,
+  searchQuery?: string,
+  sortOption?: SortOption,
+  limit?: number,
+) {
   // Build sort parameters based on sort option
   let sortKey = "CREATED_AT";
   let reverse = true;
@@ -51,7 +56,7 @@ export async function fetchProductListSection(cursor?: string, searchQuery?: str
 
   // Build query parameters
   const queryParams: any = {
-    first: 12,
+    first: limit || 20, // Default to 20 for initial load, 16 for pagination
     after: cursor || null,
     sortKey,
     reverse,
@@ -114,7 +119,6 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
   const [isSearching, setIsSearching] = useState(false);
   const [imageStates, setImageStates] = useReactState<Record<string, number>>({});
   const [originalData] = useState(_props.data); // Store original server data
-  const [currentCursor, setCurrentCursor] = useState<string | undefined>(undefined);
 
   const lastPage = pages[pages.length - 1];
   const hasNextPage = lastPage?.pageInfo.hasNextPage || false;
@@ -122,58 +126,62 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
   // Debounced search effect
   const [searchLoader, performSearch] = useAsyncFn(async () => {
     setIsSearching(true);
-    const productList = await fetchProductListSection(undefined, searchQuery, sortOption);
+    const productList = await fetchProductListSection(undefined, searchQuery, sortOption, 20);
     setPages([productList]);
-    // Reset cursor for new search
-    const newCursor =
-      productList?.edges.length > 0 ? productList.edges[productList.edges.length - 1].cursor || undefined : undefined;
-    setCurrentCursor(newCursor);
     setIsSearching(false);
   }, [searchQuery, sortOption]);
 
   // Sort effect
   const [sortLoader, performSort] = useAsyncFn(async () => {
     setIsSearching(true);
-    const productList = await fetchProductListSection(undefined, searchQuery, sortOption);
+    const productList = await fetchProductListSection(undefined, searchQuery, sortOption, 20);
     setPages([productList]);
-    // Reset cursor for new sort order
-    const newCursor =
-      productList?.edges.length > 0 ? productList.edges[productList.edges.length - 1].cursor || undefined : undefined;
-    setCurrentCursor(newCursor);
     setIsSearching(false);
   }, [searchQuery, sortOption]);
 
-  const [loader, load] = useAsyncFn(async () => {
-    // Get the cursor from the current last page if currentCursor is undefined
-    const cursorToUse =
-      currentCursor ||
-      (lastPage?.edges.length > 0 ? lastPage.edges[lastPage.edges.length - 1].cursor || undefined : undefined);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
-    const productList = await fetchProductListSection(cursorToUse, searchQuery, sortOption);
-    setPages([...pages, productList]);
-    // Update cursor for next load
-    const newLastPage = productList;
-    const newCursor =
-      newLastPage?.edges.length > 0 ? newLastPage.edges[newLastPage.edges.length - 1].cursor || undefined : undefined;
-    setCurrentCursor(newCursor);
-  }, [currentCursor, searchQuery, sortOption, pages, lastPage]);
+  const load = useCallback(async () => {
+    if (isLoading) {
+      return;
+    }
+
+    setIsLoading(true);
+    setLoadError(null);
+
+    try {
+      // Get the cursor from the last page
+      const cursorToUse =
+        lastPage?.edges.length > 0 ? lastPage.edges[lastPage.edges.length - 1].cursor || undefined : undefined;
+
+      console.log("Load more clicked - cursor:", cursorToUse, "sort:", sortOption, "search:", searchQuery);
+
+      const productList = await fetchProductListSection(cursorToUse, searchQuery, sortOption, 16);
+
+      console.log("Received products:", productList?.edges?.length, "hasNextPage:", productList?.pageInfo?.hasNextPage);
+
+      setPages((prevPages) => [...prevPages, productList]);
+    } catch (error) {
+      console.error("Error loading more products:", error);
+      setLoadError("Failed to load more products");
+    } finally {
+      setIsLoading(false);
+    }
+  }, [lastPage, searchQuery, sortOption]);
 
   // Handle search changes
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
-    // Reset pages when searching - cursor will be set by the search effect
-    if (query !== searchQuery) {
-      setPages([]);
-    }
+    // Reset pages when searching
+    setPages([]);
   };
 
   // Handle sort changes
   const handleSortChange = (option: SortOption) => {
     setSortOption(option);
-    // Reset pages when sorting - cursor will be set by the sort effect
-    if (option !== sortOption) {
-      setPages([]);
-    }
+    // Reset pages when sorting
+    setPages([]);
   };
 
   // Perform search/sort when dependencies change
@@ -188,15 +196,9 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
     }
     // If we're back to default sort with no search and no pages, restore original data
     else if (pages.length === 0) {
-      setPages(() => [originalData]);
-      // Set cursor for original data
-      const newCursor =
-        originalData?.edges.length > 0
-          ? originalData.edges[originalData.edges.length - 1].cursor || undefined
-          : undefined;
-      setCurrentCursor(newCursor);
+      setPages([originalData]);
     }
-  }, [searchQuery, sortOption, performSearch, performSort, pages.length, originalData]);
+  }, [searchQuery, sortOption, performSearch, performSort, originalData]);
 
   const allProducts = pages.flatMap(({ edges }) => edges);
 
@@ -326,13 +328,13 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
                 <Button
                   size="md"
                   onClick={load}
-                  disabled={loader.loading}
+                  disabled={isLoading}
                   className="rounded-none border-0 bg-[#dcff07] text-black hover:underline"
                   style={{
                     clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%)",
                   }}
                 >
-                  {loader.loading ? "Loading" : loader.error ? "Try Again" : "Load More"}
+                  {isLoading ? "Loading" : loadError ? "Try Again" : "Load More"}
                 </Button>
               </div>
             )}

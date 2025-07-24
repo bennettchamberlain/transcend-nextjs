@@ -133,7 +133,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
               <div className="absolute bottom-4 left-4 z-10">
                 <img
                   src="/images/plus.png"
-                  alt="Plus"
+                  alt="Plus icon"
                   className="h-8 w-8 opacity-80 transition-opacity duration-200 hover:opacity-100"
                 />
               </div>
