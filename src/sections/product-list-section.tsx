@@ -114,10 +114,9 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
   const [isSearching, setIsSearching] = useState(false);
   const [imageStates, setImageStates] = useReactState<Record<string, number>>({});
   const [originalData] = useState(_props.data); // Store original server data
+  const [currentCursor, setCurrentCursor] = useState<string | undefined>(undefined);
 
   const lastPage = pages[pages.length - 1];
-  const lastCursor =
-    lastPage?.edges.length > 0 ? lastPage.edges[lastPage.edges.length - 1].cursor || undefined : undefined;
   const hasNextPage = lastPage?.pageInfo.hasNextPage || false;
 
   // Debounced search effect
@@ -125,6 +124,10 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
     setIsSearching(true);
     const productList = await fetchProductListSection(undefined, searchQuery, sortOption);
     setPages([productList]);
+    // Reset cursor for new search
+    const newCursor =
+      productList?.edges.length > 0 ? productList.edges[productList.edges.length - 1].cursor || undefined : undefined;
+    setCurrentCursor(newCursor);
     setIsSearching(false);
   }, [searchQuery, sortOption]);
 
@@ -133,18 +136,32 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
     setIsSearching(true);
     const productList = await fetchProductListSection(undefined, searchQuery, sortOption);
     setPages([productList]);
+    // Reset cursor for new sort order
+    const newCursor =
+      productList?.edges.length > 0 ? productList.edges[productList.edges.length - 1].cursor || undefined : undefined;
+    setCurrentCursor(newCursor);
     setIsSearching(false);
   }, [searchQuery, sortOption]);
 
   const [loader, load] = useAsyncFn(async () => {
-    const productList = await fetchProductListSection(lastCursor, searchQuery, sortOption);
+    // Get the cursor from the current last page if currentCursor is undefined
+    const cursorToUse =
+      currentCursor ||
+      (lastPage?.edges.length > 0 ? lastPage.edges[lastPage.edges.length - 1].cursor || undefined : undefined);
+
+    const productList = await fetchProductListSection(cursorToUse, searchQuery, sortOption);
     setPages([...pages, productList]);
-  }, [lastCursor, searchQuery, sortOption]);
+    // Update cursor for next load
+    const newLastPage = productList;
+    const newCursor =
+      newLastPage?.edges.length > 0 ? newLastPage.edges[newLastPage.edges.length - 1].cursor || undefined : undefined;
+    setCurrentCursor(newCursor);
+  }, [currentCursor, searchQuery, sortOption, pages, lastPage]);
 
   // Handle search changes
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
-    // Reset pages when searching
+    // Reset pages when searching - cursor will be set by the search effect
     if (query !== searchQuery) {
       setPages([]);
     }
@@ -153,7 +170,7 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
   // Handle sort changes
   const handleSortChange = (option: SortOption) => {
     setSortOption(option);
-    // Reset pages when sorting
+    // Reset pages when sorting - cursor will be set by the sort effect
     if (option !== sortOption) {
       setPages([]);
     }
@@ -172,6 +189,12 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
     // If we're back to default sort with no search and no pages, restore original data
     else if (pages.length === 0) {
       setPages(() => [originalData]);
+      // Set cursor for original data
+      const newCursor =
+        originalData?.edges.length > 0
+          ? originalData.edges[originalData.edges.length - 1].cursor || undefined
+          : undefined;
+      setCurrentCursor(newCursor);
     }
   }, [searchQuery, sortOption, performSearch, performSort, pages.length, originalData]);
 
