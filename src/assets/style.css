@@ -18,6 +18,14 @@
 }
 
 @font-face {
+  font-family: "Druk";
+  src: url("/fonts/Druk Wide Web Medium Regular.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "AOMono";
   src: url("/fonts/AOMono-Regular.otf") format("opentype");
   font-weight: 400;
@@ -106,20 +114,23 @@ body {
   box-sizing: border-box;
 }
 
-/* Heading and subheading font family */
+/* Heading and subheading font family - Now using Druk for headlines */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: "AOMono", ui-sans-serif, system-ui, sans-serif;
+  font-family: "Druk", "AOMono", ui-sans-serif, system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 @theme {
   --font-family-sans: "Modeseven", ui-sans-serif, system-ui, sans-serif;
   --font-family-mono: "AOMono", ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
-  --font-family-heading: "AOMono", ui-sans-serif, system-ui, sans-serif;
+  --font-family-heading: "Druk", "AOMono", ui-sans-serif, system-ui, sans-serif;
+  --font-family-druk: "Druk", ui-sans-serif, system-ui, sans-serif;
   --font-family-baunk: "Baunk", ui-sans-serif, system-ui, sans-serif;
   --font-family-moonhouse: "Moonhouse", ui-sans-serif, system-ui, sans-serif;
   --font-family-nt1972: "NT1972", ui-sans-serif, system-ui, sans-serif;

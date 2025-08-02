@@ -10,16 +10,14 @@ interface PageProps {
   newDrops: Awaited<ReturnType<typeof fetchNewDropsSection>>;
 }
 
-export const getStaticProps: GetStaticProps<PageProps> = async () => {
-  const collections = await fetchCollections();
-  const newDrops = await fetchNewDropsSection();
+export const getServerSideProps: GetStaticProps<PageProps> = async () => {
+  const [collections, newDrops] = await Promise.all([fetchCollections(), fetchNewDropsSection()]);
 
   return {
     props: {
       collections,
       newDrops,
     },
-    revalidate: 60, // Revalidate every minute
   };
 };
 

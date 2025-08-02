@@ -4,8 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { DataProps } from "@site/utilities/deps";
 
-import { Button } from "@site/snippets";
-import { NextImage, NextLink, useAsyncFn } from "@site/utilities/deps";
+import { NextImage, NextLink } from "@site/utilities/deps";
 import { storefront } from "@site/utilities/storefront";
 
 export async function fetchNewDropsSection(cursor?: string) {
@@ -101,10 +100,12 @@ export async function fetchNewDropsSection(cursor?: string) {
 
 export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
   const [isAnimated, setIsAnimated] = useState(false);
   const [displayText, setDisplayText] = useState("NEW DROPS");
   const [pages, setPages] = useState([props.data || { edges: [], pageInfo: { hasNextPage: false } }]);
   const [imageStates, setImageStates] = useState<Record<string, number>>({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const targetText = "NEW DROPS";
@@ -166,12 +167,51 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
   const lastCursor = lastPage.edges[lastPage.edges.length - 1]?.cursor;
   const hasNextPage = lastPage.pageInfo.hasNextPage;
 
-  const [loader, load] = useAsyncFn(async () => {
-    const productList = await fetchNewDropsSection(lastCursor);
-    if (productList) {
-      setPages([...pages, productList]);
+  const loadMore = useCallback(async () => {
+    if (isLoading || !hasNextPage) {
+      return;
     }
-  }, [lastCursor, pages]);
+
+    setIsLoading(true);
+    try {
+      const productList = await fetchNewDropsSection(lastCursor);
+      if (productList) {
+        setPages([...pages, productList]);
+      }
+    } catch (error) {
+      console.error("Error loading more products:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [lastCursor, pages, hasNextPage, isLoading]);
+
+  // Auto-load more when scrolling near bottom
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && hasNextPage && !isLoading) {
+            loadMore();
+          }
+        });
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of the load more area is visible
+        rootMargin: "100px", // Start loading 100px before reaching the bottom
+      },
+    );
+
+    const currentLoadMoreRef = loadMoreRef.current;
+    if (currentLoadMoreRef && hasNextPage) {
+      observer.observe(currentLoadMoreRef);
+    }
+
+    return () => {
+      if (currentLoadMoreRef) {
+        observer.unobserve(currentLoadMoreRef);
+      }
+    };
+  }, [hasNextPage, isLoading, loadMore]);
 
   const toggleImage = (productHandle: string, hasSecondImage: boolean) => {
     if (!hasSecondImage) {
@@ -196,7 +236,9 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
           >
             <span className="text-neon-green neon-glow">{displayText}</span>
           </h2>
-          <p className="text-gray-300">LATEST DROPS - THE NEWEST ARRIVALS</p>
+          <p className="text-gray-300" style={{ fontFamily: "Druk" }}>
+            LATEST DROPS - THE NEWEST ARRIVALS
+          </p>
         </div>
         <p className="text-gray-300">No products found in 2-0 collection.</p>
       </section>
@@ -208,12 +250,11 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
       <div className="mb-4 md:mb-8">
         <h2
           ref={titleRef}
-          className="mb-4 cursor-pointer text-4xl font-black text-white transition-all duration-200 md:text-5xl"
-          style={{ fontFamily: "'Space Mono', monospace" }}
+          className="mb-4 cursor-pointer font-[Druk] text-4xl font-black text-white uppercase transition-all duration-200 md:text-5xl"
         >
           <span className="text-neon-green neon-glow">{displayText}</span>
         </h2>
-        <p className="text-gray-300">LATEST DROPS - THE NEWEST ARRIVALS</p>
+        <p className="text-gray-300 uppercase" style={{ fontFamily: "Druk" }}>LATEST DROPS - THE NEWEST ARRIVALS</p>
       </div>
 
       <div className="mb-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
@@ -310,19 +351,15 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
           })}
       </div>
 
+      {/* Auto-load trigger element */}
       {hasNextPage && (
-        <div className="text-center">
-          <Button
-            size="md"
-            onClick={load}
-            disabled={loader.loading}
-            className="hover:text-underline rounded-none border-0 bg-[#dcff07] text-black"
-            style={{
-              clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%)",
-            }}
-          >
-            {loader.loading ? "Loading" : loader.error ? "Try Again" : "Load More"}
-          </Button>
+        <div ref={loadMoreRef} className="py-8 text-center">
+          {isLoading && (
+            <div className="flex items-center justify-center space-x-2">
+              <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#dcff07] border-t-transparent"></div>
+              <span className="text-[#dcff07]">Loading more products...</span>
+            </div>
+          )}
         </div>
       )}
     </section>

@@ -100,14 +100,13 @@ function Reviews() {
     },
   ];
 
-  // Split reviews into 3 rows
-  const row1 = reviews.slice(0, 7);
-  const row2 = reviews.slice(7, 14);
-  const row3 = reviews.slice(14, 20);
+  // Split reviews into three rows for different scroll speeds
+  const row1 = reviews.slice(0, 4);
+  const row2 = reviews.slice(4, 7);
+  const row3 = reviews.slice(7, 10);
 
-  // Helper function to create unique keys
-  const createReviewKey = (review: (typeof reviews)[0], index: number, row: number) => {
-    return `${review.name}-${row}-${index}`;
+  const createReviewKey = (review: { name: string; blurb: string }, index: number, row: number) => {
+    return `${review.name}-${index}-${row}`;
   };
 
   return (
@@ -124,7 +123,7 @@ function Reviews() {
         <div className="min-h-screen overflow-hidden bg-black text-white">
           {/* Header Section */}
           <section className="px-4 py-16 text-center">
-            <h1 className="mb-6 text-5xl font-bold text-lime-500">What Our Community Says</h1>
+            <h1 className="mb-6 text-5xl font-bold text-lime-500 font-[Druk] uppercase">What Our Community Says</h1>
             <p className="mx-auto max-w-2xl text-xl text-gray-300">
               Real reviews from real people who are part of our movement. Hear from the creators, dreamers, and doers
               who make Transcend Collective what it is.
@@ -132,7 +131,7 @@ function Reviews() {
           </section>
 
           {/* Reviews Marquees */}
-          <section className="py-8">
+          <section className="space-y-8 py-16">
             {/* Row 1 */}
             <div className="mb-8">
               <div className="marquee-container">
@@ -151,8 +150,8 @@ function Reviews() {
 
             {/* Row 2 */}
             <div className="mb-8">
-              <div className="marquee-container reverse">
-                <div className="marquee-content">
+              <div className="marquee-container">
+                <div className="marquee-content marquee-reverse">
                   {[...row2, ...row2].map((review, index) => (
                     <div key={createReviewKey(review, index, 2)} className="review-card">
                       <div className="mx-4 max-w-[350px] min-w-[300px] rounded-lg border border-gray-800 bg-gray-900/50 p-6">
@@ -185,7 +184,7 @@ function Reviews() {
           {/* Call to Action */}
           <section className="px-4 py-16 text-center">
             <div className="mx-auto max-w-4xl rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900/50 to-gray-800/50 p-8">
-              <h2 className="mb-4 text-3xl font-semibold text-lime-400">Join Our Community</h2>
+              <h2 className="mb-4 text-3xl font-semibold text-lime-400 font-[Druk] uppercase">Join Our Community</h2>
               <p className="mb-8 text-lg text-gray-300">
                 Ready to experience what everyone's talking about? Join thousands of creators, dreamers, and doers who
                 have found their tribe with Transcend Collective.
@@ -207,50 +206,67 @@ function Reviews() {
             </div>
           </section>
         </div>
-
-        <style jsx>{`
-          .marquee-container {
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-          }
-
-          .marquee-container.reverse .marquee-content {
-            animation-direction: reverse;
-          }
-
-          .marquee-content {
-            display: flex;
-            animation: scroll 60s linear infinite;
-            width: max-content;
-          }
-
-          .review-card {
-            flex-shrink: 0;
-          }
-
-          @keyframes scroll {
-            0% {
-              transform: translateX(0);
-            }
-            100% {
-              transform: translateX(-50%);
-            }
-          }
-
-          /* Pause animation on hover */
-          .marquee-container:hover .marquee-content {
-            animation-play-state: paused;
-          }
-
-          /* Responsive adjustments */
-          @media (max-width: 768px) {
-            .marquee-content {
-              animation-duration: 40s;
-            }
-          }
-        `}</style>
       </StoreLayout>
+
+      <style jsx>{`
+        .marquee-container {
+          width: 100%;
+          overflow: hidden;
+          position: relative;
+        }
+
+        .marquee-content {
+          display: flex;
+          width: fit-content;
+          animation: marquee 30s linear infinite;
+        }
+
+        .marquee-reverse {
+          animation: marquee-reverse 25s linear infinite;
+        }
+
+        .review-card {
+          flex-shrink: 0;
+        }
+
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+
+        @keyframes marquee-reverse {
+          0% {
+            transform: translateX(-50%);
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+
+        .marquee-container::before,
+        .marquee-container::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          width: 50px;
+          height: 100%;
+          z-index: 2;
+        }
+
+        .marquee-container::before {
+          left: 0;
+          background: linear-gradient(to right, black, transparent);
+        }
+
+        .marquee-container::after {
+          right: 0;
+          background: linear-gradient(to left, black, transparent);
+        }
+      `}</style>
     </>
   );
 }

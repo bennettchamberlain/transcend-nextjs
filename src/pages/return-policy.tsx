@@ -22,7 +22,7 @@ function ReturnPolicy() {
             <div className="space-y-12">
               {/* Page Header */}
               <div className="text-center">
-                <h1 className="mb-4 text-4xl font-bold text-lime-500">Return Policy</h1>
+                <h1 className="mb-4 text-4xl font-bold text-lime-500 font-[Druk] uppercase">Return Policy</h1>
                 <p className="mx-auto max-w-2xl text-xl text-gray-300">
                   We want you to be completely satisfied with your Transcend Collective purchase. Here's everything you
                   need to know about our return process.
@@ -31,161 +31,118 @@ function ReturnPolicy() {
 
               {/* Return Process */}
               <section className="space-y-8">
-                <h2 className="border-b border-gray-800 pb-4 text-3xl font-semibold text-lime-400">
-                  How to Return Your Order
-                </h2>
+                <div>
+                  <h2 className="mb-4 text-2xl font-semibold text-lime-400 font-[Druk] uppercase">30-Day Return Window</h2>
+                  <p className="leading-relaxed text-gray-300">
+                    You have 30 days from the date of delivery to return your items. All items must be unworn, unwashed,
+                    and in their original condition with all tags attached. We're committed to making sure you're
+                    completely happy with your purchase.
+                  </p>
+                </div>
 
-                <div className="grid gap-8 md:grid-cols-2">
-                  <div className="space-y-6">
-                    <div className="rounded-lg border border-gray-800 bg-gray-900/50 p-6">
-                      <h3 className="mb-3 text-xl font-semibold text-lime-400">Step 1: Prepare Your Return</h3>
-                      <ul className="space-y-2 text-gray-300">
-                        <li>• Ensure the item is in original condition</li>
-                        <li>• Include all original packaging and tags</li>
-                        <li>• Write your order number on the package</li>
-                        <li>• Include a brief reason for the return</li>
-                      </ul>
+                <div>
+                  <h2 className="mb-4 text-2xl font-semibold text-lime-400 font-[Druk] uppercase">Return Process</h2>
+                  <div className="space-y-4">
+                    <div className="rounded-lg border border-gray-700 bg-gray-900/30 p-6">
+                      <h3 className="mb-2 text-lg font-semibold text-white font-[Druk] uppercase">Step 1: Contact Us</h3>
+                      <p className="text-gray-300">
+                        Email us at{" "}
+                        <a
+                          href="mailto:aaron.transcend@gmail.com"
+                          className="text-lime-400 hover:text-lime-300 underline"
+                        >
+                          aaron.transcend@gmail.com
+                        </a>{" "}
+                        with your order number and reason for return. We'll respond within 24 hours with return
+                        instructions.
+                      </p>
                     </div>
 
-                    <div className="rounded-lg border border-gray-800 bg-gray-900/50 p-6">
-                      <h3 className="mb-3 text-xl font-semibold text-lime-400">Step 2: Package Securely</h3>
-                      <ul className="space-y-2 text-gray-300">
-                        <li>• Use a sturdy shipping box</li>
-                        <li>• Include padding to prevent damage</li>
-                        <li>• Seal the package properly</li>
-                        <li>• Consider adding tracking insurance</li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="space-y-6">
-                    <div className="rounded-lg border border-gray-800 bg-gray-900/50 p-6">
-                      <h3 className="mb-3 text-xl font-semibold text-lime-400">Step 3: Ship to Our Address</h3>
-                      <div className="space-y-2 text-gray-300">
-                        <p className="font-medium">Mail your return to:</p>
-                        <div className="rounded border border-gray-700 bg-black/30 p-4">
-                          <p className="font-semibold text-lime-400">Transcend Collective</p>
-                          <p>1750 Glendale Blvd</p>
-                          <p>Los Angeles, CA 90026</p>
-                          <p className="mt-2 text-sm text-gray-300">United States</p>
-                        </div>
-                      </div>
+                    <div className="rounded-lg border border-gray-700 bg-gray-900/30 p-6">
+                      <h3 className="mb-2 text-lg font-semibold text-white font-[Druk] uppercase">Step 2: Pack Your Items</h3>
+                      <p className="text-gray-300">
+                        Carefully pack your items in their original packaging or a suitable replacement. Include all tags,
+                        accessories, and documentation that came with your order.
+                      </p>
                     </div>
 
-                    <div className="rounded-lg border border-gray-800 bg-gray-900/50 p-6">
-                      <h3 className="mb-3 text-xl font-semibold text-lime-400">Step 4: Refund Process</h3>
-                      <ul className="space-y-2 text-gray-300">
-                        <li>• We'll inspect your return upon arrival</li>
-                        <li>• Processing takes 3-5 business days</li>
-                        <li>• Refund will be issued to original payment method</li>
-                        <li>• You'll receive email confirmation</li>
-                      </ul>
+                    <div className="rounded-lg border border-gray-700 bg-gray-900/30 p-6">
+                      <h3 className="mb-2 text-lg font-semibold text-white font-[Druk] uppercase">Step 3: Ship Your Return</h3>
+                      <p className="text-gray-300">
+                        Use the prepaid return label we'll provide, or ship to our returns address. We recommend using a
+                        trackable shipping method for returns over $75.
+                      </p>
+                    </div>
+
+                    <div className="rounded-lg border border-gray-700 bg-gray-900/30 p-6">
+                      <h3 className="mb-2 text-lg font-semibold text-white font-[Druk] uppercase">Step 4: Processing</h3>
+                      <p className="text-gray-300">
+                        Once we receive your return, we'll inspect the items and process your refund within 5-7 business
+                        days. You'll receive an email confirmation when your refund has been issued.
+                      </p>
                     </div>
                   </div>
                 </div>
-              </section>
 
-              {/* Return Policy Details */}
-              <section className="space-y-8">
-                <h2 className="border-b border-gray-800 pb-4 text-3xl font-semibold text-lime-400">
-                  Return Policy Details
-                </h2>
+                <div>
+                  <h2 className="mb-4 text-2xl font-semibold text-lime-400 font-[Druk] uppercase">Exchanges</h2>
+                  <p className="leading-relaxed text-gray-300">
+                    We don't offer direct exchanges, but we're happy to process a return and help you place a new order
+                    for the item you want. This ensures you get exactly what you're looking for and helps us process
+                    your request faster.
+                  </p>
+                </div>
 
-                <div className="grid gap-8 md:grid-cols-2">
-                  <div className="space-y-6">
-                    <div className="rounded-lg border border-gray-800 bg-gray-900/50 p-6">
-                      <h3 className="mb-3 text-xl font-semibold text-lime-400">Eligible for Return</h3>
-                      <ul className="space-y-2 text-gray-300">
-                        <li>• Items in original, unworn condition</li>
-                        <li>• All original tags and packaging included</li>
-                        <li>• Returns within 30 days of delivery</li>
-                        <li>• Items not marked as final sale</li>
-                      </ul>
-                    </div>
-
-                    <div className="rounded-lg border border-gray-800 bg-gray-900/50 p-6">
-                      <h3 className="mb-3 text-xl font-semibold text-lime-400">Not Eligible for Return</h3>
-                      <ul className="space-y-2 text-gray-300">
-                        <li>• Worn, damaged, or altered items</li>
-                        <li>• Items missing tags or packaging</li>
-                        <li>• Final sale items</li>
-                        <li>• Items purchased more than 30 days ago</li>
-                      </ul>
-                    </div>
+                <div>
+                  <h2 className="mb-4 text-2xl font-semibold text-lime-400 font-[Druk] uppercase">Return Shipping</h2>
+                  <div className="space-y-4 text-gray-300">
+                    <p>
+                      <strong>Free Returns:</strong> We provide prepaid return labels for all returns within the United
+                      States.
+                    </p>
+                    <p>
+                      <strong>International Returns:</strong> International customers are responsible for return shipping
+                      costs. Please contact us for specific instructions for your country.
+                    </p>
+                    <p>
+                      <strong>Damaged or Defective Items:</strong> If you received a damaged or defective item, we'll
+                      cover all return shipping costs and priority process your replacement or refund.
+                    </p>
                   </div>
+                </div>
 
-                  <div className="space-y-6">
-                    <div className="rounded-lg border border-gray-800 bg-gray-900/50 p-6">
-                      <h3 className="mb-3 text-xl font-semibold text-lime-400">Refund Information</h3>
-                      <ul className="space-y-2 text-gray-300">
-                        <li>• Full refund to original payment method</li>
-                        <li>• Processing time: 3-5 business days</li>
-                        <li>• Shipping costs are non-refundable</li>
-                        <li>• You're responsible for return shipping</li>
-                      </ul>
-                    </div>
-
-                    <div className="rounded-lg border border-gray-800 bg-gray-900/50 p-6">
-                      <h3 className="mb-3 text-xl font-semibold text-lime-400">Contact Information</h3>
-                      <div className="space-y-2 text-gray-300">
-                        <p>Questions about your return?</p>
-                        <p className="font-medium">Email: support@transcendcollective.com</p>
-                        <p className="font-medium">Phone: (323) 555-0123</p>
-                        <p className="text-sm text-gray-300">Response within 24 hours</p>
-                      </div>
-                    </div>
-                  </div>
+                <div>
+                  <h2 className="mb-4 text-2xl font-semibold text-lime-400 font-[Druk] uppercase">Non-Returnable Items</h2>
+                  <ul className="list-disc space-y-2 pl-6 text-gray-300">
+                    <li>Items that have been worn, washed, or altered</li>
+                    <li>Items without original tags</li>
+                    <li>Items returned after 30 days</li>
+                    <li>Final sale items (clearly marked on product pages)</li>
+                    <li>Gift cards</li>
+                  </ul>
                 </div>
               </section>
 
-              {/* Important Notes */}
-              <section className="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900/50 to-gray-800/50 p-8">
-                <h2 className="mb-4 text-2xl font-semibold text-lime-400">Important Notes</h2>
-                <div className="space-y-4 text-gray-300">
-                  <p>
-                    <strong className="text-lime-400">Shipping Responsibility:</strong> Customers are responsible for
-                    the cost of return shipping. We recommend using a trackable shipping method to ensure your return
-                    reaches us safely.
-                  </p>
-                  <p>
-                    <strong className="text-lime-400">Processing Time:</strong> Once we receive your return, we'll
-                    inspect the item and process your refund within 3-5 business days. You'll receive an email
-                    confirmation when your refund is processed.
-                  </p>
-                  <p>
-                    <strong className="text-lime-400">Damaged Items:</strong> If you receive a damaged item, please
-                    contact us immediately with photos of the damage. We'll provide a prepaid return label for damaged
-                    items.
-                  </p>
-                  <p>
-                    <strong className="text-lime-400">International Returns:</strong> International customers are
-                    responsible for all return shipping costs and any applicable customs duties or taxes.
-                  </p>
-                </div>
-              </section>
-
-              {/* CTA */}
-              <section className="text-center">
-                <div className="rounded-lg border border-gray-800 bg-gray-900/50 p-8">
-                  <h3 className="mb-4 text-2xl font-semibold text-lime-400">Need Help?</h3>
-                  <p className="mx-auto mb-6 max-w-2xl text-gray-300">
-                    If you have any questions about our return policy or need assistance with your return, our customer
-                    service team is here to help.
-                  </p>
-                  <div className="flex flex-col justify-center gap-4 sm:flex-row">
-                    <a
-                      href="mailto:aaron.transcend@gmail.com"
-                      className="rounded bg-lime-500 px-8 py-3 font-semibold text-black transition-colors hover:bg-lime-400"
-                    >
-                      Contact Support
-                    </a>
-                    <Link
-                      href="/store"
-                      className="rounded border border-lime-500 px-8 py-3 font-semibold text-lime-500 transition-colors hover:bg-lime-500 hover:text-black"
-                    >
-                      Continue Shopping
-                    </Link>
-                  </div>
+              {/* Contact Section */}
+              <section className="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900/50 to-gray-800/50 p-8 text-center">
+                <h2 className="mb-4 text-2xl font-semibold text-lime-400 font-[Druk] uppercase">Questions?</h2>
+                <p className="mb-6 text-gray-300">
+                  Our customer service team is here to help. We're committed to making your experience with Transcend
+                  Collective as smooth as possible.
+                </p>
+                <div className="flex flex-col justify-center gap-4 sm:flex-row">
+                  <a
+                    href="mailto:aaron.transcend@gmail.com?subject=Return%20Policy%20Question"
+                    className="rounded bg-lime-500 px-8 py-3 font-semibold text-black transition-colors hover:bg-lime-400"
+                  >
+                    Email Support
+                  </a>
+                  <Link
+                    href="/location"
+                    className="rounded border border-lime-500 px-8 py-3 font-semibold text-lime-500 transition-colors hover:bg-lime-500 hover:text-black"
+                  >
+                    Visit Our Store
+                  </Link>
                 </div>
               </section>
             </div>

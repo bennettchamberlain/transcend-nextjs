@@ -1,9 +1,8 @@
 import { Money } from "@shopify/hydrogen-react";
-import { useCallback, useEffect, useState as useReactState } from "react";
+import { useCallback, useEffect, useState as useReactState, useRef } from "react";
 
 import type { DataProps } from "@site/utilities/deps";
 
-import { Button } from "@site/snippets";
 import { NextImage, NextLink, useAsyncFn, useState } from "@site/utilities/deps";
 import { storefront } from "@site/utilities/storefront";
 
@@ -119,6 +118,7 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
   const [isSearching, setIsSearching] = useState(false);
   const [imageStates, setImageStates] = useReactState<Record<string, number>>({});
   const [originalData] = useState(_props.data); // Store original server data
+  const loadMoreRef = useRef<HTMLDivElement>(null);
 
   const lastPage = pages[pages.length - 1];
   const hasNextPage = lastPage?.pageInfo.hasNextPage || false;
@@ -142,8 +142,8 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
   const [isLoading, setIsLoading] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  const load = useCallback(async () => {
-    if (isLoading) {
+  const loadMore = useCallback(async () => {
+    if (isLoading || !hasNextPage) {
       return;
     }
 
@@ -168,7 +168,42 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
     } finally {
       setIsLoading(false);
     }
-  }, [lastPage, searchQuery, sortOption]);
+  }, [lastPage, searchQuery, sortOption, hasNextPage, isLoading]);
+
+  // Auto-load more when scrolling near bottom
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (
+            entry.isIntersecting &&
+            hasNextPage &&
+            !isLoading &&
+            !isSearching &&
+            !searchLoader.loading &&
+            !sortLoader.loading
+          ) {
+            loadMore();
+          }
+        });
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of the load more area is visible
+        rootMargin: "100px", // Start loading 100px before reaching the bottom
+      },
+    );
+
+    const currentLoadMoreRef = loadMoreRef.current;
+    if (currentLoadMoreRef && hasNextPage) {
+      observer.observe(currentLoadMoreRef);
+    }
+
+    return () => {
+      if (currentLoadMoreRef) {
+        observer.unobserve(currentLoadMoreRef);
+      }
+    };
+  }, [hasNextPage, isLoading, isSearching, searchLoader.loading, sortLoader.loading, loadMore]);
 
   // Handle search changes
   const handleSearchChange = (query: string) => {
@@ -325,19 +360,26 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
               })}
             </div>
 
+            {/* Auto-load trigger element */}
             {hasNextPage && (
-              <div className="text-center">
-                <Button
-                  size="md"
-                  onClick={load}
-                  disabled={isLoading}
-                  className="rounded-none border-0 bg-[#dcff07] text-black hover:underline"
-                  style={{
-                    clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%)",
-                  }}
-                >
-                  {isLoading ? "Loading" : loadError ? "Try Again" : "Load More"}
-                </Button>
+              <div ref={loadMoreRef} className="py-8 text-center">
+                {isLoading && (
+                  <div className="flex items-center justify-center space-x-2">
+                    <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#dcff07] border-t-transparent"></div>
+                    <span className="text-[#dcff07]">Loading more products...</span>
+                  </div>
+                )}
+                {loadError && (
+                  <div className="mt-4 text-red-400">
+                    <p>{loadError}</p>
+                    <button
+                      onClick={loadMore}
+                      className="mt-2 rounded bg-red-600 px-4 py-2 text-sm text-white transition-colors hover:bg-red-700"
+                    >
+                      Try Again
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </>
