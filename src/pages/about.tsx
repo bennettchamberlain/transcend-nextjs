@@ -1,13 +1,245 @@
 import Head from "next/head";
 import Image from "next/image";
-import React from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { StoreLayout } from "@site/layouts/store-layout";
 
 function About() {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const storyRef = useRef<HTMLHeadingElement>(null);
+  const missionRef = useRef<HTMLHeadingElement>(null);
+  const journeyRef = useRef<HTMLHeadingElement>(null);
+
+  const [isAnimated, setIsAnimated] = useState(false);
+  const [isStoryAnimated, setIsStoryAnimated] = useState(false);
+  const [isMissionAnimated, setIsMissionAnimated] = useState(false);
+  const [isJourneyAnimated, setIsJourneyAnimated] = useState(false);
+
+  const [displayText, setDisplayText] = useState("TRANSCEND COLLECTIVE");
+  const [storyText, setStoryText] = useState("OUR STORY");
+  const [missionText, setMissionText] = useState("OUR MISSION");
+  const [journeyText, setJourneyText] = useState("OUR JOURNEY");
+
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const targetText = "TRANSCEND COLLECTIVE";
+  const storyTarget = "OUR STORY";
+  const missionTarget = "OUR MISSION";
+  const journeyTarget = "OUR JOURNEY";
+
+  const triggerAnimation = useCallback(() => {
+    let iterations = 0;
+    const interval = setInterval(() => {
+      setDisplayText(
+        targetText
+          .split("")
+          .map((_, index) => {
+            if (index <= iterations + 1) {
+              return targetText[index];
+            }
+            return letters[Math.floor(Math.random() * letters.length)];
+          })
+          .join(""),
+      );
+
+      if (iterations >= targetText.length) {
+        clearInterval(interval);
+        setDisplayText(targetText);
+      }
+
+      iterations += 1 / 3;
+    }, 30);
+  }, [targetText, letters]);
+
+  const triggerStoryAnimation = useCallback(() => {
+    let iterations = 0;
+    const interval = setInterval(() => {
+      setStoryText(
+        storyTarget
+          .split("")
+          .map((_, index) => {
+            if (index <= iterations + 1) {
+              return storyTarget[index];
+            }
+            return letters[Math.floor(Math.random() * letters.length)];
+          })
+          .join(""),
+      );
+
+      if (iterations >= storyTarget.length) {
+        clearInterval(interval);
+        setStoryText(storyTarget);
+      }
+
+      iterations += 1 / 3;
+    }, 30);
+  }, [storyTarget, letters]);
+
+  const triggerMissionAnimation = useCallback(() => {
+    let iterations = 0;
+    const interval = setInterval(() => {
+      setMissionText(
+        missionTarget
+          .split("")
+          .map((_, index) => {
+            if (index <= iterations + 1) {
+              return missionTarget[index];
+            }
+            return letters[Math.floor(Math.random() * letters.length)];
+          })
+          .join(""),
+      );
+
+      if (iterations >= missionTarget.length) {
+        clearInterval(interval);
+        setMissionText(missionTarget);
+      }
+
+      iterations += 1 / 3;
+    }, 30);
+  }, [missionTarget, letters]);
+
+  const triggerJourneyAnimation = useCallback(() => {
+    let iterations = 0;
+    const interval = setInterval(() => {
+      setJourneyText(
+        journeyTarget
+          .split("")
+          .map((_, index) => {
+            if (index <= iterations + 1) {
+              return journeyTarget[index];
+            }
+            return letters[Math.floor(Math.random() * letters.length)];
+          })
+          .join(""),
+      );
+
+      if (iterations >= journeyTarget.length) {
+        clearInterval(interval);
+        setJourneyText(journeyTarget);
+      }
+
+      iterations += 1 / 3;
+    }, 30);
+  }, [journeyTarget, letters]);
+
+  // Scroll-triggered animation for main title
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isAnimated) {
+            setIsAnimated(true);
+            triggerAnimation();
+          }
+        });
+      },
+      {
+        threshold: 0.5,
+        rootMargin: "0px 0px -400px 0px",
+      },
+    );
+
+    const currentTitleRef = titleRef.current;
+    if (currentTitleRef) {
+      observer.observe(currentTitleRef);
+    }
+
+    return () => {
+      if (currentTitleRef) {
+        observer.unobserve(currentTitleRef);
+      }
+    };
+  }, [isAnimated, triggerAnimation]);
+
+  // Scroll-triggered animation for Our Story
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isStoryAnimated) {
+            setIsStoryAnimated(true);
+            triggerStoryAnimation();
+          }
+        });
+      },
+      {
+        threshold: 0.5,
+        rootMargin: "0px 0px -400px 0px",
+      },
+    );
+
+    const currentStoryRef = storyRef.current;
+    if (currentStoryRef) {
+      observer.observe(currentStoryRef);
+    }
+
+    return () => {
+      if (currentStoryRef) {
+        observer.unobserve(currentStoryRef);
+      }
+    };
+  }, [isStoryAnimated, triggerStoryAnimation]);
+
+  // Scroll-triggered animation for Our Mission
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isMissionAnimated) {
+            setIsMissionAnimated(true);
+            triggerMissionAnimation();
+          }
+        });
+      },
+      {
+        threshold: 0.5,
+        rootMargin: "0px 0px -400px 0px",
+      },
+    );
+
+    const currentMissionRef = missionRef.current;
+    if (currentMissionRef) {
+      observer.observe(currentMissionRef);
+    }
+
+    return () => {
+      if (currentMissionRef) {
+        observer.unobserve(currentMissionRef);
+      }
+    };
+  }, [isMissionAnimated, triggerMissionAnimation]);
+
+  // Scroll-triggered animation for Our Journey
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isJourneyAnimated) {
+            setIsJourneyAnimated(true);
+            triggerJourneyAnimation();
+          }
+        });
+      },
+      {
+        threshold: 0.5,
+        rootMargin: "0px 0px -400px 0px",
+      },
+    );
+
+    const currentJourneyRef = journeyRef.current;
+    if (currentJourneyRef) {
+      observer.observe(currentJourneyRef);
+    }
+
+    return () => {
+      if (currentJourneyRef) {
+        observer.unobserve(currentJourneyRef);
+      }
+    };
+  }, [isJourneyAnimated, triggerJourneyAnimation]);
+
   // All select photos to feature in the gallery
   const selectPhotos = [
-    { src: "/images/selects/DSC07886.jpg", alt: "Transcend Collective - Behind the Scenes" },
     { src: "/images/selects/DSC08440.jpg", alt: "Transcend Collective - Creative Process" },
     { src: "/images/selects/DSC09111.jpg", alt: "Transcend Collective - Team Collaboration" },
     { src: "/images/selects/DSC08471.jpg", alt: "Transcend Collective - Design Studio" },
@@ -35,9 +267,9 @@ function About() {
   ];
 
   const featuredPhotos = [
-    { src: "/images/selects/DSC08052-2.jpg", alt: "Transcend Collective - Our Story" },
+    { src: "/images/selects/DSC08094.jpg", alt: "Transcend Collective - Creative Flow" },
     { src: "/images/selects/Copy of DSC09064.jpg", alt: "Transcend Collective - Creative Journey" },
-    { src: "/images/selects/DSC07954.jpg", alt: "Transcend Collective - Innovation" },
+    { src: "/images/selects/Copy of DSC07092-2.jpg", alt: "Transcend Collective - Artistic Process" },
   ];
 
   return (
@@ -57,8 +289,14 @@ function About() {
             <div className="space-y-16">
               {/* Hero Section */}
               <section className="text-center">
-                <h1 className="mb-6 font-[Druk] text-5xl font-bold text-white uppercase">About Transcend Collective</h1>
-                <p className="mx-auto max-w-3xl text-xl text-gray-300">
+                <h1
+                  ref={titleRef}
+                  className="mb-6 cursor-pointer text-5xl font-bold text-white uppercase transition-all duration-200"
+                  style={{ fontFamily: "Modeseven" }}
+                >
+                  {displayText}
+                </h1>
+                <p className="mx-auto max-w-3xl text-xl text-gray-300 uppercase">
                   A movement dedicated to growth, helping others, and spreading good design through community and
                   creativity.
                 </p>
@@ -84,8 +322,14 @@ function About() {
               {/* Main Story Section */}
               <section className="grid gap-12 lg:grid-cols-2 lg:gap-16">
                 <div className="space-y-6">
-                  <h2 className="font-[Druk] text-3xl font-semibold text-white uppercase">Our Story</h2>
-                  <div className="space-y-4 leading-relaxed text-gray-300">
+                  <h2
+                    ref={storyRef}
+                    className="cursor-pointer font-[Druk] text-3xl font-semibold text-white uppercase transition-all duration-200"
+                    style={{ fontFamily: "Modeseven" }}
+                  >
+                    {storyText}
+                  </h2>
+                  <div className="space-y-4 leading-relaxed text-gray-300 uppercase">
                     <p>
                       Transcend Collective was born from a simple yet powerful vision: to create a platform where
                       growth, community, and good design converge. We believe that true success comes not just from
@@ -117,8 +361,14 @@ function About() {
               {/* Mission Section */}
               <section className="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900/50 to-gray-800/50 p-8">
                 <div className="space-y-6 text-center">
-                  <h2 className="font-[Druk] text-3xl font-semibold text-white uppercase">Our Mission</h2>
-                  <p className="mx-auto max-w-4xl text-lg leading-relaxed text-gray-300">
+                  <h2
+                    ref={missionRef}
+                    className="cursor-pointer font-[Druk] text-3xl font-semibold text-white uppercase transition-all duration-200"
+                    style={{ fontFamily: "Modeseven" }}
+                  >
+                    {missionText}
+                  </h2>
+                  <p className="mx-auto max-w-4xl text-lg leading-relaxed text-gray-300 uppercase">
                     We are focused on growth and helping others. Our commitment is to spread good design, foster
                     meaningful connections, and create opportunities for creative minds to flourish. We believe that by
                     supporting each other, we can achieve more than we ever could alone.
@@ -140,7 +390,7 @@ function About() {
                     </svg>
                   </div>
                   <h3 className="font-[Druk] text-xl font-semibold text-white uppercase">Growth</h3>
-                  <p className="text-gray-300">
+                  <p className="text-gray-300 uppercase">
                     We believe in continuous improvement and helping others reach their full potential through
                     mentorship, resources, and community support.
                   </p>
@@ -157,7 +407,7 @@ function About() {
                     </svg>
                   </div>
                   <h3 className="font-[Druk] text-xl font-semibold text-white uppercase">Community</h3>
-                  <p className="text-gray-300">
+                  <p className="text-gray-300 uppercase">
                     Building meaningful connections and fostering a supportive environment where creativity thrives and
                     collaboration leads to innovation.
                   </p>
@@ -174,16 +424,35 @@ function About() {
                     </svg>
                   </div>
                   <h3 className="font-[Druk] text-xl font-semibold text-white uppercase">Design</h3>
-                  <p className="text-gray-300">
+                  <p className="text-gray-300 uppercase">
                     Spreading good design principles and creating beautiful, functional experiences that inspire and
                     elevate the world around us.
                   </p>
                 </div>
               </section>
 
+              {/* Banner Image Section */}
+              <section className="relative">
+                <div className="relative h-96 w-full overflow-hidden">
+                  <Image
+                    src="/images/selects/DSC07886.jpg"
+                    alt="Transcend Collective - Behind the Scenes"
+                    fill
+                    className="beveled-corner-large object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                </div>
+              </section>
+
               {/* Extended Image Gallery - All Select Photos */}
               <section className="space-y-8">
-                <h2 className="text-center font-[Druk] text-3xl font-semibold text-white uppercase">Our Journey</h2>
+                <h2
+                  ref={journeyRef}
+                  className="cursor-pointer text-center font-[Druk] text-3xl font-semibold text-white uppercase transition-all duration-200"
+                  style={{ fontFamily: "Modeseven" }}
+                >
+                  {journeyText}
+                </h2>
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                   {selectPhotos.map((photo, index) => (
                     <div key={index} className="group relative overflow-hidden">
@@ -204,20 +473,20 @@ function About() {
               <section className="text-center">
                 <div className="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900/50 to-gray-800/50 p-8">
                   <h2 className="mb-4 font-[Druk] text-3xl font-semibold text-white uppercase">Join Our Movement</h2>
-                  <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-300">
+                  <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-300 uppercase">
                     Ready to be part of something bigger? Join our community of creators, designers, and innovators who
                     are committed to growth, helping others, and spreading good design.
                   </p>
                   <div className="flex flex-col justify-center gap-4 sm:flex-row">
                     <a
                       href="/products"
-                      className="rounded bg-lime-500 px-8 py-3 font-semibold text-black transition-colors hover:bg-lime-400"
+                      className="rounded bg-lime-500 px-8 py-3 font-semibold text-black uppercase transition-colors hover:bg-lime-400"
                     >
                       Shop Our Collection
                     </a>
                     <a
                       href="mailto:aaron.transcend@gmail.com?subject=Transcend%20Collective%20Collaboration"
-                      className="rounded border border-gray-400 px-8 py-3 font-semibold text-gray-300 transition-colors hover:bg-gray-700 hover:text-white"
+                      className="rounded border border-gray-400 px-8 py-3 font-semibold text-gray-300 uppercase transition-colors hover:bg-gray-700 hover:text-white"
                     >
                       Get In Touch
                     </a>

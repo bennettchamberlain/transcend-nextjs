@@ -58,7 +58,7 @@ export function ProductRecommendationsSection(props: DataProps<typeof fetchProdu
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mb-8 pt-10">
         <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">You Might Also Like</h2>
-        <p className="mt-2 text-base text-gray-300">Discover more products that complement your style</p>
+        <p className="mt-2 text-base text-gray-300 uppercase">Discover more products that complement your style</p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -88,7 +88,7 @@ export function ProductRecommendationsSection(props: DataProps<typeof fetchProdu
                 <div className="flex gap-2">
                   <NextLink
                     href={`/products/${product.handle}`}
-                    className="flex-1 border border-gray-600 bg-transparent px-4 py-2 text-center text-sm font-medium text-white transition-colors duration-200 hover:border-gray-500 hover:bg-gray-800"
+                    className="flex-1 border border-gray-600 bg-transparent px-4 py-2 text-center uppercase text-sm font-medium text-white transition-colors duration-200 hover:border-gray-500 hover:bg-gray-800"
                   >
                     View Details
                   </NextLink>

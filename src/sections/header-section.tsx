@@ -87,7 +87,7 @@ function TypingEffect() {
   }, [currentText, isTyping, currentIndex]);
 
   return (
-    <span className="text-xs" style={{ color: "#dcff07", fontFamily: "AOMono" }}>
+    <span className="text-xs uppercase" style={{ color: "#dcff07", fontFamily: "AOMono" }}>
       <span className="text-gray-200">C:\</span>
       {currentText}
       <span
@@ -144,15 +144,15 @@ export function HeaderSection() {
             <div className="flex hidden items-center space-x-4 text-xs text-gray-300 sm:flex">
               <NextLink
                 href="mailto:aaron.transcend@gmail.com"
-                className="transition-colors hover:text-white"
+                className="transition-colors hover:text-white uppercase"
                 style={{ fontFamily: "AOMono" }}
               >
                 Contact Us
               </NextLink>
-              <span>•</span>
+              <span className="pb-2">•</span>
               <NextLink
                 href="/location"
-                className="transition-colors hover:text-white"
+                className="transition-colors hover:text-white uppercase"
                 style={{ fontFamily: "AOMono" }}
               >
                 Silver Lake Location

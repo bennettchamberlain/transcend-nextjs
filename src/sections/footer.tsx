@@ -354,12 +354,12 @@ function Footer() {
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Logo Section */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 lg:pr-20">
             <div className="mb-6">
               <img src="/images/transcend logo website.png" alt="Transcend" className="h-18 w-auto" />
             </div>
-            <p className="text-sm leading-relaxed text-gray-300">
-              Transcend Collective is a group of inviduals that seek a higher calling and purpose to their lives
+            <p className="text-justify text-sm leading-relaxed text-gray-300 uppercase">
+              Transcend Collective is a group of individuals that seek a higher calling and purpose to their lives
             </p>
           </div>
 
@@ -370,7 +370,7 @@ function Footer() {
               <li>
                 <a
                   href="/products"
-                  className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400"
+                  className="text-sm text-gray-300 uppercase transition-colors duration-200 hover:text-lime-400"
                 >
                   All Products
                 </a>
@@ -378,7 +378,7 @@ function Footer() {
               <li>
                 <a
                   href="/return-policy"
-                  className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400"
+                  className="text-sm text-gray-300 uppercase transition-colors duration-200 hover:text-lime-400"
                 >
                   Return Policy
                 </a>
@@ -386,7 +386,7 @@ function Footer() {
               <li>
                 <a
                   href="/return-policy"
-                  className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400"
+                  className="text-sm text-gray-300 uppercase transition-colors duration-200 hover:text-lime-400"
                 >
                   Return Your Order
                 </a>
@@ -394,7 +394,7 @@ function Footer() {
               <li>
                 <a
                   href="mailto:aaron.transcend@gmail.com?subject=Transcend%20Collective%20Support%20Request"
-                  className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400"
+                  className="text-sm text-gray-300 uppercase transition-colors duration-200 hover:text-lime-400"
                 >
                   Contact Support
                 </a>
@@ -407,12 +407,18 @@ function Footer() {
             <h3 className="mb-6 font-[AOMono] font-[Druk] text-lg text-white uppercase">ABOUT</h3>
             <ul className="space-y-3">
               <li>
-                <a href="/about" className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400">
+                <a
+                  href="/about"
+                  className="text-sm text-gray-300 uppercase transition-colors duration-200 hover:text-lime-400"
+                >
                   The Story of Transcend
                 </a>
               </li>
               <li>
-                <a href="/reviews" className="text-sm text-gray-300 transition-colors duration-200 hover:text-lime-400">
+                <a
+                  href="/reviews"
+                  className="text-sm text-gray-300 uppercase transition-colors duration-200 hover:text-lime-400"
+                >
                   What Customers Say
                 </a>
               </li>
@@ -422,7 +428,7 @@ function Footer() {
           {/* Newsletter Subscription */}
           <div className="lg:col-span-1">
             <h3 className="mb-6 font-[AOMono] font-[Druk] text-lg text-white uppercase">NEWSLETTER</h3>
-            <p className="mb-4 text-sm text-gray-300">Keep up...</p>
+            <p className="mb-4 text-sm text-gray-300 uppercase">Keep up...</p>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="editor-field editor-field__textbox">
                 <div className="editor-field__label-container">
@@ -436,7 +442,7 @@ function Footer() {
                     onChange={(e) => setEmail(e.target.value)}
                     onFocus={(e) => generateNoise(e.target, "input")}
                     onBlur={(e) => removeNoise(e.target, "input")}
-                    placeholder="Enter your email"
+                    placeholder="ENTER YOUR EMAIL"
                     required
                   />
                 </div>
@@ -445,12 +451,12 @@ function Footer() {
               </div>
               {showSuccess && (
                 <div className="success-message">
-                  <p className="pt-2 text-sm font-semibold tracking-wider text-[#dcff07]">DEALS INCOMING</p>
+                  <p className="pt-2 text-sm font-semibold tracking-wider text-[#dcff07] uppercase">DEALS INCOMING</p>
                 </div>
               )}
               {showError && (
                 <div className="error-message">
-                  <p className="pt-2 text-sm font-semibold tracking-wider text-[#ff0707]">{errorMessage}</p>
+                  <p className="pt-2 text-sm font-semibold tracking-wider text-[#ff0707] uppercase">{errorMessage}</p>
                 </div>
               )}
               <button
@@ -460,7 +466,7 @@ function Footer() {
                 onMouseOut={(e) => removeNoise(e.target, "button")}
                 disabled={isLoading}
               >
-                <div className="btn__container text-xs">{isLoading ? "Subscribing..." : "Subscribe"}</div>
+                <div className="btn__container text-xs uppercase">{isLoading ? "Subscribing..." : "Subscribe"}</div>
                 <div className="btn__bottom"></div>
                 <div className="btn__noise"></div>
               </button>
@@ -472,7 +478,7 @@ function Footer() {
         <div className="mt-62 border-t border-gray-800 pt-8">
           <div className="flex flex-col items-center justify-between md:flex-row">
             <div className="mb-4 md:mb-0">
-              <p className="text-sm text-gray-500">© 2025 Transcend. All rights reserved.</p>
+              <p className="text-sm text-gray-500 uppercase">© 2025 Transcend. All rights reserved.</p>
             </div>
             <div className="flex space-x-6">
               <a

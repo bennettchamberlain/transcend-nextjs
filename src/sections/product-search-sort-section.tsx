@@ -205,7 +205,7 @@ export function ProductSearchSortSection({
               onChange={(e) => onSearchChange(e.target.value)}
               onFocus={(e) => generateNoise(e.target, "input")}
               onBlur={(e) => removeNoise(e.target, "input")}
-              placeholder="Search products..."
+              placeholder="SEARCH PRODUCTS..."
               style={{ paddingLeft: "48px" }}
             />
             <div className="pointer-events-none absolute inset-y-0 left-0 z-50 flex items-center pl-3">

@@ -232,7 +232,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
                 variantId={variantId}
                 className="beveled-corner mt-10 flex w-full items-center justify-center border border-transparent bg-lime-400 p-3 text-base font-semibold text-black transition-colors duration-200 hover:bg-lime-300 focus:ring-2 focus:ring-lime-500 focus:ring-offset-2 focus:outline-none disabled:bg-gray-700"
               >
-                <p className="pt-1">Add to Cart</p>
+                <p className="pt-1 uppercase">Add to Cart</p>
               </AddToCartButton>
             </div>
           </div>

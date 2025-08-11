@@ -38,7 +38,7 @@ export default function App({ Component, pageProps }: NextAppProps) {
         <DefaultSeo
           defaultTitle="Transcend Collective"
           titleTemplate="Clothing for the modern creative"
-          description="Clothing for a digital world. Transcend Collective is a group of inviduals that seek a higher calling and purpose to their lives"
+          description="Clothing for a digital world. Transcend Collective is a group of individuals that seek a higher calling and purpose to their lives"
         />
         <CartProvider>
           <CyberProgressBar color="#dcff07" type={1} size={60} />
