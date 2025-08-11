@@ -235,3 +235,15 @@ h6 {
     /* bottom-right inner point */ 0 100% /* bottom-left */
   );
 }
+
+/* Larger beveled corner effect for about page photos */
+.beveled-corner-large {
+  position: relative;
+  clip-path: polygon(
+    0 0,
+    /* top-left */ 100% 0,
+    /* top-right */ 100% calc(100% - 24px),
+    /* bottom-right (larger beveled) */ calc(100% - 24px) 100%,
+    /* bottom-right inner point */ 0 100% /* bottom-left */
+  );
+}

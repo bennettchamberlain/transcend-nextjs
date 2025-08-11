@@ -5,7 +5,7 @@ import React from "react";
 import { StoreLayout } from "@site/layouts/store-layout";
 
 function About() {
-  // Select photos to feature in the gallery
+  // All select photos to feature in the gallery
   const selectPhotos = [
     { src: "/images/selects/DSC07886.jpg", alt: "Transcend Collective - Behind the Scenes" },
     { src: "/images/selects/DSC08440.jpg", alt: "Transcend Collective - Creative Process" },
@@ -16,6 +16,22 @@ function About() {
     { src: "/images/selects/Copy of DSC09125.jpg", alt: "Transcend Collective - Growth" },
     { src: "/images/selects/DSC08810.jpg", alt: "Transcend Collective - Community" },
     { src: "/images/selects/Copy of DSC08866.jpg", alt: "Transcend Collective - Movement" },
+    { src: "/images/selects/DSC09414.jpg", alt: "Transcend Collective - Creative Vision" },
+    { src: "/images/selects/DSC08905.jpg", alt: "Transcend Collective - Innovation" },
+    { src: "/images/selects/DSC08591.jpg", alt: "Transcend Collective - Design Excellence" },
+    { src: "/images/selects/DSC08106.jpg", alt: "Transcend Collective - Artistic Process" },
+    { src: "/images/selects/DSC08094.jpg", alt: "Transcend Collective - Creative Flow" },
+    { src: "/images/selects/Copy of DSC09144.jpg", alt: "Transcend Collective - Design Philosophy" },
+    { src: "/images/selects/Copy of DSC09077.jpg", alt: "Transcend Collective - Creative Energy" },
+    { src: "/images/selects/Copy of DSC08921.jpg", alt: "Transcend Collective - Artistic Vision" },
+    { src: "/images/selects/Copy of DSC08921-2.jpg", alt: "Transcend Collective - Design Innovation" },
+    { src: "/images/selects/Copy of DSC08855.jpg", alt: "Transcend Collective - Creative Collaboration" },
+    { src: "/images/selects/Copy of DSC08774.jpg", alt: "Transcend Collective - Design Process" },
+    { src: "/images/selects/Copy of DSC08386.jpg", alt: "Transcend Collective - Artistic Excellence" },
+    { src: "/images/selects/DSC07176-2.jpg", alt: "Transcend Collective - Creative Journey" },
+    { src: "/images/selects/DSC07039-2.jpg", alt: "Transcend Collective - Design Evolution" },
+    { src: "/images/selects/Copy of IMG_6493.JPG", alt: "Transcend Collective - Creative Moments" },
+    { src: "/images/selects/Copy of DSC07092-2.jpg", alt: "Transcend Collective - Artistic Process" },
   ];
 
   const featuredPhotos = [
@@ -41,7 +57,7 @@ function About() {
             <div className="space-y-16">
               {/* Hero Section */}
               <section className="text-center">
-                <h1 className="mb-6 text-5xl font-bold text-lime-500 font-[Druk] uppercase">About Transcend Collective</h1>
+                <h1 className="mb-6 font-[Druk] text-5xl font-bold text-white uppercase">About Transcend Collective</h1>
                 <p className="mx-auto max-w-3xl text-xl text-gray-300">
                   A movement dedicated to growth, helping others, and spreading good design through community and
                   creativity.
@@ -52,13 +68,13 @@ function About() {
               <section className="space-y-8">
                 <div className="grid gap-6 md:grid-cols-3">
                   {featuredPhotos.map((photo, index) => (
-                    <div key={index} className="relative overflow-hidden rounded-lg">
+                    <div key={index} className="relative overflow-hidden">
                       <Image
                         src={photo.src}
                         alt={photo.alt}
                         width={400}
                         height={300}
-                        className="h-64 w-full object-cover transition-transform duration-300 hover:scale-105"
+                        className="beveled-corner-large h-64 w-full object-cover transition-transform duration-300 hover:scale-105"
                       />
                     </div>
                   ))}
@@ -68,7 +84,7 @@ function About() {
               {/* Main Story Section */}
               <section className="grid gap-12 lg:grid-cols-2 lg:gap-16">
                 <div className="space-y-6">
-                  <h2 className="text-3xl font-semibold text-lime-400 font-[Druk] uppercase">Our Story</h2>
+                  <h2 className="font-[Druk] text-3xl font-semibold text-white uppercase">Our Story</h2>
                   <div className="space-y-4 leading-relaxed text-gray-300">
                     <p>
                       Transcend Collective was born from a simple yet powerful vision: to create a platform where
@@ -93,7 +109,7 @@ function About() {
                     alt="Transcend Collective Story"
                     width={600}
                     height={400}
-                    className="rounded-lg object-cover"
+                    className="beveled-corner-large object-cover"
                   />
                 </div>
               </section>
@@ -101,7 +117,7 @@ function About() {
               {/* Mission Section */}
               <section className="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900/50 to-gray-800/50 p-8">
                 <div className="space-y-6 text-center">
-                  <h2 className="text-3xl font-semibold text-lime-400 font-[Druk] uppercase">Our Mission</h2>
+                  <h2 className="font-[Druk] text-3xl font-semibold text-white uppercase">Our Mission</h2>
                   <p className="mx-auto max-w-4xl text-lg leading-relaxed text-gray-300">
                     We are focused on growth and helping others. Our commitment is to spread good design, foster
                     meaningful connections, and create opportunities for creative minds to flourish. We believe that by
@@ -113,8 +129,8 @@ function About() {
               {/* Values Section */}
               <section className="grid gap-8 md:grid-cols-3">
                 <div className="space-y-4 text-center">
-                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-lime-500/20">
-                    <svg className="h-8 w-8 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gray-700">
+                    <svg className="h-8 w-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -123,15 +139,15 @@ function About() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-semibold text-lime-400 font-[Druk] uppercase">Growth</h3>
+                  <h3 className="font-[Druk] text-xl font-semibold text-white uppercase">Growth</h3>
                   <p className="text-gray-300">
                     We believe in continuous improvement and helping others reach their full potential through
                     mentorship, resources, and community support.
                   </p>
                 </div>
                 <div className="space-y-4 text-center">
-                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-lime-500/20">
-                    <svg className="h-8 w-8 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gray-700">
+                    <svg className="h-8 w-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -140,15 +156,15 @@ function About() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-semibold text-lime-400 font-[Druk] uppercase">Community</h3>
+                  <h3 className="font-[Druk] text-xl font-semibold text-white uppercase">Community</h3>
                   <p className="text-gray-300">
                     Building meaningful connections and fostering a supportive environment where creativity thrives and
                     collaboration leads to innovation.
                   </p>
                 </div>
                 <div className="space-y-4 text-center">
-                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-lime-500/20">
-                    <svg className="h-8 w-8 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gray-700">
+                    <svg className="h-8 w-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -157,7 +173,7 @@ function About() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-semibold text-lime-400 font-[Druk] uppercase">Design</h3>
+                  <h3 className="font-[Druk] text-xl font-semibold text-white uppercase">Design</h3>
                   <p className="text-gray-300">
                     Spreading good design principles and creating beautiful, functional experiences that inspire and
                     elevate the world around us.
@@ -165,20 +181,20 @@ function About() {
                 </div>
               </section>
 
-              {/* Extended Image Gallery - Select Photos */}
+              {/* Extended Image Gallery - All Select Photos */}
               <section className="space-y-8">
-                <h2 className="text-center text-3xl font-semibold text-lime-400 font-[Druk] uppercase">Our Journey</h2>
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <h2 className="text-center font-[Druk] text-3xl font-semibold text-white uppercase">Our Journey</h2>
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                   {selectPhotos.map((photo, index) => (
-                    <div key={index} className="relative overflow-hidden rounded-lg group">
+                    <div key={index} className="group relative overflow-hidden">
                       <Image
                         src={photo.src}
                         alt={photo.alt}
                         width={400}
                         height={300}
-                        className="h-72 w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        className="beveled-corner-large h-72 w-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="beveled-corner-large absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                     </div>
                   ))}
                 </div>
@@ -187,7 +203,7 @@ function About() {
               {/* Call to Action */}
               <section className="text-center">
                 <div className="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900/50 to-gray-800/50 p-8">
-                  <h2 className="mb-4 text-3xl font-semibold text-lime-400 font-[Druk] uppercase">Join Our Movement</h2>
+                  <h2 className="mb-4 font-[Druk] text-3xl font-semibold text-white uppercase">Join Our Movement</h2>
                   <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-300">
                     Ready to be part of something bigger? Join our community of creators, designers, and innovators who
                     are committed to growth, helping others, and spreading good design.
@@ -201,7 +217,7 @@ function About() {
                     </a>
                     <a
                       href="mailto:aaron.transcend@gmail.com?subject=Transcend%20Collective%20Collaboration"
-                      className="rounded border border-lime-500 px-8 py-3 font-semibold text-lime-500 transition-colors hover:bg-lime-500 hover:text-black"
+                      className="rounded border border-gray-400 px-8 py-3 font-semibold text-gray-300 transition-colors hover:bg-gray-700 hover:text-white"
                     >
                       Get In Touch
                     </a>

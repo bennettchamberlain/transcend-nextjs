@@ -8,12 +8,16 @@ import { clsx, NextLink, useRouter } from "@site/utilities/deps";
 
 const mainMenuItems: { text: string; href: string }[] = [
   {
-    text: "Products",
+    text: "PRODUCTS",
     href: "/products",
   },
   {
-    text: "Collections",
+    text: "COLLECTIONS",
     href: "/collections",
+  },
+  {
+    text: "ABOUT",
+    href: "/about",
   },
 ];
 
