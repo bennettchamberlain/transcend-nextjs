@@ -240,33 +240,42 @@ function About() {
 
   // All select photos to feature in the gallery
   const selectPhotos = [
-    { src: "/images/selects/DSC07886.jpg", alt: "Transcend Collective - Behind the Scenes" },
-    { src: "/images/selects/DSC08440.jpg", alt: "Transcend Collective - Creative Process" },
-    { src: "/images/selects/DSC09111.jpg", alt: "Transcend Collective - Team Collaboration" },
-    { src: "/images/selects/DSC08471.jpg", alt: "Transcend Collective - Design Studio" },
-    { src: "/images/selects/Copy of DSC08983-3.jpg", alt: "Transcend Collective - Inspiration" },
-    { src: "/images/selects/DSC08935.jpg", alt: "Transcend Collective - Vision" },
-    { src: "/images/selects/Copy of DSC09125.jpg", alt: "Transcend Collective - Growth" },
-    { src: "/images/selects/DSC08810.jpg", alt: "Transcend Collective - Community" },
-    { src: "/images/selects/Copy of DSC08866.jpg", alt: "Transcend Collective - Movement" },
-    { src: "/images/selects/DSC09414.jpg", alt: "Transcend Collective - Creative Vision" },
-    { src: "/images/selects/DSC08905.jpg", alt: "Transcend Collective - Innovation" },
-    { src: "/images/selects/DSC08591.jpg", alt: "Transcend Collective - Design Excellence" },
-    { src: "/images/selects/DSC08106.jpg", alt: "Transcend Collective - Artistic Process" },
-    { src: "/images/selects/DSC08094.jpg", alt: "Transcend Collective - Creative Flow" },
-    { src: "/images/selects/Copy of DSC09144.jpg", alt: "Transcend Collective - Design Philosophy" },
-    { src: "/images/selects/Copy of DSC09077.jpg", alt: "Transcend Collective - Creative Energy" },
-    { src: "/images/selects/Copy of DSC08921.jpg", alt: "Transcend Collective - Artistic Vision" },
-    { src: "/images/selects/Copy of DSC08921-2.jpg", alt: "Transcend Collective - Design Innovation" },
-    { src: "/images/selects/Copy of DSC08855.jpg", alt: "Transcend Collective - Creative Collaboration" },
-    { src: "/images/selects/Copy of DSC08774.jpg", alt: "Transcend Collective - Design Process" },
-    { src: "/images/selects/Copy of DSC08386.jpg", alt: "Transcend Collective - Artistic Excellence" },
-    { src: "/images/selects/DSC07176-2.jpg", alt: "Transcend Collective - Creative Journey" },
-    { src: "/images/selects/DSC07039-2.jpg", alt: "Transcend Collective - Design Evolution" },
-    { src: "/images/selects/Copy of IMG_6493.JPG", alt: "Transcend Collective - Creative Moments" },
-    { src: "/images/selects/Copy of DSC07092-2.jpg", alt: "Transcend Collective - Artistic Process" },
     { src: "/images/selects/IMG_6487.JPG", alt: "Transcend Collective - Creative Expression" },
     { src: "/images/selects/IMG_6488.JPG", alt: "Transcend Collective - Artistic Vision" },
+    { src: "/images/selects/DSC08634.jpg", alt: "Transcend Collective - Artistic Excellence" },
+    { src: "/images/selects/IMG_8103.jpg", alt: "Transcend Collective - Artistic Expression" },
+    { src: "/images/selects/DSC08471.jpg", alt: "Transcend Collective - Design Studio" },
+    { src: "/images/selects/Copy of DSC08921.jpg", alt: "Transcend Collective - Artistic Vision" },
+    { src: "/images/selects/DSC08094.jpg", alt: "Transcend Collective - Creative Flow" },
+    { src: "/images/selects/IMG_8088.jpg", alt: "Transcend Collective - Design Innovation" },
+    { src: "/images/selects/DSC09111.jpg", alt: "Transcend Collective - Team Collaboration" },
+    { src: "/images/selects/Copy of DSC08855.jpg", alt: "Transcend Collective - Creative Collaboration" },
+    { src: "/images/selects/DSC08935.jpg", alt: "Transcend Collective - Vision" },
+    { src: "/images/selects/IMG_8155.jpg", alt: "Transcend Collective - Creative Expression" },
+    { src: "/images/selects/DSC08591.jpg", alt: "Transcend Collective - Design Excellence" },
+    { src: "/images/selects/Copy of DSC09125.jpg", alt: "Transcend Collective - Growth" },
+    { src: "/images/selects/DSC08106.jpg", alt: "Transcend Collective - Artistic Process" },
+    { src: "/images/selects/IMG_8041.jpg", alt: "Transcend Collective - Creative Flow" },
+    { src: "/images/selects/DSC08663.jpg", alt: "Transcend Collective - Creative Journey" },
+    { src: "/images/selects/Copy of DSC08774.jpg", alt: "Transcend Collective - Design Process" },
+    { src: "/images/selects/DSC08440.jpg", alt: "Transcend Collective - Creative Process" },
+    { src: "/images/selects/IMG_8149.jpg", alt: "Transcend Collective - Creative Vision" },
+    { src: "/images/selects/Copy of DSC08983-3.jpg", alt: "Transcend Collective - Inspiration" },
+    { src: "/images/selects/DSC09414.jpg", alt: "Transcend Collective - Creative Vision" },
+    { src: "/images/selects/IMG_8013.jpg", alt: "Transcend Collective - Artistic Process" },
+    { src: "/images/selects/DSC08810.jpg", alt: "Transcend Collective - Community" },
+    { src: "/images/selects/Copy of DSC09144.jpg", alt: "Transcend Collective - Design Philosophy" },
+    { src: "/images/selects/DSC07176-2.jpg", alt: "Transcend Collective - Creative Journey" },
+    { src: "/images/selects/IMG_8008.jpg", alt: "Transcend Collective - Creative Energy" },
+    { src: "/images/selects/DSC08905.jpg", alt: "Transcend Collective - Innovation" },
+    { src: "/images/selects/Copy of DSC09077.jpg", alt: "Transcend Collective - Creative Energy" },
+    { src: "/images/selects/DSC08534-2.jpg", alt: "Transcend Collective - Design Philosophy" },
+    { src: "/images/selects/IMG_7979.jpg", alt: "Transcend Collective - Design Excellence" },
+    { src: "/images/selects/Copy of DSC08866.jpg", alt: "Transcend Collective - Movement" },
+    { src: "/images/selects/DSC09172.jpg", alt: "Transcend Collective - Innovation" },
+    { src: "/images/selects/Copy of DSC08386.jpg", alt: "Transcend Collective - Artistic Excellence" },
+    { src: "/images/selects/DSC07039-2.jpg", alt: "Transcend Collective - Design Evolution" },
+    { src: "/images/selects/Copy of IMG_6493.JPG", alt: "Transcend Collective - Creative Moments" },
   ];
 
   const featuredPhotos = [
@@ -315,7 +324,7 @@ function About() {
                         alt={photo.alt}
                         width={400}
                         height={300}
-                        className="beveled-corner-large h-64 w-full object-cover transition-transform duration-300 hover:scale-105"
+                        className="beveled-corner-large h-80 w-full object-cover transition-transform duration-300 hover:scale-105"
                       />
                     </div>
                   ))}
@@ -475,7 +484,9 @@ function About() {
               {/* Call to Action */}
               <section className="text-center">
                 <div className="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900/50 to-gray-800/50 p-8">
-                  <h2 className="mb-4 font-[Druk] text-3xl font-semibold text-white uppercase">Join Our Movement</h2>
+                  <h2 className="mb-4 text-3xl font-semibold text-white uppercase" style={{ fontFamily: "Modeseven" }}>
+                    Join Our Movement
+                  </h2>
                   <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-300 uppercase">
                     Ready to be part of something bigger? Join our community of creators, designers, and innovators who
                     are committed to growth, helping others, and spreading good design.
