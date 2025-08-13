@@ -354,7 +354,7 @@ function Footer() {
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Logo Section */}
-          <div className="lg:col-span-1 lg:pr-20">
+          <div className="lg:col-span-1 lg:pr-14">
             <div className="mb-6">
               <img src="/images/transcend logo website.png" alt="Transcend" className="h-18 w-auto" />
             </div>
@@ -364,7 +364,7 @@ function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 lg:pl-10">
             <h3 className="mb-6 font-[AOMono] font-[Druk] text-lg text-white uppercase">QUICK LINKS</h3>
             <ul className="space-y-3">
               <li>
