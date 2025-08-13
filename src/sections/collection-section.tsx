@@ -177,6 +177,32 @@ export function CollectionSection(props: DataProps<typeof fetchCollectionSection
     );
   }
 
+  // Handle "art" collection - show coming soon
+  if (props.data.handle?.toLowerCase() === "art") {
+    return (
+      <section className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h2
+            ref={titleRef}
+            className="mb-4 cursor-pointer text-4xl font-black text-white transition-all duration-200 md:text-5xl"
+            style={{ fontFamily: "'Space Mono', monospace" }}
+          >
+            <span className="text-neon-green neon-glow">{displayText}</span>
+          </h2>
+          <div className="mt-16 mb-8">
+            <h3
+              className="mb-4 text-4xl font-bold tracking-wider text-lime-500 uppercase"
+              style={{ fontFamily: "Druk" }}
+            >
+              COMING SOON
+            </h3>
+            <p className="max-w-2xl text-lg text-gray-300">We're working on something special.</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
       <div className="mb-8">
