@@ -132,6 +132,31 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
   // Handle case where collections is undefined or null
   const safeCollections = collections || [];
 
+  // Define the desired order for collections
+  const collectionOrder = ["2-0", "tops", "hoodies-crewnecl", "bottom", "home-page", "art"];
+
+  // Sort collections based on the defined order
+  const sortedCollections = safeCollections.sort((a, b) => {
+    const aIndex = collectionOrder.indexOf(a.handle.toLowerCase());
+    const bIndex = collectionOrder.indexOf(b.handle.toLowerCase());
+
+    // If both collections are in the order list, sort by their position
+    if (aIndex !== -1 && bIndex !== -1) {
+      return aIndex - bIndex;
+    }
+
+    // If only one is in the order list, prioritize it
+    if (aIndex !== -1) {
+      return -1;
+    }
+    if (bIndex !== -1) {
+      return 1;
+    }
+
+    // If neither is in the order list, maintain original order
+    return 0;
+  });
+
   // Don't render anything if there are no collections
   if (safeCollections.length === 0) {
     return null;
@@ -166,7 +191,7 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
 
           {/* Collections Scroll */}
           <div ref={scrollRef} className="scrollbar-hide flex space-x-6 overflow-x-auto px-20 pb-8">
-            {safeCollections.map((collection, index) => (
+            {sortedCollections.map((collection, index) => (
               <Link
                 key={collection.id}
                 href={`/collections/${collection.handle}`}
