@@ -240,6 +240,7 @@ function About() {
 
   // All select photos to feature in the gallery
   const selectPhotos = [
+    { src: "/images/selects/DSC07886.jpg", alt: "Transcend Collective - Behind the Scenes" },
     { src: "/images/selects/DSC08440.jpg", alt: "Transcend Collective - Creative Process" },
     { src: "/images/selects/DSC09111.jpg", alt: "Transcend Collective - Team Collaboration" },
     { src: "/images/selects/DSC08471.jpg", alt: "Transcend Collective - Design Studio" },
@@ -264,6 +265,8 @@ function About() {
     { src: "/images/selects/DSC07039-2.jpg", alt: "Transcend Collective - Design Evolution" },
     { src: "/images/selects/Copy of IMG_6493.JPG", alt: "Transcend Collective - Creative Moments" },
     { src: "/images/selects/Copy of DSC07092-2.jpg", alt: "Transcend Collective - Artistic Process" },
+    { src: "/images/selects/IMG_6487.JPG", alt: "Transcend Collective - Creative Expression" },
+    { src: "/images/selects/IMG_6488.JPG", alt: "Transcend Collective - Artistic Vision" },
   ];
 
   const featuredPhotos = [
