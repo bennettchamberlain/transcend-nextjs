@@ -38,9 +38,20 @@ export default function LocationPage() {
           ))}
         </div>
 
-        <div className="grid items-start gap-12 lg:grid-cols-2">
+        <div className="grid w-full items-start gap-12 lg:grid-cols-2">
           {/* Map */}
           <div className="space-y-6">
+            {/* North Hills Image */}
+            <div className="overflow-hidden rounded-lg">
+              <Image
+                src="/images/selects/North-Hills.jpg"
+                alt="North Hills view of Silver Lake"
+                width={800}
+                height={600}
+                className="h-96 w-full object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </div>
+
             <div className="overflow-hidden rounded-lg bg-gray-900">
               <div className="aspect-video">
                 <iframe
@@ -60,8 +71,11 @@ export default function LocationPage() {
                 ></iframe>
               </div>
             </div>
+          </div>
 
-            {/* Call to Action - Moved under the map */}
+          {/* Store Information */}
+          <div className="space-y-8">
+            {/* Call to Action - Moved to second column */}
             <div className="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900/50 to-gray-800/50 p-6">
               <h3 className="mb-3 text-xl font-semibold text-lime-400 uppercase" style={{ fontFamily: "Modeseven" }}>
                 Visit Us Today
@@ -87,10 +101,6 @@ export default function LocationPage() {
                 </a>
               </div>
             </div>
-          </div>
-
-          {/* Store Information */}
-          <div className="space-y-8">
             <div>
               <h2 className="mb-4 text-2xl font-semibold uppercase" style={{ fontFamily: "Modeseven" }}>
                 Store Details
