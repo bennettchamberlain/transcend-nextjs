@@ -50,8 +50,6 @@ export default function App({ Component, pageProps }: NextAppProps) {
             images: [
               {
                 url: "/images/link.JPEG",
-                width: 1200,
-                height: 630,
                 alt: "Transcend Collective",
                 type: "image/jpeg",
               },
