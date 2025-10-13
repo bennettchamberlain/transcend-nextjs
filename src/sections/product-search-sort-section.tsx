@@ -354,6 +354,11 @@ export function ProductSearchSortSection({
           font-size: 14px;
         }
 
+        .editor-field__input::placeholder {
+          color: #6e6e6e;
+          opacity: 1;
+        }
+
         .editor-field__input:focus {
           animation: 0.05s infinite alternate blink;
         }

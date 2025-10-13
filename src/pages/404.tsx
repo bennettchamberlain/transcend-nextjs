@@ -22,7 +22,7 @@ export default function Custom404() {
             fontSize: "1em",
             fontFamily: "Rajdhani, sans-serif",
             fontWeight: 500,
-            color: "#cecece",
+            color: "#6e6e6e",
             letterSpacing: "10px",
           }}
         >
@@ -35,7 +35,7 @@ export default function Custom404() {
             fontSize: "1em",
             fontFamily: "Rajdhani, sans-serif",
             fontWeight: 500,
-            color: "#626262",
+            color: "#6e6e6e",
             letterSpacing: "10px",
           }}
         >
@@ -48,7 +48,7 @@ export default function Custom404() {
             fontSize: "1em",
             fontFamily: "Rajdhani, sans-serif",
             fontWeight: 500,
-            color: "#cecece",
+            color: "#6e6e6e",
             letterSpacing: "10px",
           }}
         >
@@ -63,7 +63,7 @@ export default function Custom404() {
             fontSize: "2em",
             fontFamily: "Rajdhani, sans-serif",
             fontWeight: 500,
-            color: "#cecece",
+            color: "#6e6e6e",
             letterSpacing: "10px",
           }}
         >
@@ -76,7 +76,7 @@ export default function Custom404() {
             fontSize: "2em",
             fontFamily: "Rajdhani, sans-serif",
             fontWeight: 500,
-            color: "#626262",
+            color: "#6e6e6e",
             letterSpacing: "10px",
           }}
         >
@@ -141,7 +141,7 @@ export default function Custom404() {
             padding: "0px 6px 0px 6px",
             margin: "0px 25px 0px 0px",
             color: "#000",
-            backgroundColor: "#cecece",
+            backgroundColor: "#6e6e6e",
           }}
         >
           404 : NOT FOUND
