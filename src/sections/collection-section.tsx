@@ -3,8 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { DataProps } from "@site/utilities/deps";
 
-import { Button } from "@site/snippets";
-import { NextImage, NextLink, useAsyncFn } from "@site/utilities/deps";
+import { NextImage, NextLink } from "@site/utilities/deps";
 import { storefront } from "@site/utilities/storefront";
 
 export async function fetchCollectionSection(handle: string, cursor?: string) {
@@ -72,10 +71,13 @@ export async function fetchCollectionSection(handle: string, cursor?: string) {
 
 export function CollectionSection(props: DataProps<typeof fetchCollectionSection>) {
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
   const [isAnimated, setIsAnimated] = useState(false);
   const [displayText, setDisplayText] = useState("COLLECTION");
   const [pages, setPages] = useState([props.data?.products || { edges: [], pageInfo: { hasNextPage: false } }]);
   const [imageStates, setImageStates] = useState<Record<string, number>>({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const targetText = (props.data?.title as string)?.toUpperCase() || "COLLECTION";
@@ -137,15 +139,54 @@ export function CollectionSection(props: DataProps<typeof fetchCollectionSection
   const lastCursor = lastPage?.edges[lastPage.edges.length - 1]?.cursor;
   const hasNextPage = lastPage?.pageInfo?.hasNextPage;
 
-  const [loader, load] = useAsyncFn(async () => {
-    if (!props.data?.handle) {
+  const loadMore = useCallback(async () => {
+    if (isLoading || !hasNextPage || !props.data?.handle) {
       return;
     }
-    const productList = await fetchCollectionSection(props.data.handle, lastCursor);
-    if (productList?.products) {
-      setPages([...pages, productList.products]);
+
+    setIsLoading(true);
+    setLoadError(null);
+
+    try {
+      const productList = await fetchCollectionSection(props.data.handle, lastCursor);
+      if (productList?.products) {
+        setPages((prevPages) => [...prevPages, productList.products]);
+      }
+    } catch (error) {
+      console.error("Error loading more products:", error);
+      setLoadError("Failed to load more products");
+    } finally {
+      setIsLoading(false);
     }
-  }, [lastCursor, props.data?.handle, pages]);
+  }, [isLoading, hasNextPage, props.data?.handle, lastCursor]);
+
+  // Auto-load more when scrolling near bottom
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && hasNextPage && !isLoading) {
+            loadMore();
+          }
+        });
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of the load more area is visible
+        rootMargin: "100px", // Start loading 100px before reaching the bottom
+      },
+    );
+
+    const currentLoadMoreRef = loadMoreRef.current;
+    if (currentLoadMoreRef && hasNextPage) {
+      observer.observe(currentLoadMoreRef);
+    }
+
+    return () => {
+      if (currentLoadMoreRef) {
+        observer.unobserve(currentLoadMoreRef);
+      }
+    };
+  }, [hasNextPage, isLoading, loadMore]);
 
   const toggleImage = (productHandle: string, hasSecondImage: boolean) => {
     if (!hasSecondImage) {
@@ -295,19 +336,26 @@ export function CollectionSection(props: DataProps<typeof fetchCollectionSection
           })}
       </div>
 
+      {/* Auto-load trigger element */}
       {hasNextPage && (
-        <div className="text-center">
-          <Button
-            size="md"
-            onClick={load}
-            disabled={loader.loading}
-            className="rounded-none border-0 bg-[#dcff07] text-black hover:underline"
-            style={{
-              clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%)",
-            }}
-          >
-            {loader.loading ? "Loading" : loader.error ? "Try Again" : "Load More"}
-          </Button>
+        <div ref={loadMoreRef} className="py-8 text-center">
+          {isLoading && (
+            <div className="flex items-center justify-center space-x-2">
+              <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#dcff07] border-t-transparent"></div>
+              <span className="text-[#dcff07]">Loading more products...</span>
+            </div>
+          )}
+          {loadError && (
+            <div className="mt-4 text-red-400">
+              <p>{loadError}</p>
+              <button
+                onClick={loadMore}
+                className="mt-2 rounded bg-red-600 px-4 py-2 text-sm text-white transition-colors hover:bg-red-700"
+              >
+                Try Again
+              </button>
+            </div>
+          )}
         </div>
       )}
     </section>

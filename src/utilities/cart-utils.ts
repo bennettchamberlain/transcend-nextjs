@@ -2,7 +2,8 @@ import type { MoneyV2 } from "@shopify/hydrogen-react/storefront-api-types";
 
 import { CurrencyCode } from "./storefront/zeus";
 
-const FREE_SHIPPING_THRESHOLD = 100; // $100 USD
+export const FREE_SHIPPING_THRESHOLD = 100; // $100 USD
+export const FREE_SHIPPING_DISCOUNT_CODE = "FREESHIP100"; // Discount code to apply for free shipping
 
 /**
  * Converts a MoneyV2 object to a number for calculations
@@ -80,4 +81,52 @@ export function formatRemainingForFreeShippingFromCart(
         amount: remaining.toFixed(2),
         currencyCode: (subtotal.currencyCode as CurrencyCode) || CurrencyCode.USD,
     };
+}
+
+/**
+ * Apply discount codes to a Shopify cart
+ * @param cartId - The cart ID
+ * @param discountCodes - Array of discount codes to apply
+ * @returns Updated cart or null if failed
+ */
+export async function applyDiscountCodesToCart(
+    cartId: string,
+    discountCodes: string[]
+): Promise<any> {
+    const { storefront } = await import("./storefront");
+
+    try {
+        const result = await storefront.mutation({
+            cartDiscountCodesUpdate: [
+                {
+                    cartId,
+                    discountCodes,
+                },
+                {
+                    cart: {
+                        id: true,
+                        checkoutUrl: true,
+                        discountCodes: {
+                            code: true,
+                            applicable: true,
+                        },
+                    },
+                    userErrors: {
+                        field: true,
+                        message: true,
+                    },
+                },
+            ],
+        });
+
+        if (result.cartDiscountCodesUpdate?.userErrors?.length) {
+            console.error("Error applying discount codes:", result.cartDiscountCodesUpdate.userErrors);
+            return null;
+        }
+
+        return result.cartDiscountCodesUpdate?.cart;
+    } catch (error) {
+        console.error("Failed to apply discount codes:", error);
+        return null;
+    }
 } 

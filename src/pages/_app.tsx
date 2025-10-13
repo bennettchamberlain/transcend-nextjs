@@ -39,6 +39,29 @@ export default function App({ Component, pageProps }: NextAppProps) {
           defaultTitle="Transcend Collective"
           titleTemplate="Clothing for the modern creative"
           description="Clothing for a digital world. Transcend Collective is a group of individuals that seek a higher calling and purpose to their lives"
+          openGraph={{
+            type: "website",
+            locale: "en_US",
+            url: "https://transcendcollective.la",
+            siteName: "Transcend Collective",
+            title: "Transcend Collective",
+            description:
+              "Clothing for a digital world. Transcend Collective is a group of individuals that seek a higher calling and purpose to their lives",
+            images: [
+              {
+                url: "/images/link.JPEG",
+                width: 1200,
+                height: 630,
+                alt: "Transcend Collective",
+                type: "image/jpeg",
+              },
+            ],
+          }}
+          twitter={{
+            handle: "@transcendcollective",
+            site: "@transcendcollective",
+            cardType: "summary_large_image",
+          }}
         />
         <CartProvider>
           <CyberProgressBar color="#dcff07" type={1} size={60} />

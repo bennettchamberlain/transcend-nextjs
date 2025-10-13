@@ -1,7 +1,6 @@
 import type { MoneyV2 } from "@shopify/hydrogen-react/storefront-api-types";
 
 import {
-  CartCheckoutButton,
   CartCost,
   CartLineProvider,
   CartLineQuantity,
@@ -10,6 +9,7 @@ import {
   useCart,
 } from "@shopify/hydrogen-react";
 
+import { CustomCheckoutButton } from "@site/components/custom-checkout-button";
 import { FreeShippingBanner } from "@site/components/free-shipping-banner";
 import { formatRemainingForFreeShippingFromCart, qualifiesForFreeShippingFromCart } from "@site/utilities/cart-utils";
 import { NextImage, NextLink } from "@site/utilities/deps";
@@ -160,9 +160,9 @@ export function CartSection() {
 
             <p className="mt-0.5 text-sm text-gray-300">Taxes calculated at checkout.</p>
             <div className="mt-6 flex">
-              <CartCheckoutButton className="flex-1 rounded-md border border-transparent bg-lime-400 px-6 py-3 text-base font-medium text-black shadow-sm transition-colors duration-200 hover:bg-lime-300">
+              <CustomCheckoutButton className="flex-1 rounded-md border border-transparent bg-lime-400 px-6 py-3 text-base font-medium text-black shadow-sm transition-colors duration-200 hover:bg-lime-300 disabled:cursor-not-allowed disabled:opacity-50">
                 Checkout
-              </CartCheckoutButton>
+              </CustomCheckoutButton>
             </div>
             <div className="mt-6 flex justify-center text-center text-sm text-gray-300">
               <p>
