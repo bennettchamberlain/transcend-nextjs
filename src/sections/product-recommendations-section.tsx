@@ -64,36 +64,34 @@ export function ProductRecommendationsSection(props: DataProps<typeof fetchProdu
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {recommendations.slice(0, 4).map((product: any) => (
           <ProductProvider key={product.handle} data={product}>
-            <div className="group relative overflow-hidden border border-gray-700 bg-black transition-all duration-300 hover:border-gray-600 hover:shadow-lg">
-              <div className="aspect-square overflow-hidden">
-                <NextImage
-                  src={product.featuredImage?.url || product.images?.nodes[0]?.url || ""}
-                  alt={product.featuredImage?.altText || product.title}
-                  width={product.featuredImage?.width || 500}
-                  height={product.featuredImage?.height || 500}
-                  quality={100}
-                  className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
-
-              <div className="p-4">
-                <div className="mb-2 line-clamp-2 text-lg font-semibold text-white">{product.title}</div>
-
-                <div className="mb-4 flex items-center justify-between">
-                  <div className="font-mono text-xl font-bold text-white">
-                    <Money data={product.priceRange.minVariantPrice} />
-                  </div>
+            <div className="group">
+              <NextLink href={`/products/${product.handle}`} className="block">
+                <div
+                  className="relative w-full overflow-hidden border border-gray-700 bg-gray-800"
+                  style={{
+                    clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%)",
+                  }}
+                >
+                  <NextImage
+                    src={product.featuredImage?.url || product.images?.nodes[0]?.url || ""}
+                    alt={product.featuredImage?.altText || product.title}
+                    width={product.featuredImage?.width || 500}
+                    height={product.featuredImage?.height || 500}
+                    quality={100}
+                    className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                  />
                 </div>
 
-                <div className="flex gap-2">
-                  <NextLink
-                    href={`/products/${product.handle}`}
-                    className="flex-1 border border-gray-600 bg-transparent px-4 py-2 text-center uppercase text-sm font-medium text-white transition-colors duration-200 hover:border-gray-500 hover:bg-gray-800"
-                  >
-                    View Details
-                  </NextLink>
+                <div className="mt-4 text-xs text-gray-300">
+                  <span className="text-neon-green neon-glow" style={{ fontFamily: "bc-sklonar" }}>
+                    {product.title}
+                  </span>
                 </div>
-              </div>
+
+                <div className="mt-1 text-base font-medium text-white" style={{ fontFamily: "AOMono" }}>
+                  <Money data={product.priceRange.minVariantPrice} />
+                </div>
+              </NextLink>
             </div>
           </ProductProvider>
         ))}
