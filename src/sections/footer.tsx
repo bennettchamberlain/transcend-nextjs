@@ -61,11 +61,11 @@ function Footer() {
       input = e.offsetParent;
       e.parentElement.parentElement.classList.add("is-focused");
       inputNoise = e.parentElement.parentElement.lastElementChild;
-      noiseColor = "rgb(112, 113, 156)";
+      noiseColor = "rgb(245, 255, 200)";
     } else {
       input = e;
       inputNoise = e.lastElementChild;
-      noiseColor = "rgb(73, 77, 195)";
+      noiseColor = "rgb(245, 255, 200)";
     }
 
     // Clear existing noise elements before creating new ones
@@ -645,7 +645,7 @@ function Footer() {
         }
 
         .editor-field__input::placeholder {
-          color: #6e6e6e;
+          color: #e6e6e6;
           opacity: 1;
         }
 
@@ -655,10 +655,10 @@ function Footer() {
 
         @keyframes blink {
           from {
-            background: #0f1020;
+            background: #2b2b2b;
           }
           to {
-            background: #151830;
+            background: #0a0a0a;
           }
         }
 
