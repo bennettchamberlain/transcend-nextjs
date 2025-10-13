@@ -240,13 +240,38 @@ function About() {
 
   // All select photos to feature in the gallery
   const selectPhotos = [
+    // Warren shoot photos interspersed throughout
+    { src: "/images/selects/warren_shoot/WDS00252.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/warren_shoot/WDS00269.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/warren_shoot/WDS00677.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/warren_shoot/WDS00542.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/warren_shoot/WDS00603.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/warren_shoot/WDS00128.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/warren_shoot/CaptureOne0116.JPG", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/warren_shoot/WDS00078.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/warren_shoot/WDS00075.JPEG", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/warren_shoot/WDS00303.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/warren_shoot/WDS00338.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/warren_shoot/WDS00394.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/warren_shoot/CaptureOne0081.JPG", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/warren_shoot/WDS00414.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/warren_shoot/WDS00463.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/warren_shoot/WDS00536.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/warren_shoot/WDS00572.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/warren_shoot/WDS00716.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/warren_shoot/CaptureOne0125.JPG", alt: "Transcend Collective - Warren Shoot" },
+    // Existing gallery photos
     { src: "/images/selects/IMG_6487.JPG", alt: "Transcend Collective - Creative Expression" },
     { src: "/images/selects/IMG_6488.JPG", alt: "Transcend Collective - Artistic Vision" },
     { src: "/images/selects/DSC08634.jpg", alt: "Transcend Collective - Artistic Excellence" },
     { src: "/images/selects/IMG_8103.jpg", alt: "Transcend Collective - Artistic Expression" },
+    {
+      src: "/images/selects/warren_shoot/CaptureOne0111.JPG",
+      alt: "Transcend Collective - Warren Shoot",
+      objectPosition: "top",
+    },
     { src: "/images/selects/DSC08471.jpg", alt: "Transcend Collective - Design Studio" },
     { src: "/images/selects/Copy of DSC08921.jpg", alt: "Transcend Collective - Artistic Vision" },
-    { src: "/images/selects/DSC08094.jpg", alt: "Transcend Collective - Creative Flow" },
     { src: "/images/selects/IMG_8088.jpg", alt: "Transcend Collective - Design Innovation" },
     { src: "/images/selects/DSC09111.jpg", alt: "Transcend Collective - Team Collaboration" },
     { src: "/images/selects/Copy of DSC08855.jpg", alt: "Transcend Collective - Creative Collaboration" },
@@ -276,12 +301,18 @@ function About() {
     { src: "/images/selects/Copy of DSC08386.jpg", alt: "Transcend Collective - Artistic Excellence" },
     { src: "/images/selects/DSC07039-2.jpg", alt: "Transcend Collective - Design Evolution" },
     { src: "/images/selects/Copy of IMG_6493.JPG", alt: "Transcend Collective - Creative Moments" },
-  ];
-
-  const featuredPhotos = [
+    // Previous featured/banner images moved to bottom
     { src: "/images/selects/DSC08094.jpg", alt: "Transcend Collective - Creative Flow" },
     { src: "/images/selects/Copy of DSC09064.jpg", alt: "Transcend Collective - Creative Journey" },
     { src: "/images/selects/Copy of DSC07092-2.jpg", alt: "Transcend Collective - Artistic Process" },
+    { src: "/images/selects/DSC08188.jpg", alt: "Transcend Collective - Story" },
+    { src: "/images/selects/DSC07886.jpg", alt: "Transcend Collective - Behind the Scenes" },
+  ];
+
+  const featuredPhotos = [
+    { src: "/images/selects/warren_shoot/WDS00251.jpg", alt: "Transcend Collective - Creative Flow" },
+    { src: "/images/selects/warren_shoot/WDS00494.jpg", alt: "Transcend Collective - Creative Journey" },
+    { src: "/images/selects/warren_shoot/WDS00152.jpg", alt: "Transcend Collective - Artistic Process" },
   ];
 
   return (
@@ -325,6 +356,13 @@ function About() {
                         width={400}
                         height={300}
                         className="beveled-corner-large h-80 w-full object-cover transition-transform duration-300 hover:scale-105"
+                        style={
+                          index === 0
+                            ? { filter: "brightness(1.15)" }
+                            : index === 2
+                              ? { filter: "contrast(1.1)" }
+                              : undefined
+                        }
                       />
                     </div>
                   ))}
@@ -361,7 +399,7 @@ function About() {
                 </div>
                 <div className="relative">
                   <Image
-                    src="/images/selects/DSC08188.jpg"
+                    src="/images/selects/warren_shoot/WDS00174.jpg"
                     alt="Transcend Collective Story"
                     width={600}
                     height={400}
@@ -445,9 +483,9 @@ function About() {
 
               {/* Banner Image Section */}
               <section className="relative">
-                <div className="relative h-96 w-full overflow-hidden">
+                <div className="relative h-[750px] w-full overflow-hidden">
                   <Image
-                    src="/images/selects/DSC07886.jpg"
+                    src="/images/selects/warren_shoot/WDS00630.jpg"
                     alt="Transcend Collective - Behind the Scenes"
                     fill
                     className="beveled-corner-large object-cover"
@@ -474,6 +512,9 @@ function About() {
                         width={400}
                         height={300}
                         className="beveled-corner-large h-72 w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        style={
+                          (photo as any).objectPosition ? { objectPosition: (photo as any).objectPosition } : undefined
+                        }
                       />
                       <div className="beveled-corner-large absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                     </div>
