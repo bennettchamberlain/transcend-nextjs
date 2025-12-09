@@ -48,37 +48,33 @@ function ReturnPolicy() {
                       <p className="text-gray-300">
                         Email us at{" "}
                         <a
-                          href="mailto:aaron.transcend@gmail.com"
+                          href="mailto:aaron.transcend@gmail.com?subject=Return Request - Order Return&body=Hi there! I would like to return my order and would appreciate a prepaid shipping label. Thank you!"
                           className="text-lime-400 hover:text-lime-300 underline"
                         >
                           aaron.transcend@gmail.com
                         </a>{" "}
-                        with your order number and reason for return. We'll respond within 24 hours with return
-                        instructions.
+                        with your order number and reason for return. Don't forget to ask for a prepaid shipping label - we'll provide one for you! We'll respond within 24 hours with return instructions and your prepaid label.
                       </p>
                     </div>
 
                     <div className="rounded-lg border border-gray-700 bg-gray-900/30 p-6">
                       <h3 className="mb-2 text-lg font-semibold text-white font-[Druk] uppercase">Step 2: Pack Your Items</h3>
                       <p className="text-gray-300">
-                        Carefully pack your items in their original packaging or a suitable replacement. Include all tags,
-                        accessories, and documentation that came with your order.
+                        Carefully pack your items in their original packaging or a suitable replacement. Make sure to include all tags, accessories, and documentation that came with your order. This helps us process your return quickly and ensures everything arrives safely.
                       </p>
                     </div>
 
                     <div className="rounded-lg border border-gray-700 bg-gray-900/30 p-6">
                       <h3 className="mb-2 text-lg font-semibold text-white font-[Druk] uppercase">Step 3: Ship Your Return</h3>
                       <p className="text-gray-300">
-                        Use the prepaid return label we'll provide, or ship to our returns address. We recommend using a
-                        trackable shipping method for returns over $75.
+                        When you contact us, please ask for a prepaid shipping label - we'll provide one for you! Use the prepaid return label we send, or ship to our returns address if you prefer. For returns over $75, we recommend using a trackable shipping method so you can keep an eye on your package.
                       </p>
                     </div>
 
                     <div className="rounded-lg border border-gray-700 bg-gray-900/30 p-6">
                       <h3 className="mb-2 text-lg font-semibold text-white font-[Druk] uppercase">Step 4: Processing</h3>
                       <p className="text-gray-300">
-                        Once we receive your return, we'll inspect the items and process your refund within 5-7 business
-                        days. You'll receive an email confirmation when your refund has been issued.
+                        Once we receive your return, we'll inspect the items to make sure everything is in good condition. We'll process your refund within 5-7 business days, and you'll receive an email confirmation as soon as your refund has been issued. We'll keep you updated every step of the way!
                       </p>
                     </div>
                   </div>

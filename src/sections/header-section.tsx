@@ -16,6 +16,10 @@ const mainMenuItems: { text: string; href: string }[] = [
     href: "/collections",
   },
   {
+    text: "ARTISTS",
+    href: "/artists",
+  },
+  {
     text: "ABOUT",
     href: "/about",
   },
@@ -144,7 +148,7 @@ export function HeaderSection() {
             <div className="flex hidden items-center space-x-4 text-xs text-gray-300 sm:flex">
               <NextLink
                 href="mailto:aaron.transcend@gmail.com"
-                className="transition-colors hover:text-white uppercase"
+                className="uppercase transition-colors hover:text-white"
                 style={{ fontFamily: "AOMono" }}
               >
                 Contact Us
@@ -152,7 +156,7 @@ export function HeaderSection() {
               <span className="pb-2">•</span>
               <NextLink
                 href="/location"
-                className="transition-colors hover:text-white uppercase"
+                className="uppercase transition-colors hover:text-white"
                 style={{ fontFamily: "AOMono" }}
               >
                 Silver Lake Location

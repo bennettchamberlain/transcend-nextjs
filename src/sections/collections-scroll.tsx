@@ -190,7 +190,7 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
           </button>
 
           {/* Collections Scroll */}
-          <div ref={scrollRef} className="scrollbar-hide flex space-x-6 overflow-x-auto px-20 pb-8">
+          <div ref={scrollRef} className="collections-scrollbar flex space-x-6 overflow-x-auto px-20 pb-8">
             {sortedCollections.map((collection, index) => (
               <Link
                 key={collection.id}
@@ -231,7 +231,7 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
                       {collection.title}
                     </h3> */}
 
-                    <p className="mb-4 line-clamp-2 text-sm text-gray-300" style={{ fontFamily: "Modeseven" }}>
+                    <p className="mb-4 line-clamp-2 text-sm text-gray-300" style={{ fontFamily: "AOMono" }}>
                       {collection.title || "Discover cutting-edge fashion technology"}
                     </p>
 

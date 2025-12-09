@@ -385,7 +385,7 @@ function Footer() {
               </li>
               <li>
                 <a
-                  href="/return-policy"
+                  href="mailto:aaron.transcend@gmail.com?subject=Return Request - Order Return&body=Hi there! I would like to return my order and would appreciate a prepaid shipping label. Thank you!"
                   className="text-sm text-gray-300 uppercase transition-colors duration-200 hover:text-lime-400"
                 >
                   Return Your Order

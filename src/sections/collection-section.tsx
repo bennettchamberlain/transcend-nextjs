@@ -252,7 +252,9 @@ export function CollectionSection(props: DataProps<typeof fetchCollectionSection
           className="mb-4 cursor-pointer text-4xl font-black text-white transition-all duration-200 md:text-5xl"
           style={{ fontFamily: "'Space Mono', monospace" }}
         >
-          <span className="text-neon-green neon-glow">{displayText}</span>
+          <span className="text-neon-green neon-glow" style={{ fontFamily: "AOMono" }}>
+            {displayText}
+          </span>
         </h2>
         {props.data.description && <p className="text-gray-300">{props.data.description}</p>}
       </div>
@@ -325,9 +327,11 @@ export function CollectionSection(props: DataProps<typeof fetchCollectionSection
                       />
                     )}
                   </div>
-                  <div className="mt-4 text-sm text-gray-300">{node.title}</div>
+                  <div className="mt-4 text-xs text-gray-300" style={{ fontFamily: "AOMono" }}>
+                    {node.title}
+                  </div>
 
-                  <div className="mt-1 font-mono text-lg font-medium text-white">
+                  <div className="mt-1 font-mono text-lg font-medium text-white" style={{ fontFamily: "AOMono" }}>
                     <Money data={node.priceRange.minVariantPrice}></Money>
                   </div>
                 </NextLink>

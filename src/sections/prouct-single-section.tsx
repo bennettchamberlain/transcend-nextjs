@@ -228,6 +228,16 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
                 ))}
               </div>
 
+              {/* Size selection helper message */}
+              {(() => {
+                const sizeOption = options.find(({ name }) => name.toLowerCase() === "size");
+                const hasSizeSelected = sizeOption?.values.some(({ selected }) => selected) ?? false;
+                return (
+                  sizeOption &&
+                  !hasSizeSelected && <p className="mt-4 text-sm text-[#dcff07]">Please select a size to add to cart</p>
+                );
+              })()}
+
               <AddToCartButton
                 variantId={variantId}
                 className="beveled-corner mt-10 flex w-full items-center justify-center border border-transparent bg-lime-400 p-3 text-base font-semibold text-black transition-colors duration-200 hover:bg-lime-300 focus:ring-2 focus:ring-lime-500 focus:ring-offset-2 focus:outline-none disabled:bg-gray-700"

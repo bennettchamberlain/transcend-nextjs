@@ -483,12 +483,12 @@ function About() {
 
               {/* Banner Image Section */}
               <section className="relative">
-                <div className="relative h-[750px] w-full overflow-hidden">
+                <div className="relative h-[350px] w-full overflow-hidden md:h-[492px]">
                   <Image
                     src="/images/selects/warren_shoot/WDS00630.jpg"
                     alt="Transcend Collective - Behind the Scenes"
                     fill
-                    className="beveled-corner-large object-cover"
+                    className="beveled-corner-large object-contain object-top md:object-cover md:object-bottom"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 </div>
