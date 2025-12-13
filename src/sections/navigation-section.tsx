@@ -104,15 +104,13 @@ function TypingEffect() {
   );
 }
 
-export function HeaderSection() {
+export function NavigationSection() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showTopBar, setShowTopBar] = useState(true);
   const router = useRouter();
   const { totalQuantity } = useCart();
 
   useEffect(() => {
-    const _lastScrollY = window.scrollY;
-
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setShowTopBar(currentScrollY < 50); // Show top bar when scrolled less than 50px
@@ -132,11 +130,11 @@ export function HeaderSection() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/60 bg-black shadow-sm">
-      {/* Top Bar */}
+    <>
+      {/* Top Bar - Sticky at top */}
       <div
         className={clsx(
-          "bg-black transition-all duration-300 ease-in-out",
+          "sticky top-0 z-30 bg-black/80 backdrop-blur-sm transition-all duration-300 ease-in-out",
           showTopBar ? "h-10 opacity-100" : "h-0 overflow-hidden opacity-0",
         )}
       >
@@ -145,7 +143,7 @@ export function HeaderSection() {
             <div className="flex items-center space-x-4 text-xs text-gray-300">
               <TypingEffect />
             </div>
-            <div className="flex hidden items-center space-x-4 text-xs text-gray-300 sm:flex">
+            <div className="hidden items-center space-x-4 text-xs text-gray-300 sm:flex">
               <NextLink
                 href="mailto:aaron.transcend@gmail.com"
                 className="uppercase transition-colors hover:text-white"
@@ -166,8 +164,11 @@ export function HeaderSection() {
         </div>
       </div>
 
-      {/* Main Navigation */}
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+      {/* Main Navigation - Sticky below top bar */}
+      <nav
+        className="sticky top-10 z-30 mx-auto flex max-w-7xl items-center justify-between bg-black/80 p-6 backdrop-blur-sm lg:px-8"
+        aria-label="Global"
+      >
         <div className="flex lg:flex-1">
           <NextLink href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Transcend</span>
@@ -179,13 +180,6 @@ export function HeaderSection() {
                 height={100}
                 className="h-16 w-auto"
               />
-              {/* <Image
-                src="/images/transcend-text.png"
-                alt="Transcend"
-                width={120}
-                height={24}
-                className="h-8 w-auto brightness-0 invert"
-              /> */}
             </div>
           </NextLink>
         </div>
@@ -297,6 +291,6 @@ export function HeaderSection() {
           </div>
         </DialogPanel>
       </Dialog>
-    </header>
+    </>
   );
 }

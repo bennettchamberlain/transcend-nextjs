@@ -1,7 +1,8 @@
 import Image from "next/image";
 
 import Footer from "@site/sections/footer";
-import { HeaderSection } from "@site/sections/header-section";
+import { ArtistsHeaderSection } from "@site/sections/artists-header-section";
+import { NavigationSection } from "@site/sections/navigation-section";
 
 export default function LocationPage() {
   const locationPhotos = [
@@ -12,7 +13,8 @@ export default function LocationPage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <HeaderSection />
+      <NavigationSection />
+      <ArtistsHeaderSection />
 
       {/* Main Content */}
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
