@@ -155,11 +155,7 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
       const cursorToUse =
         lastPage?.edges.length > 0 ? lastPage.edges[lastPage.edges.length - 1].cursor || undefined : undefined;
 
-      console.log("Load more clicked - cursor:", cursorToUse, "sort:", sortOption, "search:", searchQuery);
-
       const productList = await fetchProductListSection(cursorToUse, searchQuery, sortOption, 16);
-
-      console.log("Received products:", productList?.edges?.length, "hasNextPage:", productList?.pageInfo?.hasNextPage);
 
       setPages((prevPages) => [...prevPages, productList]);
     } catch (error) {
@@ -233,6 +229,7 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
     else if (pages.length === 0) {
       setPages([originalData]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, sortOption, performSearch, performSort, originalData]);
 
   const allProducts = pages.flatMap(({ edges }) => edges);
@@ -373,6 +370,7 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
                   <div className="mt-4 text-red-400">
                     <p>{loadError}</p>
                     <button
+                      type="button"
                       onClick={loadMore}
                       className="mt-2 rounded bg-red-600 px-4 py-2 text-sm text-white transition-colors hover:bg-red-700"
                     >

@@ -349,7 +349,7 @@ function About() {
               <section className="space-y-8">
                 <div className="grid gap-6 md:grid-cols-3">
                   {featuredPhotos.map((photo, index) => (
-                    <div key={index} className="relative overflow-hidden">
+                    <div key={`featured-${photo.src}`} className="relative overflow-hidden">
                       <Image
                         src={photo.src}
                         alt={photo.alt}
@@ -504,8 +504,8 @@ function About() {
                   {journeyText}
                 </h2>
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {selectPhotos.map((photo, index) => (
-                    <div key={index} className="group relative overflow-hidden">
+                  {selectPhotos.map((photo) => (
+                    <div key={`select-${photo.src}`} className="group relative overflow-hidden">
                       <Image
                         src={photo.src}
                         alt={photo.alt}

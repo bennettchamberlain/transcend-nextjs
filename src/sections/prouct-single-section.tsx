@@ -180,6 +180,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
               {props.data.descriptionHtml && (
                 <div
                   className="mb-5 text-base text-gray-300"
+                  // eslint-disable-next-line react-dom/no-dangerously-set-innerhtml
                   dangerouslySetInnerHTML={{
                     __html: props.data.descriptionHtml
                       .replace(/<ul>/g, "<br><ul>")

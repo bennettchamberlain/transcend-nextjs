@@ -1,9 +1,9 @@
 import type { GetServerSideProps as GetStaticProps } from "@site/utilities/deps";
 
-import Footer from "@site/sections/footer";
-import { HomeHeaderSection } from "@site/sections/home-header-section";
 import { CollectionsScroll, fetchCollections } from "@site/sections/collections-scroll";
+import Footer from "@site/sections/footer";
 import { HeroSection } from "@site/sections/hero-section";
+import { HomeHeaderSection } from "@site/sections/home-header-section";
 import { fetchNewDropsSection, NewDropsSection } from "@site/sections/new-drops-section";
 
 interface PageProps {

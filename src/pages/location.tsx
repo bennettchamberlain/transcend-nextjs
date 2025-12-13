@@ -1,7 +1,7 @@
 import Image from "next/image";
 
-import Footer from "@site/sections/footer";
 import { ArtistsHeaderSection } from "@site/sections/artists-header-section";
+import Footer from "@site/sections/footer";
 import { NavigationSection } from "@site/sections/navigation-section";
 
 export default function LocationPage() {
@@ -27,8 +27,8 @@ export default function LocationPage() {
 
         {/* Location Photos */}
         <div className="mb-12 grid gap-6 md:grid-cols-3">
-          {locationPhotos.map((photo, index) => (
-            <div key={index} className="relative overflow-hidden rounded-lg">
+          {locationPhotos.map((photo) => (
+            <div key={`location-${photo.src}`} className="relative overflow-hidden rounded-lg">
               <Image
                 src={photo.src}
                 alt={photo.alt}
@@ -67,7 +67,7 @@ export default function LocationPage() {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  sandbox="allow-same-origin allow-scripts"
+                  sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"
                   title="Transcend Silver Lake Location"
                   className="h-full w-full"
                 ></iframe>

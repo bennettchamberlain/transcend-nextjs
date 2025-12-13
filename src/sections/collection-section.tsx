@@ -353,6 +353,7 @@ export function CollectionSection(props: DataProps<typeof fetchCollectionSection
             <div className="mt-4 text-red-400">
               <p>{loadError}</p>
               <button
+                type="button"
                 onClick={loadMore}
                 className="mt-2 rounded bg-red-600 px-4 py-2 text-sm text-white transition-colors hover:bg-red-700"
               >
