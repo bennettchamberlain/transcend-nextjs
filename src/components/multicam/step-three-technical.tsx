@@ -9,10 +9,12 @@ interface StepThreeProps {
 export function StepThreeTechnical({ data, onChange, errors }: StepThreeProps) {
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-semibold" style={{ fontFamily: "Shapiro" }}>Technical Requirements</h3>
+      <h3 className="text-xl font-semibold" style={{ fontFamily: "Shapiro" }}>
+        Technical Requirements
+      </h3>
 
       <div>
-        <label className="mb-2 block text-sm font-medium">Number of Cameras *</label>
+        <label className="mb-2 block text-sm font-medium">Number of Cameras</label>
         <input
           type="number"
           min="1"

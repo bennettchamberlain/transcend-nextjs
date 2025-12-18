@@ -9,10 +9,12 @@ interface StepTwoProps {
 export function StepTwoProjectDescription({ data, onChange, errors }: StepTwoProps) {
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-semibold" style={{ fontFamily: "Shapiro" }}>Project Description</h3>
+      <h3 className="text-xl font-semibold" style={{ fontFamily: "Shapiro" }}>
+        Project Description
+      </h3>
 
       <div>
-        <label className="mb-2 block text-sm font-medium">Email *</label>
+        <label className="mb-2 block text-sm font-medium">Email</label>
         <input
           type="email"
           value={data.email || ""}
@@ -25,7 +27,7 @@ export function StepTwoProjectDescription({ data, onChange, errors }: StepTwoPro
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium">Project Description *</label>
+        <label className="mb-2 block text-sm font-medium">Project Description</label>
         <textarea
           value={data.projectDescription || ""}
           onChange={(e) => onChange("projectDescription", e.target.value)}

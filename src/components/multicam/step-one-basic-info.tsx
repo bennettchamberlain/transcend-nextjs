@@ -25,7 +25,7 @@ export function StepOneBasicInfo({ data, onChange, errors }: StepOneProps) {
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium">Phone *</label>
+        <label className="mb-2 block text-sm font-medium">Phone</label>
         <input
           type="tel"
           value={data.phone || ""}
