@@ -5,50 +5,22 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { StoreLayout } from "@site/layouts/store-layout";
 
 function About() {
-  const titleRef = useRef<HTMLHeadingElement>(null);
   const storyRef = useRef<HTMLHeadingElement>(null);
   const missionRef = useRef<HTMLHeadingElement>(null);
   const journeyRef = useRef<HTMLHeadingElement>(null);
 
-  const [isAnimated, setIsAnimated] = useState(false);
   const [isStoryAnimated, setIsStoryAnimated] = useState(false);
   const [isMissionAnimated, setIsMissionAnimated] = useState(false);
   const [isJourneyAnimated, setIsJourneyAnimated] = useState(false);
 
-  const [displayText, setDisplayText] = useState("TRANSCEND COLLECTIVE");
   const [storyText, setStoryText] = useState("OUR STORY");
   const [missionText, setMissionText] = useState("OUR MISSION");
   const [journeyText, setJourneyText] = useState("OUR JOURNEY");
 
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const targetText = "TRANSCEND COLLECTIVE";
   const storyTarget = "OUR STORY";
   const missionTarget = "OUR MISSION";
   const journeyTarget = "OUR JOURNEY";
-
-  const triggerAnimation = useCallback(() => {
-    let iterations = 0;
-    const interval = setInterval(() => {
-      setDisplayText(
-        targetText
-          .split("")
-          .map((_, index) => {
-            if (index <= iterations + 1) {
-              return targetText[index];
-            }
-            return letters[Math.floor(Math.random() * letters.length)];
-          })
-          .join(""),
-      );
-
-      if (iterations >= targetText.length) {
-        clearInterval(interval);
-        setDisplayText(targetText);
-      }
-
-      iterations += 1 / 3;
-    }, 30);
-  }, [targetText, letters]);
 
   const triggerStoryAnimation = useCallback(() => {
     let iterations = 0;
@@ -121,35 +93,6 @@ function About() {
       iterations += 1 / 3;
     }, 30);
   }, [journeyTarget, letters]);
-
-  // Scroll-triggered animation for main title
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !isAnimated) {
-            setIsAnimated(true);
-            triggerAnimation();
-          }
-        });
-      },
-      {
-        threshold: 0.5,
-        rootMargin: "0px 0px -400px 0px",
-      },
-    );
-
-    const currentTitleRef = titleRef.current;
-    if (currentTitleRef) {
-      observer.observe(currentTitleRef);
-    }
-
-    return () => {
-      if (currentTitleRef) {
-        observer.unobserve(currentTitleRef);
-      }
-    };
-  }, [isAnimated, triggerAnimation]);
 
   // Scroll-triggered animation for Our Story
   useEffect(() => {
@@ -329,24 +272,27 @@ function About() {
         <div className="min-h-screen bg-black text-white">
           {/* Main Content */}
           <main className="mx-auto max-w-6xl px-4 py-16">
-            <div className="space-y-16">
+            <div className="">
               {/* Hero Section */}
               <section className="text-center">
-                <h1
-                  ref={titleRef}
-                  className="mb-6 cursor-pointer text-5xl font-bold text-white uppercase transition-all duration-200"
-                  style={{ fontFamily: "Modeseven" }}
-                >
-                  {displayText}
-                </h1>
-                <p className="mx-auto max-w-3xl text-xl text-gray-300 uppercase">
+                <div className="mb-6 flex justify-center" style={{ marginTop: "-150px" }}>
+                  <Image
+                    src="/images/TRANSCEND_symbol 4.png"
+                    alt="TRANSCEND COLLECTIVE"
+                    width={1200}
+                    height={200}
+                    className="h-auto w-auto max-w-full"
+                    priority
+                  />
+                </div>
+                <p className="mx-auto max-w-3xl text-xl text-gray-300 uppercase" style={{ fontFamily: "Modeseven" }}>
                   A movement dedicated to growth, helping others, and spreading good design through community and
                   creativity.
                 </p>
               </section>
 
               {/* Featured Images Section */}
-              <section className="space-y-8">
+              <section className="space-y-8 pt-10 pb-10">
                 <div className="grid gap-6 md:grid-cols-3">
                   {featuredPhotos.map((photo, index) => (
                     <div key={`featured-${photo.src}`} className="relative overflow-hidden">
@@ -370,34 +316,59 @@ function About() {
               </section>
 
               {/* Main Story Section */}
-              <section className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-                <div className="space-y-6">
+              <section className="grid gap-12 pb-10 lg:grid-cols-2 lg:gap-16">
+                <div className="space-y-6 pt-40">
                   <h2
                     ref={storyRef}
-                    className="cursor-pointer font-[Druk] text-3xl font-semibold text-white uppercase transition-all duration-200"
-                    style={{ fontFamily: "Modeseven" }}
+                    className="cursor-pointer text-5xl font-semibold text-white uppercase transition-all duration-200"
+                    style={{ fontFamily: "Divine", letterSpacing: "0px" }}
                   >
                     {storyText}
                   </h2>
-                  <div className="space-y-4 leading-relaxed text-gray-300 uppercase">
+                  <div className="space-y-4 leading-relaxed text-gray-300 uppercase" style={{ fontFamily: "Shapiro" }}>
                     <p>
-                      Transcend Collective was born from a simple yet powerful vision: to create a platform where
-                      growth, community, and good design converge. We believe that true success comes not just from
-                      individual achievement, but from lifting others up and creating meaningful connections.
+                      <span
+                        style={{
+                          fontFamily: "Modeseven",
+                          textTransform: "uppercase",
+                          fontSize: "24px",
+                          color: "white",
+                        }}
+                      >
+                        Transcend Collective{" "}
+                      </span>
+                      <span
+                        style={{ fontFamily: "AOMono", textTransform: "uppercase", fontSize: "14px", lineHeight: "0" }}
+                      >
+                        {" "}
+                        was born from a simple yet powerful vision: to create a platform where growth, community, and
+                        good design converge. We believe that true success comes not just from individual achievement,
+                        but from lifting others up and creating meaningful connections.
+                      </span>
                     </p>
-                    <p>
+                    <p style={{ fontFamily: "AOMono", textTransform: "uppercase", fontSize: "14px" }}>
                       What started as a passion project has evolved into a movement that transcends traditional
                       boundaries. We're not just a brand—we're a collective of creators, dreamers, and doers who believe
                       in the power of collaboration and shared growth.
                     </p>
-                    <p>
-                      Our mission is clear: to help others grow, to spread good design, and to build a community where
-                      everyone has the opportunity to thrive. We're committed to creating spaces where creativity
-                      flourishes and where every voice has the chance to be heard.
+                    <p style={{ fontFamily: "AOMono", textTransform: "uppercase", fontSize: "14px" }}>
+                      <span
+                        style={{
+                          fontFamily: "Modeseven",
+                          textTransform: "uppercase",
+                          fontSize: "24px",
+                          color: "white",
+                        }}
+                      >
+                        Our mission is clear:{" "}
+                      </span>{" "}
+                      to help others grow, to spread good design, and to build a community where everyone has the
+                      opportunity to thrive. We're committed to creating spaces where creativity flourishes and where
+                      every voice has the chance to be heard.
                     </p>
                   </div>
                 </div>
-                <div className="relative">
+                <div className="relative" >
                   <Image
                     src="/images/selects/warren_shoot/WDS00174.jpg"
                     alt="Transcend Collective Story"
@@ -409,16 +380,19 @@ function About() {
               </section>
 
               {/* Mission Section */}
-              <section className="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900/50 to-gray-800/50 p-8">
+              <section className="mb-10 rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900/50 to-gray-800/50 p-8">
                 <div className="space-y-6 text-center">
                   <h2
                     ref={missionRef}
-                    className="cursor-pointer font-[Druk] text-3xl font-semibold text-white uppercase transition-all duration-200"
-                    style={{ fontFamily: "Modeseven" }}
+                    className="cursor-pointer text-3xl font-semibold text-white uppercase transition-all duration-200"
+                    style={{ fontFamily: "Divine" }}
                   >
                     {missionText}
                   </h2>
-                  <p className="mx-auto max-w-4xl text-lg leading-relaxed text-gray-300 uppercase">
+                  <p
+                    className="mx-auto max-w-4xl text-xl leading-relaxed text-gray-300 uppercase"
+                    style={{ fontFamily: "Modeseven" }}
+                  >
                     We are focused on growth and helping others. Our commitment is to spread good design, foster
                     meaningful connections, and create opportunities for creative minds to flourish. We believe that by
                     supporting each other, we can achieve more than we ever could alone.
@@ -439,8 +413,10 @@ function About() {
                       />
                     </svg>
                   </div>
-                  <h3 className="font-[Druk] text-xl font-semibold text-white uppercase">Growth</h3>
-                  <p className="text-gray-300 uppercase">
+                  <h3 className="text-xl font-semibold text-white uppercase" style={{ fontFamily: "Shapiro" }}>
+                    Growth
+                  </h3>
+                  <p className="text-gray-300 uppercase" style={{ fontFamily: "Modeseven" }}>
                     We believe in continuous improvement and helping others reach their full potential through
                     mentorship, resources, and community support.
                   </p>
@@ -456,8 +432,10 @@ function About() {
                       />
                     </svg>
                   </div>
-                  <h3 className="font-[Druk] text-xl font-semibold text-white uppercase">Community</h3>
-                  <p className="text-gray-300 uppercase">
+                  <h3 className="text-xl font-semibold text-white uppercase" style={{ fontFamily: "Shapiro" }}>
+                    Community
+                  </h3>
+                  <p className="text-gray-300 uppercase" style={{ fontFamily: "Modeseven" }}>
                     Building meaningful connections and fostering a supportive environment where creativity thrives and
                     collaboration leads to innovation.
                   </p>
@@ -473,8 +451,10 @@ function About() {
                       />
                     </svg>
                   </div>
-                  <h3 className="font-[Druk] text-xl font-semibold text-white uppercase">Design</h3>
-                  <p className="text-gray-300 uppercase">
+                  <h3 className="text-xl font-semibold text-white uppercase" style={{ fontFamily: "Shapiro" }}>
+                    Design
+                  </h3>
+                  <p className="text-gray-300 uppercase" style={{ fontFamily: "Modeseven" }}>
                     Spreading good design principles and creating beautiful, functional experiences that inspire and
                     elevate the world around us.
                   </p>
@@ -482,8 +462,8 @@ function About() {
               </section>
 
               {/* Banner Image Section */}
-              <section className="relative">
-                <div className="relative h-[350px] w-full overflow-hidden md:h-[492px]">
+              <section className="relative pt-10">
+                <div className="relative h-[350px] w-full overflow-hidden pt-20 pb-10 md:h-[492px]">
                   <Image
                     src="/images/selects/warren_shoot/WDS00630.jpg"
                     alt="Transcend Collective - Behind the Scenes"
@@ -495,11 +475,11 @@ function About() {
               </section>
 
               {/* Extended Image Gallery - All Select Photos */}
-              <section className="space-y-8">
+              <section className="space-y-8 pt-10">
                 <h2
                   ref={journeyRef}
-                  className="cursor-pointer text-center font-[Druk] text-3xl font-semibold text-white uppercase transition-all duration-200"
-                  style={{ fontFamily: "Modeseven" }}
+                  className="cursor-pointer text-center text-3xl font-semibold text-white uppercase transition-all duration-200"
+                  style={{ fontFamily: "Divine" }}
                 >
                   {journeyText}
                 </h2>
@@ -525,7 +505,10 @@ function About() {
               {/* Call to Action */}
               <section className="text-center">
                 <div className="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900/50 to-gray-800/50 p-8">
-                  <h2 className="mb-4 text-3xl font-semibold text-white uppercase" style={{ fontFamily: "Modeseven" }}>
+                  <h2
+                    className="mb-4 text-3xl font-semibold text-white uppercase"
+                    style={{ fontFamily: "Shapiro", letterSpacing: "0px" }}
+                  >
                     Join Our Movement
                   </h2>
                   <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-300 uppercase">

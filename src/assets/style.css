@@ -49,6 +49,26 @@
   font-display: swap;
 }
 
+/* Hide scrollbar for stepper */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Liquid flow animation for juice bar */
+@keyframes liquidFlow {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 @font-face {
   font-family: "Modeseven";
   src: url("/fonts/Modeseven.ttf") format("truetype");
@@ -89,6 +109,30 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Kecter";
+  src: url("/fonts/kecter.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Divine";
+  src: url("/fonts/Divine.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Shapiro";
+  src: url("/fonts/Shapiro.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Global font family application */
 * {
   font-family: "Modeseven", ui-sans-serif, system-ui, sans-serif;
@@ -114,27 +158,43 @@ body {
   box-sizing: border-box;
 }
 
-/* Heading and subheading font family - Now using Druk for headlines */
+/* Heading and subheading font family - Now using Kecter for headlines */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: "Druk", "AOMono", ui-sans-serif, system-ui, sans-serif;
+  font-family: "Kecter", "Druk", "AOMono", ui-sans-serif, system-ui, sans-serif;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.15em;
+}
+
+/* Add letter spacing to any element using Kecter font */
+[style*="font-family: Kecter"],
+[style*='font-family: "Kecter"'],
+[style*="font-family: 'Kecter'"] {
+  letter-spacing: 0.15em;
+}
+
+/* Utility class for Kecter font with letter spacing */
+.font-kecter {
+  font-family: "Kecter", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.15em;
 }
 
 @theme {
   --font-family-sans: "Modeseven", ui-sans-serif, system-ui, sans-serif;
   --font-family-mono: "AOMono", ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
-  --font-family-heading: "Druk", "AOMono", ui-sans-serif, system-ui, sans-serif;
+  --font-family-heading: "Kecter", "Druk", "AOMono", ui-sans-serif, system-ui, sans-serif;
+  --font-family-kecter: "Kecter", ui-sans-serif, system-ui, sans-serif;
   --font-family-druk: "Druk", ui-sans-serif, system-ui, sans-serif;
   --font-family-baunk: "Baunk", ui-sans-serif, system-ui, sans-serif;
   --font-family-moonhouse: "Moonhouse", ui-sans-serif, system-ui, sans-serif;
   --font-family-nt1972: "NT1972", ui-sans-serif, system-ui, sans-serif;
   --font-family-vcreas: "VcrEas", ui-sans-serif, system-ui, sans-serif;
+  --font-family-divine: "Divine", ui-sans-serif, system-ui, sans-serif;
+  --font-family-shapiro: "Shapiro", ui-sans-serif, system-ui, sans-serif;
 
   --color-primary-50: #eef2ff;
   --color-primary-100: #e0e7ff;

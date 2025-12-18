@@ -22,7 +22,7 @@ export function HeroButtonRow() {
         >
           <div className="text-center">
             <div className="flex items-center justify-center gap-x-6">
-              <Zap className="inline-block h-5 w-5 transition-transform duration-200 group-hover:scale-110" />
+              <Zap className="inline-block h-5 w-5 text-lime-400 transition-transform duration-200 group-hover:scale-110" />
               <p className="text-lg font-bold text-white">ALL PRODUCTS</p>
             </div>
           </div>

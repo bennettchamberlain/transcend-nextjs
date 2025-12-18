@@ -4,50 +4,10 @@ import { ChevronLeft, ChevronRight, Zap } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { storefront } from "@site/utilities/storefront";
+import type { Collection } from "@site/utilities/collections";
 
 interface CollectionsScrollProps {
-  collections: {
-    id: string;
-    handle: string;
-    title: string;
-    description: string;
-    image?: {
-      url: string;
-      altText?: string | null;
-      width?: number | null;
-      height?: number | null;
-    } | null;
-  }[];
-}
-
-export async function fetchCollections() {
-  try {
-    const { collections } = await storefront.query({
-      collections: [
-        { first: 10 },
-        {
-          nodes: {
-            id: true,
-            handle: true,
-            title: true,
-            description: [{ truncateAt: 200 }, true],
-            image: {
-              url: [{ transform: { maxWidth: 500 } }, true],
-              altText: true,
-              width: true,
-              height: true,
-            },
-          },
-        },
-      ],
-    });
-
-    return collections?.nodes || [];
-  } catch (error) {
-    console.error("Error fetching collections:", error);
-    return [];
-  }
+  collections: Collection[];
 }
 
 export function CollectionsScroll({ collections }: CollectionsScrollProps) {
@@ -169,14 +129,17 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
         <div className="mb-12 text-right">
           <h2
             ref={titleRef}
-            className="mb-4 cursor-pointer text-4xl font-black text-white transition-all duration-200 md:text-5xl"
-            style={{ fontFamily: "Modeseven", fontWeight: "900" }}
+            className="mb-4 cursor-pointer text-5xl font-black text-white transition-all duration-200 md:text-6xl lg:text-7xl"
+            style={{ fontFamily: "Modeseven", fontWeight: "900", letterSpacing: "-1px" }}
           >
             {/* <span className="text-neon-green neon-glow" style={{ fontFamily: "AOMono", fontWeight: "900" }}>
               {displayText}
             </span> */}
             {displayText}
           </h2>
+          <p className="text-gray-300 uppercase" style={{ fontFamily: "Shapiro", letterSpacing: "1px" }}>
+            EXPLORE OUR CURATED COLLECTIONS
+          </p>
         </div>
 
         <div className="relative">
@@ -231,8 +194,24 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
                       {collection.title}
                     </h3> */}
 
-                    <p className="mb-4 line-clamp-2 text-sm text-gray-300" style={{ fontFamily: "AOMono" }}>
-                      {collection.title || "Discover cutting-edge fashion technology"}
+                    <p className="mb-4 line-clamp-2 text-sm text-gray-300" style={{ fontFamily: "Shapiro" }}>
+                      {(() => {
+                        const title = collection.title || "Discover cutting-edge fashion technology";
+                        // Check if title starts with [ and ends with ]
+                        if (title.startsWith("[") && title.endsWith("]")) {
+                          const bracketStart = title[0];
+                          const bracketEnd = title[title.length - 1];
+                          const name = title.slice(1, -1);
+                          return (
+                            <>
+                              <span style={{ fontFamily: "AOMono" }}>{bracketStart}</span>
+                              {name}
+                              <span style={{ fontFamily: "AOMono" }}>{bracketEnd}</span>
+                            </>
+                          );
+                        }
+                        return title;
+                      })()}
                     </p>
 
                     {/* Explore Button */}

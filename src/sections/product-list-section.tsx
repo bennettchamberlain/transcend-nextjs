@@ -227,6 +227,7 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
     }
     // If we're back to default sort with no search and no pages, restore original data
     else if (pages.length === 0) {
+      // eslint-disable-next-line react-hooks-extra/no-direct-set-state-in-use-effect
       setPages([originalData]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

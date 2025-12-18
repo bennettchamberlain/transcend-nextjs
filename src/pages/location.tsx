@@ -79,10 +79,10 @@ export default function LocationPage() {
           <div className="space-y-8">
             {/* Call to Action - Moved to second column */}
             <div className="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900/50 to-gray-800/50 p-6">
-              <h3 className="mb-3 text-xl font-semibold text-lime-400 uppercase" style={{ fontFamily: "Modeseven" }}>
+              <h3 className="mb-3 text-xl font-semibold text-lime-400 uppercase" style={{ fontFamily: "Divine" }}>
                 Visit Us Today
               </h3>
-              <p className="mb-4 text-gray-300">
+              <p className="mb-4 text-gray-300" style={{ fontFamily: "Shapiro" }}>
                 Experience the Transcend Collective difference in person. Browse our latest collections, get
                 personalized styling advice, and connect with our community.
               </p>
@@ -104,12 +104,12 @@ export default function LocationPage() {
               </div>
             </div>
             <div>
-              <h2 className="mb-4 text-2xl font-semibold uppercase" style={{ fontFamily: "Modeseven" }}>
+              <h2 className="mb-4 text-2xl font-semibold uppercase" style={{ fontFamily: "Divine" }}>
                 Store Details
               </h2>
-              <div className="space-y-4 text-gray-300">
+              <div className="space-y-4 text-gray-300" style={{ fontFamily: "Shapiro" }}>
                 <div>
-                  <h3 className="mb-2 font-semibold text-white uppercase" style={{ fontFamily: "Modeseven" }}>
+                  <h3 className="mb-2 font-semibold text-white uppercase" style={{ fontFamily: "Shapiro" }}>
                     Address
                   </h3>
                   <p>1750 Glendale Blvd</p>
@@ -117,7 +117,7 @@ export default function LocationPage() {
                 </div>
 
                 <div>
-                  <h3 className="mb-2 font-semibold text-white uppercase" style={{ fontFamily: "Modeseven" }}>
+                  <h3 className="mb-2 font-semibold text-white uppercase" style={{ fontFamily: "Shapiro" }}>
                     Hours
                   </h3>
                   <p>Monday - Friday: 10:00 AM - 8:00 PM</p>
@@ -126,7 +126,7 @@ export default function LocationPage() {
                 </div>
 
                 <div>
-                  <h3 className="mb-2 font-semibold text-white uppercase" style={{ fontFamily: "Modeseven" }}>
+                  <h3 className="mb-2 font-semibold text-white uppercase" style={{ fontFamily: "Shapiro" }}>
                     Contact
                   </h3>
                   <p>Phone: (804) 357-6709</p>
@@ -136,10 +136,10 @@ export default function LocationPage() {
             </div>
 
             <div>
-              <h2 className="mb-4 text-2xl font-semibold uppercase" style={{ fontFamily: "Modeseven" }}>
+              <h2 className="mb-4 text-2xl font-semibold uppercase" style={{ fontFamily: "Divine" }}>
                 Services
               </h2>
-              <ul className="space-y-2 text-gray-300">
+              <ul className="space-y-2 text-gray-300" style={{ fontFamily: "Shapiro" }}>
                 <li>• In-store pickup for online orders</li>
                 <li>• Personal styling consultations</li>
                 <li>• Returns and exchanges</li>

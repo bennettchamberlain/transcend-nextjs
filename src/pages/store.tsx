@@ -1,10 +1,11 @@
 import type { GetServerSideProps as GetStaticProps } from "@site/utilities/deps";
 
-import { CollectionsScroll, fetchCollections } from "@site/sections/collections-scroll";
+import { CollectionsScroll } from "@site/sections/collections-scroll";
 import Footer from "@site/sections/footer";
 import { HeroSection } from "@site/sections/hero-section";
 import { HomeHeaderSection } from "@site/sections/home-header-section";
 import { fetchNewDropsSection, NewDropsSection } from "@site/sections/new-drops-section";
+import { fetchCollections } from "@site/utilities/collections";
 
 interface PageProps {
   collections: Awaited<ReturnType<typeof fetchCollections>>;
@@ -27,9 +28,9 @@ export default function StorePage(props: PageProps) {
     <>
       <HomeHeaderSection />
       <main className="mx-auto">
-        <HeroSection />
-        <CollectionsScroll collections={props.collections} />
-        <NewDropsSection data={props.newDrops} />
+      <HeroSection />
+      <CollectionsScroll collections={props.collections} />
+      <NewDropsSection data={props.newDrops} />
       </main>
       <Footer />
     </>
