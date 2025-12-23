@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import { HeroButtonRow } from "./hero-button-row";
 import { NavigationSection } from "./navigation-section";
@@ -19,11 +19,98 @@ const pulseGlowKeyframes = `
 export function HomeHeaderSection() {
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
+  const timeoutIdsRef = useRef<NodeJS.Timeout[]>([]);
+  const retryPlayHandlersRef = useRef<Array<() => void>>([]);
+
+  // Force play videos even in low power mode
+  useEffect(() => {
+    const playVideo = async (video: HTMLVideoElement | null) => {
+      if (!video) {
+        return;
+      }
+
+      try {
+        // Attempt to play the video
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          await playPromise;
+        }
+      } catch {
+        // If autoplay fails, retry after a short delay
+        // Timeout and event listeners are tracked in refs and cleaned up in useEffect cleanup
+        // Note: ESLint warnings about cleanup are false positives - cleanup is handled via refs
+        const timeoutId = setTimeout(() => {
+          video.play().catch(() => {
+            // If still fails, try again on user interaction
+            const retryPlay = () => {
+              video.play().catch(() => {
+                // Silently fail after multiple attempts
+              });
+              document.removeEventListener("touchstart", retryPlay);
+              document.removeEventListener("click", retryPlay);
+            };
+            retryPlayHandlersRef.current.push(retryPlay);
+            // Event listeners are cleaned up via retryPlayHandlersRef array in useEffect cleanup
+            document.addEventListener("touchstart", retryPlay, { once: true });
+            document.addEventListener("click", retryPlay, { once: true });
+          });
+        }, 100);
+        timeoutIdsRef.current.push(timeoutId);
+      }
+    };
+
+    // Play desktop video
+    if (desktopVideoRef.current) {
+      playVideo(desktopVideoRef.current);
+    }
+
+    // Play mobile video
+    if (mobileVideoRef.current) {
+      playVideo(mobileVideoRef.current);
+    }
+
+    // Retry play on video load events
+    const desktopVideo = desktopVideoRef.current;
+    const mobileVideo = mobileVideoRef.current;
+
+    const handleDesktopLoaded = () => {
+      playVideo(desktopVideo);
+    };
+
+    const handleMobileLoaded = () => {
+      playVideo(mobileVideo);
+    };
+
+    desktopVideo?.addEventListener("loadeddata", handleDesktopLoaded);
+    mobileVideo?.addEventListener("loadeddata", handleMobileLoaded);
+
+    // Also retry on canplay event
+    desktopVideo?.addEventListener("canplay", handleDesktopLoaded);
+    mobileVideo?.addEventListener("canplay", handleMobileLoaded);
+
+    return () => {
+      // Cleanup timeouts
+      timeoutIdsRef.current.forEach((id) => {
+        clearTimeout(id);
+      });
+      timeoutIdsRef.current = [];
+      // Cleanup event listeners
+      retryPlayHandlersRef.current.forEach((handler) => {
+        document.removeEventListener("touchstart", handler);
+        document.removeEventListener("click", handler);
+      });
+      retryPlayHandlersRef.current = [];
+      desktopVideo?.removeEventListener("loadeddata", handleDesktopLoaded);
+      mobileVideo?.removeEventListener("loadeddata", handleMobileLoaded);
+      desktopVideo?.removeEventListener("canplay", handleDesktopLoaded);
+      mobileVideo?.removeEventListener("canplay", handleMobileLoaded);
+    };
+  }, []);
 
   return (
     <>
       <style>{pulseGlowKeyframes}</style>
-      <header className="relative z-50 min-h-[700px] overflow-hidden bg-black pb-20 shadow-sm lg:min-h-[800px] lg:pb-20">
+      <header className="relative z-50 min-h-[700px] overflow-hidden bg-black pb-1 shadow-sm lg:min-h-[800px] lg:pb-1">
         {/* Navigation */}
         <NavigationSection />
 
@@ -37,8 +124,18 @@ export function HomeHeaderSection() {
             loop
             muted
             playsInline
+            preload="auto"
             onLoadedMetadata={(e) => {
               e.currentTarget.currentTime = 5;
+              // Force play after setting currentTime
+              e.currentTarget.play().catch(() => {
+                // Retry play if it fails
+              });
+            }}
+            onCanPlay={(e) => {
+              e.currentTarget.play().catch(() => {
+                // Retry play if it fails
+              });
             }}
           >
             <source
@@ -57,12 +154,25 @@ export function HomeHeaderSection() {
             loop
             muted
             playsInline
+            preload="auto"
             onLoadedMetadata={(e) => {
               e.currentTarget.currentTime = 5;
+              // Force play after setting currentTime
+              e.currentTarget.play().catch(() => {
+                // Retry play if it fails
+              });
+            }}
+            onCanPlay={(e) => {
+              e.currentTarget.play().catch(() => {
+                // Retry play if it fails
+              });
             }}
           >
-            <source src="/videos/TRANSCEND HOMEPAGE VIDEO.mov" type="video/quicktime" />
-            <source src="/videos/TRANSCEND HOMEPAGE VIDEO.mov" type="video/mp4" />
+            <source
+              src="https://cdn.shopify.com/videos/c/o/v/ac7b0dedafcb44a6b311e539ef87591e.mov"
+              type="video/quicktime"
+            />
+            <source src="https://cdn.shopify.com/videos/c/o/v/ac7b0dedafcb44a6b311e539ef87591e.mov" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
 
