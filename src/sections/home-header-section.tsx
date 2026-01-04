@@ -30,27 +30,19 @@ export function HomeHeaderSection() {
       }
 
       try {
-        // Attempt to play the video
         const playPromise = video.play();
         if (playPromise !== undefined) {
           await playPromise;
         }
       } catch {
-        // If autoplay fails, retry after a short delay
-        // Timeout and event listeners are tracked in refs and cleaned up in useEffect cleanup
-        // Note: ESLint warnings about cleanup are false positives - cleanup is handled via refs
         const timeoutId = setTimeout(() => {
           video.play().catch(() => {
-            // If still fails, try again on user interaction
             const retryPlay = () => {
-              video.play().catch(() => {
-                // Silently fail after multiple attempts
-              });
+              video.play().catch(() => {});
               document.removeEventListener("touchstart", retryPlay);
               document.removeEventListener("click", retryPlay);
             };
             retryPlayHandlersRef.current.push(retryPlay);
-            // Event listeners are cleaned up via retryPlayHandlersRef array in useEffect cleanup
             document.addEventListener("touchstart", retryPlay, { once: true });
             document.addEventListener("click", retryPlay, { once: true });
           });
@@ -137,12 +129,25 @@ export function HomeHeaderSection() {
                 // Retry play if it fails
               });
             }}
+            onError={(e) => {
+              const error = e.currentTarget.error;
+              console.error("Desktop video error:", {
+                code: error?.code,
+                message: error?.message,
+                MEDIA_ERR_ABORTED: error?.code === MediaError.MEDIA_ERR_ABORTED,
+                MEDIA_ERR_NETWORK: error?.code === MediaError.MEDIA_ERR_NETWORK,
+                MEDIA_ERR_DECODE: error?.code === MediaError.MEDIA_ERR_DECODE,
+                MEDIA_ERR_SRC_NOT_SUPPORTED: error?.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED,
+              });
+            }}
           >
+            {/* Try MP4 first (better browser support) */}
+            <source src="https://cdn.shopify.com/videos/c/o/v/c701a320de2b4149aae2c157dd695596.mp4" type="video/mp4" />
+            {/* Fallback to MOV if MP4 doesn't exist */}
             <source
               src="https://cdn.shopify.com/videos/c/o/v/c701a320de2b4149aae2c157dd695596.mov"
               type="video/quicktime"
             />
-            <source src="https://cdn.shopify.com/videos/c/o/v/c701a320de2b4149aae2c157dd695596.mov" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
 
@@ -167,12 +172,25 @@ export function HomeHeaderSection() {
                 // Retry play if it fails
               });
             }}
+            onError={(e) => {
+              const error = e.currentTarget.error;
+              console.error("Mobile video error:", {
+                code: error?.code,
+                message: error?.message,
+                MEDIA_ERR_ABORTED: error?.code === MediaError.MEDIA_ERR_ABORTED,
+                MEDIA_ERR_NETWORK: error?.code === MediaError.MEDIA_ERR_NETWORK,
+                MEDIA_ERR_DECODE: error?.code === MediaError.MEDIA_ERR_DECODE,
+                MEDIA_ERR_SRC_NOT_SUPPORTED: error?.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED,
+              });
+            }}
           >
+            {/* Try MP4 first (better browser support) */}
+            <source src="https://cdn.shopify.com/videos/c/o/v/ac7b0dedafcb44a6b311e539ef87591e.mp4" type="video/mp4" />
+            {/* Fallback to MOV if MP4 doesn't exist */}
             <source
               src="https://cdn.shopify.com/videos/c/o/v/ac7b0dedafcb44a6b311e539ef87591e.mov"
               type="video/quicktime"
             />
-            <source src="https://cdn.shopify.com/videos/c/o/v/ac7b0dedafcb44a6b311e539ef87591e.mov" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
 

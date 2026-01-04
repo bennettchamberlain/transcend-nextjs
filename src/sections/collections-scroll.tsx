@@ -222,7 +222,7 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
                   </div>
 
                   <div
-                    className="absolute inset-0 border border-white opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    className="absolute inset-0 border-2 border-[#dcff07] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                     style={{
                       clipPath: "polygon(0 0, calc(100% - 19px) 0, 100% 18px, 100% 100%, 0 100%)",
                     }}
