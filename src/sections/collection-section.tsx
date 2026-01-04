@@ -1,5 +1,3 @@
-import type { RefObject } from "react";
-
 import { Money } from "@shopify/hydrogen-react";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
@@ -110,8 +108,6 @@ function CollectionCard({
   hasSecondImage: boolean;
   toggleImage: (productHandle: string, hasSecondImage: boolean) => void;
 }) {
-  const borderRef = useRef<HTMLDivElement>(null);
-
   return (
     <div className="group">
       <NextLink href={`/products/${node.handle}`} className="block">

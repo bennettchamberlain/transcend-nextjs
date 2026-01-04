@@ -35,20 +35,27 @@ export function ArtistMerchStepper({ onComplete }: ArtistMerchStepperProps) {
 
     switch (step) {
       case 1:
-        if (!formData.name?.trim()) newErrors.name = "Name is required";
-        if (!formData.artistName?.trim()) newErrors.artistName = "Artist/project name is required";
-        if (!formData.phone?.trim()) newErrors.phone = "Phone number is required";
+        if (!formData.name?.trim())
+          newErrors.name = "Name is required";
+        if (!formData.artistName?.trim())
+          newErrors.artistName = "Artist/project name is required";
+        if (!formData.phone?.trim())
+          newErrors.phone = "Phone number is required";
         break;
       case 2:
         // Social media is optional
         break;
       case 3:
-        if (!formData.moodboardDescription?.trim()) newErrors.moodboardDescription = "Please describe your vision";
+        if (!formData.moodboardDescription?.trim())
+          newErrors.moodboardDescription = "Please describe your vision";
         break;
       case 4:
-        if (!formData.projectType) newErrors.projectType = "Please select a project type";
-        if (!formData.timeline) newErrors.timeline = "Please select a timeline";
-        if (!formData.budget) newErrors.budget = "Please select a budget range";
+        if (!formData.projectType)
+          newErrors.projectType = "Please select a project type";
+        if (!formData.timeline)
+          newErrors.timeline = "Please select a timeline";
+        if (!formData.budget)
+          newErrors.budget = "Please select a budget range";
         break;
       case 5:
         // Additional info is optional

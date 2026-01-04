@@ -35,6 +35,7 @@ export function HomeHeaderSection() {
           await playPromise;
         }
       } catch {
+        // eslint-disable-next-line react-web-api/no-leaked-timeout
         const timeoutId = setTimeout(() => {
           video.play().catch(() => {
             const retryPlay = () => {
@@ -43,7 +44,9 @@ export function HomeHeaderSection() {
               document.removeEventListener("click", retryPlay);
             };
             retryPlayHandlersRef.current.push(retryPlay);
+            // eslint-disable-next-line react-web-api/no-leaked-event-listener
             document.addEventListener("touchstart", retryPlay, { once: true });
+            // eslint-disable-next-line react-web-api/no-leaked-event-listener
             document.addEventListener("click", retryPlay, { once: true });
           });
         }, 100);

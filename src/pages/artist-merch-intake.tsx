@@ -1,5 +1,5 @@
-import { ArtistMerchIntakeSection } from "@site/sections/artist-merch-intake-section";
 import { StoreLayout } from "@site/layouts/store-layout";
+import { ArtistMerchIntakeSection } from "@site/sections/artist-merch-intake-section";
 
 export default function ArtistMerchIntakePage() {
   return (

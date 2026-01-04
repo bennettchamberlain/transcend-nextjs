@@ -22,6 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Here you would typically save to a database
     // For now, we'll just log the submission and return success
+    // eslint-disable-next-line no-console
     console.log("Artist Merch Intake Submitted:", {
       ...data,
       submittedAt: new Date().toISOString(),
