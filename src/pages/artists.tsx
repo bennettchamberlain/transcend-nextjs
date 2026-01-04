@@ -23,7 +23,7 @@ export default function ArtistsPage() {
 
       <div className="bg-black py-12 text-center">
         <NextLink href="/multicam-dashboard" className="text-lime-400 underline transition-colors hover:text-lime-300">
-          Login to Multicam Dashboard
+          Login to Dashboard Here
         </NextLink>
       </div>
     </StoreLayout>
