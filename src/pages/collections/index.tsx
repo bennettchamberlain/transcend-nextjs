@@ -1,7 +1,7 @@
 import type { GetStaticProps } from "next";
 
 import { StoreLayout } from "@site/layouts/store-layout";
-import { CollectionsScroll } from "@site/sections/collections-scroll";
+import { CollectionsPageHero } from "@site/sections/collections-page-hero";
 import { fetchCollections } from "@site/utilities/collections";
 import { NextSeo } from "@site/utilities/deps";
 
@@ -24,7 +24,7 @@ export default function Page(props: PageProps) {
   return (
     <StoreLayout>
       <NextSeo title="Collections" description="Explore our curated tech-forward collections" />
-      <CollectionsScroll collections={props.collections} />
+      <CollectionsPageHero collections={props.collections} />
     </StoreLayout>
   );
 }

@@ -25,7 +25,7 @@ export async function fetchCollections(): Promise<Collection[]> {
             title: true,
             description: [{ truncateAt: 200 }, true],
             image: {
-              url: [{ transform: { maxWidth: 500 } }, true],
+              url: [{ transform: { maxWidth: 2000, maxHeight: 1200 } }, true],
               altText: true,
               width: true,
               height: true,
