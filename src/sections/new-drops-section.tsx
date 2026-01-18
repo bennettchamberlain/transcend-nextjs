@@ -1,5 +1,4 @@
-import { ShoppingCartIcon } from "@heroicons/react/24/outline";
-import { AddToCartButton, Money, ProductProvider } from "@shopify/hydrogen-react";
+import { Money, ProductProvider } from "@shopify/hydrogen-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { DataProps } from "@site/utilities/deps";
@@ -271,7 +270,6 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
             const currentImageIndex = imageStates[node.handle] || 0;
             const currentImage = currentImageIndex === 1 && secondImage ? secondImage : firstImage;
             const nextImage = currentImageIndex === 0 && secondImage ? secondImage : firstImage;
-            const firstVariant = node.variants?.nodes?.[0];
 
             return (
               <ProductProvider key={node.handle} data={node}>
@@ -342,18 +340,8 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
                       {node.title}
                     </div>
 
-                    <div className="mt-1 flex items-baseline justify-between">
-                      <div className="font-mono text-lg font-medium text-white">
-                        <Money data={node.priceRange.minVariantPrice}></Money>
-                      </div>
-                      {firstVariant && (
-                        <AddToCartButton
-                          variantId={firstVariant.id}
-                          className="text-lime-400 transition-colors duration-200 hover:text-lime-300 focus:outline-none disabled:text-gray-300"
-                        >
-                          <ShoppingCartIcon className="h-5 w-5" />
-                        </AddToCartButton>
-                      )}
+                    <div className="mt-1 font-mono text-lg font-medium text-white">
+                      <Money data={node.priceRange.minVariantPrice}></Money>
                     </div>
                   </NextLink>
                 </div>

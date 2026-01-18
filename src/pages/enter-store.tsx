@@ -1,59 +1,33 @@
 // import { CyberButton } from "@site/snippets";
-import { useEffect, useRef, useRouter, useState } from "@site/utilities/deps";
-
-import CyberProgressBar from "../snippets/cyber-progress-bar";
+import { useEffect, useRef, useRouter } from "@site/utilities/deps";
 
 export default function EnterStorePage() {
   const router = useRouter();
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    // Set up video load handlers for both desktop and mobile videos
+    // Ensure videos play and loop
     const desktopVideo = desktopVideoRef.current;
     const mobileVideo = mobileVideoRef.current;
 
-    const handleVideoLoad = (video: HTMLVideoElement) => {
-      setIsVideoLoaded(true);
-      // Fade in the video
-      if (window.gsap) {
-        window.gsap.fromTo(
-          video,
-          { opacity: 0 },
-          {
-            opacity: 1,
-            duration: 1.5,
-            ease: "power2.out",
-          },
-        );
+    const playVideo = async (video: HTMLVideoElement) => {
+      try {
+        await video.play();
+        video.loop = true;
+      } catch (error) {
+        // Auto-play might be blocked, but video will play when user interacts
+        console.log("Video autoplay blocked:", error);
       }
     };
-
-    const handleDesktopLoad = () => handleVideoLoad(desktopVideo!);
-    const handleMobileLoad = () => handleVideoLoad(mobileVideo!);
 
     if (desktopVideo) {
-      desktopVideo.addEventListener("loadeddata", handleDesktopLoad);
-      desktopVideo.addEventListener("canplaythrough", handleDesktopLoad);
+      playVideo(desktopVideo);
     }
-
     if (mobileVideo) {
-      mobileVideo.addEventListener("loadeddata", handleMobileLoad);
-      mobileVideo.addEventListener("canplaythrough", handleMobileLoad);
+      playVideo(mobileVideo);
     }
-
-    return () => {
-      if (desktopVideo) {
-        desktopVideo.removeEventListener("loadeddata", handleDesktopLoad);
-        desktopVideo.removeEventListener("canplaythrough", handleDesktopLoad);
-      }
-      if (mobileVideo) {
-        mobileVideo.removeEventListener("loadeddata", handleMobileLoad);
-        mobileVideo.removeEventListener("canplaythrough", handleMobileLoad);
-      }
-    };
   }, []);
 
   const handleEnterStore = () => {
@@ -84,12 +58,12 @@ export default function EnterStorePage() {
         {/* Desktop Video */}
         <video
           ref={desktopVideoRef}
-          className="hidden h-full w-full object-cover opacity-0 lg:block"
+          className="hidden h-full w-full object-cover lg:block"
           autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
         >
           <source src="/videos/TRANSCEND 2.0 Lockup Intro.mp4" type="video/mp4" />
         </video>
@@ -97,12 +71,12 @@ export default function EnterStorePage() {
         {/* Mobile Video */}
         <video
           ref={mobileVideoRef}
-          className="h-full w-full object-cover opacity-0 lg:hidden"
+          className="h-full w-full object-cover lg:hidden"
           autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
         >
           <source src="/videos/TRANSCEND 2.0 Vertical Lockup.mp4" type="video/mp4" />
         </video>
@@ -182,18 +156,6 @@ export default function EnterStorePage() {
         </div>
       </div>
 
-      {/* Loading State */}
-      {!isVideoLoaded && (
-        <div className="absolute inset-0 z-20 flex items-center justify-center bg-black">
-          <div className="text-center">
-            <div className="mb-6 flex justify-center">
-              <CyberProgressBar color="#dcff07" size={120} type={3} className="cyber-loading-progress" />
-            </div>
-            <p className="text-lg text-white">Loading Experience...</p>
-            <p className="mt-2 text-sm text-gray-300">Preparing your journey into the future</p>
-          </div>
-        </div>
-      )}
 
       <style jsx>{`
         .cyber-enter-button {
@@ -208,13 +170,6 @@ export default function EnterStorePage() {
           .cyber-enter-button {
             transform: scale(0.8);
           }
-        }
-
-        :global(.cyber-loading-progress) {
-          position: static !important;
-          bottom: auto !important;
-          right: auto !important;
-          z-index: auto !important;
         }
       `}</style>
     </div>

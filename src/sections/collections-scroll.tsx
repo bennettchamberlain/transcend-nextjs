@@ -167,6 +167,14 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
                     clipPath: "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%)",
                   }}
                 >
+                  {/* Hover glow border overlay */}
+                  <div
+                    className="product-card-glow-overlay absolute inset-0 z-10"
+                    style={{
+                      clipPath: "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%)",
+                      border: "1px solid transparent",
+                    }}
+                  />
                   {/* Background Image */}
                   <div className="absolute inset-0">
                     {collection.image ? (
@@ -220,13 +228,6 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
                       <ChevronRight className="ml-2 h-4 w-4" />
                     </div>
                   </div>
-
-                  <div
-                    className="absolute inset-0 border-2 border-[#dcff07] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                    style={{
-                      clipPath: "polygon(0 0, calc(100% - 19px) 0, 100% 18px, 100% 100%, 0 100%)",
-                    }}
-                  />
                 </div>
               </Link>
             ))}

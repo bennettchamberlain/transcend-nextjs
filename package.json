@@ -52,9 +52,9 @@
     "typescript": "^5.8.3"
   },
   "tasks": {
-    "dev": "next dev",
+    "dev": "next dev -p 3004",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3004",
     "codegen": "node codegen.mjs",
     "fix": [
       "esmate fmt",
