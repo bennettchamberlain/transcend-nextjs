@@ -69,21 +69,28 @@ export async function fetchCollectionSection(handle: string, cursor?: string) {
   }
 }
 
-// Border overlay - positioned absolutely, NOT clipped, so border shows on all edges
+// Frame overlay wrapper - positioned absolutely, follows clipPath
 function ClippedBorder({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative w-full">
-      {/* Border overlay - absolutely positioned, not clipped */}
+    <div className="relative w-full" style={{ aspectRatio: "5/4" }}>
+      {/* Frame overlay - positioned absolutely, follows clipPath */}
       <div
-        className="pointer-events-none absolute inset-0 z-10 border-2 border-gray-700 transition-colors duration-300 group-hover:border-[#dcff07]"
+        className="pointer-events-none absolute inset-0 z-10"
         style={{
-          clipPath:
-            "polygon(1px 1px, calc(100% - 1px) 1px, calc(100% - 1px) calc(100% - 19px), calc(100% - 19px) calc(100% - 1px), 1px calc(100% - 1px))",
+          clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%)",
         }}
-      />
+      >
+        <NextImage
+          src="/images/TRANSCEND FRAME 2.png"
+          alt=""
+          fill
+          className="h-full w-full object-cover"
+          quality={100}
+        />
+      </div>
       {/* Content container - clipped */}
       <div
-        className="relative w-full overflow-hidden bg-gray-800"
+        className="relative h-full w-full overflow-hidden bg-gray-800"
         style={{
           clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%)",
         }}
@@ -113,55 +120,52 @@ function CollectionCard({
       <NextLink href={`/products/${node.handle}`} className="block">
         {/* Wrapper with border that won't be clipped */}
         <ClippedBorder>
-          {/* Content container */}
-          <div className="relative w-full overflow-hidden bg-gray-800">
-            {/* Mobile-only image toggle button */}
-            {hasSecondImage && (
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  toggleImage(node.handle, hasSecondImage);
-                }}
-                className="absolute top-2 right-2 z-10 block bg-black/50 p-1 text-white backdrop-blur-sm transition-all hover:bg-black/70 sm:hidden"
+          {/* Mobile-only image toggle button */}
+          {hasSecondImage && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleImage(node.handle, hasSecondImage);
+              }}
+              className="absolute top-2 right-2 z-10 block bg-black/50 p-1 text-white backdrop-blur-sm transition-all hover:bg-black/70 sm:hidden"
+            >
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M23 4v6h-6" />
-                  <path d="M1 20v-6h6" />
-                  <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" />
-                </svg>
-              </button>
-            )}
+                <path d="M23 4v6h-6" />
+                <path d="M1 20v-6h6" />
+                <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" />
+              </svg>
+            </button>
+          )}
 
+          <NextImage
+            src={currentImage!.url as string}
+            alt={currentImage!.altText as string}
+            height={currentImage!.height as number}
+            width={currentImage!.width as number}
+            quality={100}
+            className="h-full w-full object-cover object-center transition-opacity duration-300 group-hover:opacity-0 sm:group-hover:opacity-0"
+          />
+          {hasSecondImage && (
             <NextImage
-              src={currentImage!.url as string}
-              alt={currentImage!.altText as string}
-              height={currentImage!.height as number}
-              width={currentImage!.width as number}
+              src={nextImage!.url as string}
+              alt={nextImage!.altText as string}
+              height={nextImage!.height as number}
+              width={nextImage!.width as number}
               quality={100}
-              className="h-full w-full object-cover object-center transition-opacity duration-300 group-hover:opacity-0 sm:group-hover:opacity-0"
+              className="absolute inset-0 h-full w-full object-cover object-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:group-hover:opacity-100"
             />
-            {hasSecondImage && (
-              <NextImage
-                src={nextImage!.url as string}
-                alt={nextImage!.altText as string}
-                height={nextImage!.height as number}
-                width={nextImage!.width as number}
-                quality={100}
-                className="absolute inset-0 h-full w-full object-cover object-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:group-hover:opacity-100"
-              />
-            )}
-          </div>
+          )}
         </ClippedBorder>
         <div className="mt-4 text-xs text-gray-300" style={{ fontFamily: "AOMono" }}>
           {node.title}

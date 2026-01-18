@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 import { HeroButtonRow } from "./hero-button-row";
 import { NavigationSection } from "./navigation-section";
@@ -19,88 +19,6 @@ const pulseGlowKeyframes = `
 export function HomeHeaderSection() {
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
-  const timeoutIdsRef = useRef<NodeJS.Timeout[]>([]);
-  const retryPlayHandlersRef = useRef<Array<() => void>>([]);
-
-  // Force play videos even in low power mode
-  useEffect(() => {
-    const playVideo = async (video: HTMLVideoElement | null) => {
-      if (!video) {
-        return;
-      }
-
-      try {
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          await playPromise;
-        }
-      } catch {
-        // eslint-disable-next-line react-web-api/no-leaked-timeout
-        const timeoutId = setTimeout(() => {
-          video.play().catch(() => {
-            const retryPlay = () => {
-              video.play().catch(() => {});
-              document.removeEventListener("touchstart", retryPlay);
-              document.removeEventListener("click", retryPlay);
-            };
-            retryPlayHandlersRef.current.push(retryPlay);
-            // eslint-disable-next-line react-web-api/no-leaked-event-listener
-            document.addEventListener("touchstart", retryPlay, { once: true });
-            // eslint-disable-next-line react-web-api/no-leaked-event-listener
-            document.addEventListener("click", retryPlay, { once: true });
-          });
-        }, 100);
-        timeoutIdsRef.current.push(timeoutId);
-      }
-    };
-
-    // Play desktop video
-    if (desktopVideoRef.current) {
-      playVideo(desktopVideoRef.current);
-    }
-
-    // Play mobile video
-    if (mobileVideoRef.current) {
-      playVideo(mobileVideoRef.current);
-    }
-
-    // Retry play on video load events
-    const desktopVideo = desktopVideoRef.current;
-    const mobileVideo = mobileVideoRef.current;
-
-    const handleDesktopLoaded = () => {
-      playVideo(desktopVideo);
-    };
-
-    const handleMobileLoaded = () => {
-      playVideo(mobileVideo);
-    };
-
-    desktopVideo?.addEventListener("loadeddata", handleDesktopLoaded);
-    mobileVideo?.addEventListener("loadeddata", handleMobileLoaded);
-
-    // Also retry on canplay event
-    desktopVideo?.addEventListener("canplay", handleDesktopLoaded);
-    mobileVideo?.addEventListener("canplay", handleMobileLoaded);
-
-    return () => {
-      // Cleanup timeouts
-      timeoutIdsRef.current.forEach((id) => {
-        clearTimeout(id);
-      });
-      timeoutIdsRef.current = [];
-      // Cleanup event listeners
-      retryPlayHandlersRef.current.forEach((handler) => {
-        document.removeEventListener("touchstart", handler);
-        document.removeEventListener("click", handler);
-      });
-      retryPlayHandlersRef.current = [];
-      desktopVideo?.removeEventListener("loadeddata", handleDesktopLoaded);
-      mobileVideo?.removeEventListener("loadeddata", handleMobileLoaded);
-      desktopVideo?.removeEventListener("canplay", handleDesktopLoaded);
-      mobileVideo?.removeEventListener("canplay", handleMobileLoaded);
-    };
-  }, []);
 
   return (
     <>
@@ -110,90 +28,32 @@ export function HomeHeaderSection() {
         <NavigationSection />
 
         {/* Video Background - Full Width - Positioned below navigation */}
-        <div className="absolute inset-x-0 top-[152px] w-full lg:top-[152px]" style={{ bottom: "80px" }}>
+        <div className="absolute inset-x-0 top-[152px] w-full bg-black lg:top-[152px]" style={{ bottom: "80px" }}>
           {/* Desktop Video */}
           <video
             ref={desktopVideoRef}
-            className="absolute inset-0 hidden h-full w-full object-cover lg:block"
+            className="absolute inset-0 z-0 hidden h-full w-full object-cover lg:block"
             autoPlay
             loop
             muted
             playsInline
             preload="auto"
-            onLoadedMetadata={(e) => {
-              e.currentTarget.currentTime = 5;
-              // Force play after setting currentTime
-              e.currentTarget.play().catch(() => {
-                // Retry play if it fails
-              });
-            }}
-            onCanPlay={(e) => {
-              e.currentTarget.play().catch(() => {
-                // Retry play if it fails
-              });
-            }}
-            onError={(e) => {
-              const error = e.currentTarget.error;
-              console.error("Desktop video error:", {
-                code: error?.code,
-                message: error?.message,
-                MEDIA_ERR_ABORTED: error?.code === MediaError.MEDIA_ERR_ABORTED,
-                MEDIA_ERR_NETWORK: error?.code === MediaError.MEDIA_ERR_NETWORK,
-                MEDIA_ERR_DECODE: error?.code === MediaError.MEDIA_ERR_DECODE,
-                MEDIA_ERR_SRC_NOT_SUPPORTED: error?.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED,
-              });
-            }}
           >
-            {/* Try MP4 first (better browser support) */}
-            <source src="https://cdn.shopify.com/videos/c/o/v/c701a320de2b4149aae2c157dd695596.mp4" type="video/mp4" />
-            {/* Fallback to MOV if MP4 doesn't exist */}
-            <source
-              src="https://cdn.shopify.com/videos/c/o/v/c701a320de2b4149aae2c157dd695596.mov"
-              type="video/quicktime"
-            />
+            <source src="/videos/transcend-home-banner.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
 
           {/* Mobile Video */}
           <video
             ref={mobileVideoRef}
-            className="absolute inset-0 h-full w-full object-cover lg:hidden"
+            className="absolute inset-0 z-0 h-full w-full object-cover lg:hidden"
             autoPlay
             loop
             muted
             playsInline
             preload="auto"
-            onLoadedMetadata={(e) => {
-              e.currentTarget.currentTime = 5;
-              // Force play after setting currentTime
-              e.currentTarget.play().catch(() => {
-                // Retry play if it fails
-              });
-            }}
-            onCanPlay={(e) => {
-              e.currentTarget.play().catch(() => {
-                // Retry play if it fails
-              });
-            }}
-            onError={(e) => {
-              const error = e.currentTarget.error;
-              console.error("Mobile video error:", {
-                code: error?.code,
-                message: error?.message,
-                MEDIA_ERR_ABORTED: error?.code === MediaError.MEDIA_ERR_ABORTED,
-                MEDIA_ERR_NETWORK: error?.code === MediaError.MEDIA_ERR_NETWORK,
-                MEDIA_ERR_DECODE: error?.code === MediaError.MEDIA_ERR_DECODE,
-                MEDIA_ERR_SRC_NOT_SUPPORTED: error?.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED,
-              });
-            }}
           >
-            {/* Try MP4 first (better browser support) */}
-            <source src="https://cdn.shopify.com/videos/c/o/v/ac7b0dedafcb44a6b311e539ef87591e.mp4" type="video/mp4" />
-            {/* Fallback to MOV if MP4 doesn't exist */}
-            <source
-              src="https://cdn.shopify.com/videos/c/o/v/ac7b0dedafcb44a6b311e539ef87591e.mov"
-              type="video/quicktime"
-            />
+            <source src="/videos/transcend-home-banner.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
 
