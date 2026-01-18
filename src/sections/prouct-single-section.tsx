@@ -102,6 +102,10 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
   const { variantId, options, selectOption } = useVariantSelector(props.data);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const hasInitialized = useRef(false);
+  const slideshowIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const userInteractedRef = useRef(false);
+
+  const productImages = props.data.images.nodes;
 
   // Automatically select the first option for each option type only once when component mounts
   useEffect(() => {
@@ -116,7 +120,55 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
     }
   }, [options, selectOption]);
 
-  const productImages = props.data.images.nodes;
+  // Auto-slideshow: advance to next image every 4 seconds
+  useEffect(() => {
+    // Only start slideshow if there are multiple images and user hasn't manually interacted
+    if (productImages.length <= 1 || userInteractedRef.current) {
+      return;
+    }
+
+    // Clear any existing interval
+    if (slideshowIntervalRef.current) {
+      clearInterval(slideshowIntervalRef.current);
+    }
+
+    // Set up interval to advance images (starts from index 0 which is the initial state)
+    slideshowIntervalRef.current = setInterval(() => {
+      setSelectedImageIndex((currentIndex) => {
+        const nextIndex = currentIndex + 1;
+        
+        // If we've reached the last image, loop back to first and stop
+        if (nextIndex >= productImages.length) {
+          if (slideshowIntervalRef.current) {
+            clearInterval(slideshowIntervalRef.current);
+            slideshowIntervalRef.current = null;
+          }
+          // Loop back to first image and stop there
+          return 0;
+        }
+        
+        return nextIndex;
+      });
+    }, 3000); // 3 seconds
+
+    // Cleanup on unmount
+    return () => {
+      if (slideshowIntervalRef.current) {
+        clearInterval(slideshowIntervalRef.current);
+        slideshowIntervalRef.current = null;
+      }
+    };
+  }, [productImages.length]);
+
+  // Handle manual image selection - stop auto-slideshow
+  const handleImageSelect = (index: number) => {
+    userInteractedRef.current = true;
+    if (slideshowIntervalRef.current) {
+      clearInterval(slideshowIntervalRef.current);
+      slideshowIntervalRef.current = null;
+    }
+    setSelectedImageIndex(index);
+  };
 
   return (
     <ProductProvider data={props.data}>
@@ -124,14 +176,21 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
         <div className="flex flex-col rounded-lg shadow-sm md:flex-row md:space-x-8">
           <div className="md:basis-6/12">
             <div className="relative h-full w-full overflow-hidden border border-gray-700 bg-black">
-              <NextImage
-                src={productImages[selectedImageIndex].url}
-                alt={productImages[selectedImageIndex].altText || ""}
-                width={productImages[selectedImageIndex].width as number}
-                height={productImages[selectedImageIndex].height as number}
-                quality={100}
-                className="min-h-[600px] w-full object-contain object-center"
-              />
+              <div className="relative min-h-[600px] w-full">
+                {productImages.map((image, index) => (
+                  <NextImage
+                    key={image.id}
+                    src={image.url}
+                    alt={image.altText || ""}
+                    width={image.width as number}
+                    height={image.height as number}
+                    quality={100}
+                    className={`absolute inset-0 w-full object-contain object-center transition-opacity duration-500 ${
+                      index === selectedImageIndex ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+                ))}
+              </div>
 
               {/* Plus Icon */}
               <div className="absolute bottom-4 left-4 z-10">
@@ -150,7 +209,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
                   <button
                     type="button"
                     key={image.id}
-                    onClick={() => setSelectedImageIndex(index)}
+                    onClick={() => handleImageSelect(index)}
                     className={`flex-shrink-0 overflow-hidden border-2 transition-all duration-200 hover:opacity-80 ${
                       index === selectedImageIndex ? "border-[#dcff07]" : "border-gray-600 hover:border-gray-500"
                     }`}

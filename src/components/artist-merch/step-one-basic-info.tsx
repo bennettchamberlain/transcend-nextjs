@@ -57,6 +57,24 @@ export function StepOneBasicInfo({ data, onChange, errors }: StepOneBasicInfoPro
 
         <div>
           <label className="mb-2 block text-sm font-medium text-gray-300" style={{ fontFamily: "AOMono" }}>
+            Email Address *
+          </label>
+          <input
+            type="email"
+            required
+            value={data.email || ""}
+            onChange={(e) => onChange("email", e.target.value)}
+            className={`w-full rounded border bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:outline-none ${
+              errors.email ? "border-red-500 focus:border-red-500" : "border-gray-600 focus:border-lime-400"
+            }`}
+            style={{ fontFamily: "Modeseven" }}
+            placeholder="your@email.com"
+          />
+          {errors.email && <p className="mt-1 text-sm text-red-400">{errors.email}</p>}
+        </div>
+
+        <div>
+          <label className="mb-2 block text-sm font-medium text-gray-300" style={{ fontFamily: "AOMono" }}>
             Phone Number *
           </label>
           <input

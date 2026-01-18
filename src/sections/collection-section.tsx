@@ -73,28 +73,21 @@ export async function fetchCollectionSection(handle: string, cursor?: string) {
 function ClippedBorder({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative w-full" style={{ aspectRatio: "5/4" }}>
-      {/* Frame overlay - positioned absolutely, follows clipPath */}
-      <div
-        className="pointer-events-none absolute inset-0 z-10"
-        style={{
-          clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%)",
-        }}
-      >
-        <NextImage
-          src="/images/TRANSCEND FRAME 2.png"
-          alt=""
-          fill
-          className="h-full w-full object-cover"
-          quality={100}
-        />
-      </div>
       {/* Content container - clipped */}
       <div
         className="relative h-full w-full overflow-hidden bg-gray-800"
         style={{
-          clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%)",
+          clipPath: "polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px)",
         }}
       >
+        {/* Hover glow border overlay */}
+        <div
+          className="product-card-glow-overlay absolute inset-0 z-10"
+          style={{
+            clipPath: "polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px)",
+            border: "1px solid transparent",
+          }}
+        />
         {children}
       </div>
     </div>

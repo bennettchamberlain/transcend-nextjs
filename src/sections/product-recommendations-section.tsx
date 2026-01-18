@@ -66,38 +66,29 @@ export function ProductRecommendationsSection(props: DataProps<typeof fetchProdu
           <ProductProvider key={product.handle} data={product}>
             <div className="group">
               <NextLink href={`/products/${product.handle}`} className="block">
-                <div className="relative w-full" style={{ aspectRatio: "5/4" }}>
-                  {/* Frame overlay - positioned absolutely, follows clipPath */}
+                <div 
+                  className="relative w-full overflow-hidden bg-gray-800 group" 
+                  style={{ 
+                    aspectRatio: "5/4",
+                    clipPath: "polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px)"
+                  }}
+                >
+                  {/* Hover glow border overlay - neon green/yellow */}
                   <div
-                    className="pointer-events-none absolute inset-0 z-10"
+                    className="product-card-glow-overlay absolute inset-0 z-10"
                     style={{
-                      clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%)",
+                      clipPath: "polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px)",
+                      border: "1px solid transparent",
                     }}
-                  >
-                    <NextImage
-                      src="/images/TRANSCEND FRAME 2.png"
-                      alt=""
-                      fill
-                      className="h-full w-full object-cover"
-                      quality={100}
-                    />
-                  </div>
-                  {/* Content container - clipped */}
-                  <div
-                    className="relative h-full w-full overflow-hidden bg-gray-800"
-                    style={{
-                      clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%)",
-                    }}
-                  >
-                    <NextImage
-                      src={product.featuredImage?.url || product.images?.nodes[0]?.url || ""}
-                      alt={product.featuredImage?.altText || product.title}
-                      width={product.featuredImage?.width || 500}
-                      height={product.featuredImage?.height || 500}
-                      quality={100}
-                      className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
-                    />
-                  </div>
+                  />
+                  <NextImage
+                    src={product.featuredImage?.url || product.images?.nodes[0]?.url || ""}
+                    alt={product.featuredImage?.altText || product.title}
+                    width={product.featuredImage?.width || 500}
+                    height={product.featuredImage?.height || 500}
+                    quality={100}
+                    className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                  />
                 </div>
 
                 <div className="mt-4 text-xs text-gray-300">

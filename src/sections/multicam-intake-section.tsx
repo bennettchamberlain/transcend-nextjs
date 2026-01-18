@@ -72,7 +72,7 @@ export function MulticamIntakeSection() {
           </div>
 
           <a
-            href="/multicam-dashboard"
+            href="/artist-dashboard"
             className="inline-block rounded bg-lime-400 px-8 py-3 text-lg font-semibold text-black transition-colors hover:bg-lime-300"
           >
             Go to Dashboard

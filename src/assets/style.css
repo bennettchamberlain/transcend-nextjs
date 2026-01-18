@@ -69,6 +69,101 @@
   }
 }
 
+/* Pulse glow animation for borders */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 20px #dcff07, 0 0 40px #dcff07, 0 0 60px #dcff07;
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 30px #dcff07, 0 0 60px #dcff07, 0 0 90px #dcff07;
+  }
+}
+
+/* Product card hover glow effect - Bright neon yellow with harmonic flickering */
+.product-card-glow-overlay {
+  pointer-events: none;
+  opacity: 0;
+  border-color: transparent !important;
+  box-shadow: 0 0 0px transparent;
+  /* Slow cool-down transition when hover ends (2s) */
+  transition: 
+    opacity 2s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 2s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.group:hover .product-card-glow-overlay {
+  opacity: 1;
+  border-color: #eeff00 !important;
+  box-shadow: 
+    0 0 6px #eeff00,
+    0 0 12px rgba(238, 255, 0, 0.95),
+    0 0 20px rgba(230, 255, 0, 0.6);
+  /* Fast appear transition when hover starts (0.35s) */
+  transition: 
+    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: neonFlicker 2s ease-in-out infinite;
+  animation-delay: 0.15s;
+}
+
+/* Neon light flickering animation - harmonic pulsing with strong light/dark contrast */
+@keyframes neonFlicker {
+  0% {
+    opacity: 0.7;
+    box-shadow: 
+      0 0 2px #ccdd00,
+      0 0 5px rgba(204, 221, 0, 0.5),
+      0 0 8px rgba(190, 210, 0, 0.25);
+  }
+  15% {
+    opacity: 1;
+    box-shadow: 
+      0 0 8px #eeff00,
+      0 0 16px rgba(238, 255, 0, 1),
+      0 0 28px rgba(230, 255, 0, 0.75);
+  }
+  30% {
+    opacity: 0.65;
+    box-shadow: 
+      0 0 2px #bbcc00,
+      0 0 4px rgba(187, 204, 0, 0.45),
+      0 0 7px rgba(175, 195, 0, 0.2);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 
+      0 0 9px #f0ff20,
+      0 0 18px rgba(240, 255, 32, 1),
+      0 0 32px rgba(235, 255, 20, 0.8);
+  }
+  65% {
+    opacity: 0.72;
+    box-shadow: 
+      0 0 3px #ccdd00,
+      0 0 6px rgba(204, 221, 0, 0.55),
+      0 0 10px rgba(195, 215, 0, 0.28);
+  }
+  80% {
+    opacity: 1;
+    box-shadow: 
+      0 0 7px #eeff00,
+      0 0 14px rgba(238, 255, 0, 0.95),
+      0 0 25px rgba(230, 255, 0, 0.7);
+  }
+  100% {
+    opacity: 0.7;
+    box-shadow: 
+      0 0 2px #ccdd00,
+      0 0 5px rgba(204, 221, 0, 0.5),
+      0 0 8px rgba(190, 210, 0, 0.25);
+  }
+}
+
+
 @font-face {
   font-family: "Modeseven";
   src: url("/fonts/Modeseven.ttf") format("truetype");

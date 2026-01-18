@@ -39,6 +39,10 @@ export function ArtistMerchStepper({ onComplete }: ArtistMerchStepperProps) {
           newErrors.name = "Name is required";
         if (!formData.artistName?.trim())
           newErrors.artistName = "Artist/project name is required";
+        if (!formData.email?.trim())
+          newErrors.email = "Email is required";
+        else if (!/^[\w.+-]+@[\da-z-]+(?:\.[\da-z-]+)*\.[a-z]{2,}$/i.test(formData.email))
+          newErrors.email = "Please enter a valid email address";
         if (!formData.phone?.trim())
           newErrors.phone = "Phone number is required";
         break;

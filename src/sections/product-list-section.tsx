@@ -291,11 +291,19 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
                   <div key={node.handle} className="group">
                     <NextLink href={`/products/${node.handle}`} className="block">
                       <div
-                        className="relative w-full overflow-hidden border border-gray-700 bg-gray-800"
+                        className="relative w-full overflow-hidden bg-gray-800"
                         style={{
-                          clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%)",
+                          clipPath: "polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px)",
                         }}
                       >
+                        {/* Hover glow border overlay */}
+                        <div
+                          className="product-card-glow-overlay absolute inset-0 z-10"
+                          style={{
+                            clipPath: "polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px)",
+                            border: "1px solid transparent",
+                          }}
+                        />
                         {/* Mobile-only image toggle button */}
                         {hasSecondImage && (
                           <button

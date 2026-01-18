@@ -1,6 +1,5 @@
 import { CartProvider, ShopifyProvider } from "@shopify/hydrogen-react";
 import { gsap } from "gsap";
-import Head from "next/head";
 import "@site/assets/style.css";
 import { useEffect } from "react";
 
@@ -25,9 +24,6 @@ export default function App({ Component, pageProps }: NextAppProps) {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <Head>
-        <link rel="stylesheet" href="https://use.typekit.net/fsr7gex.css" />
-      </Head>
       <ShopifyProvider
         languageIsoCode="EN"
         countryIsoCode="US"

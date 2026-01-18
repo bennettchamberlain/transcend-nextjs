@@ -8,6 +8,7 @@ export function ArtistMerchIntakeSection() {
   const [isCompleted, setIsCompleted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [userName, setUserName] = useState<string>("");
+  const [userEmail, setUserEmail] = useState<string>("");
 
   const handleIntakeComplete = async (data: ArtistMerchIntakeData) => {
     setError(null);
@@ -26,7 +27,9 @@ export function ArtistMerchIntakeSection() {
         throw new Error(errorData.message || "Failed to submit intake");
       }
 
+      const responseData = await response.json();
       setUserName(data.name);
+      setUserEmail(responseData.email || data.email);
       setIsCompleted(true);
     } catch (err: any) {
       setError(err.message || "An error occurred while submitting your intake");
@@ -34,6 +37,8 @@ export function ArtistMerchIntakeSection() {
   };
 
   if (isCompleted) {
+    const defaultPassword = "QualityControl";
+
     return (
       <div className="min-h-screen bg-black p-8 text-white">
         <div className="mx-auto max-w-2xl text-center">
@@ -50,30 +55,37 @@ export function ArtistMerchIntakeSection() {
 
           <div className="mb-8 rounded-lg border border-gray-700 bg-gray-900 p-6 text-left">
             <p className="mb-4 text-gray-300" style={{ fontFamily: "AOMono" }}>
-              We've received your design request and will review it within 24 hours. Our team will reach out to schedule
-              a free consultation call to discuss your vision in detail.
+              We will get back to you within 48 hours.
             </p>
 
-            <div className="rounded border border-lime-400/50 bg-lime-400/10 p-4">
+            <div className="mb-4 rounded border border-lime-400/50 bg-lime-400/10 p-4">
               <p className="mb-2 text-sm font-medium text-gray-400" style={{ fontFamily: "AOMono" }}>
-                What happens next:
+                Your account credentials:
               </p>
-              <ul className="text-sm text-gray-300" style={{ fontFamily: "AOMono" }}>
-                <li>• Free consultation call within 48 hours</li>
-                <li>• Initial concepts delivered within 1-2 weeks</li>
-                <li>• Unlimited revisions until you're satisfied</li>
-                <li>• Final files delivered in all necessary formats</li>
-              </ul>
+              <div className="space-y-2">
+                <p className="text-sm">
+                  <span className="text-gray-500">Email:</span>{" "}
+                  <span className="font-mono text-lime-400">{userEmail}</span>
+                </p>
+                <p className="text-sm">
+                  <span className="text-gray-500">Password:</span>{" "}
+                  <span className="font-mono text-lime-400">{defaultPassword}</span>
+                </p>
+              </div>
             </div>
+
+            <p className="text-xs text-gray-500" style={{ fontFamily: "AOMono" }}>
+              Please save these credentials. You can use them to log in to your artist dashboard.
+            </p>
           </div>
 
           <div className="space-y-4">
             <a
-              href="/artists"
+              href="/artist-dashboard"
               className="inline-block rounded bg-lime-400 px-8 py-3 text-lg font-semibold text-black transition-colors hover:bg-lime-300"
               style={{ fontFamily: "Modeseven" }}
             >
-              Back to Artists
+              Go to Dashboard
             </a>
 
             <p className="text-sm text-gray-400" style={{ fontFamily: "AOMono" }}>

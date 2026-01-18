@@ -67,6 +67,7 @@ export default function LocationPage() {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
+                  // eslint-disable-next-line react-dom/no-unsafe-iframe-sandbox
                   sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"
                   title="Transcend Silver Lake Location"
                   className="h-full w-full"

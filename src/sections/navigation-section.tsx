@@ -111,9 +111,33 @@ const router = useRouter();
 const { totalQuantity } = useCart();
 
   useEffect(() => {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setShowTopBar(currentScrollY < 50); // Show top bar when scrolled less than 50px
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          
+          // Use hysteresis to prevent rapid toggling
+          // Show when scrolling up past 30px, hide when scrolling down past 60px
+          if (currentScrollY < lastScrollY) {
+            // Scrolling up
+            if (currentScrollY < 30) {
+              setShowTopBar(true);
+            }
+          } else {
+            // Scrolling down
+            if (currentScrollY > 60) {
+              setShowTopBar(false);
+            }
+          }
+          
+          lastScrollY = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -134,8 +158,8 @@ function isMenuItemActive(href: string) {
     {/* Top Bar - Sticky at top */}
     <div
     className={clsx(
-      "sticky top-0 z-30 bg-black/80 backdrop-blur-sm transition-all duration-300 ease-in-out",
-      showTopBar ? "h-10 opacity-100" : "h-0 overflow-hidden opacity-0",
+      "sticky top-0 z-30 h-10 bg-black/80 backdrop-blur-sm transition-all duration-300 ease-in-out",
+      showTopBar ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0",
     )}
   >
     <div className="mx-auto max-w-7xl px-6 lg:px-8">

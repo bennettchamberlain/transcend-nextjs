@@ -88,7 +88,7 @@ export function ArtistsPromotionalSections() {
 
             <div className="flex flex-col items-center space-y-6 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-6">
               <NextLink
-                href="/multicam-dashboard"
+                href="/artist-dashboard"
                 className="inline-flex items-center rounded border border-lime-400 bg-lime-400 px-8 py-4 text-lg font-semibold text-black transition-all hover:bg-lime-300 hover:shadow-lg"
                 style={{
                   fontFamily: "Modeseven",

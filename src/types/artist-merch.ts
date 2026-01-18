@@ -2,6 +2,7 @@ export interface ArtistMerchIntakeData {
     // Step 1: Basic Information
     name: string;
     artistName: string;
+    email: string;
     phone: string;
 
     // Step 2: Social Media & Branding

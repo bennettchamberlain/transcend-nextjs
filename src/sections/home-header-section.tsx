@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import { HeroButtonRow } from "./hero-button-row";
 import { NavigationSection } from "./navigation-section";
@@ -20,6 +20,16 @@ export function HomeHeaderSection() {
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
 
+  useEffect(() => {
+    // Speed up videos by a small factor (1.15x = 15% faster)
+    if (desktopVideoRef.current) {
+      desktopVideoRef.current.playbackRate = 1.15;
+    }
+    if (mobileVideoRef.current) {
+      mobileVideoRef.current.playbackRate = 1.15;
+    }
+  }, []);
+
   return (
     <>
       <style>{pulseGlowKeyframes}</style>
@@ -39,7 +49,7 @@ export function HomeHeaderSection() {
             playsInline
             preload="auto"
           >
-            <source src="/videos/transcend-home-banner.mp4" type="video/mp4" />
+            <source src="/videos/transcend-home-banner_uncompressed.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
 
@@ -53,7 +63,7 @@ export function HomeHeaderSection() {
             playsInline
             preload="auto"
           >
-            <source src="/videos/transcend-home-banner.mp4" type="video/mp4" />
+            <source src="/videos/transcend-home-banner_uncompressed.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
 
