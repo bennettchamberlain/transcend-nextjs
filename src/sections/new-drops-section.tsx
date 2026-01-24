@@ -275,21 +275,21 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
               <ProductProvider key={node.handle} data={node}>
                 <div className="group">
                   <NextLink href={`/products/${node.handle}`} className="block">
-                    <div
-                      className="relative w-full overflow-hidden bg-gray-800"
-                      style={{
-                        aspectRatio: "4/5",
-                        clipPath: "polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px)",
-                      }}
-                    >
-                      {/* Hover glow border overlay */}
+                    <div className="relative w-full" style={{ aspectRatio: "4/5" }}>
                       <div
-                        className="product-card-glow-overlay absolute inset-0 z-10"
+                        className="relative h-full w-full overflow-hidden bg-gray-800"
                         style={{
                           clipPath: "polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px)",
-                          border: "1px solid transparent",
                         }}
-                      />
+                      >
+                        {/* Hover glow border overlay */}
+                        <div
+                          className="product-card-glow-overlay absolute inset-0 z-10"
+                          style={{
+                            clipPath: "polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px)",
+                            border: "1px solid transparent",
+                          }}
+                        />
                       {/* Mobile-only image toggle button */}
                       {hasSecondImage && (
                         <button
@@ -336,12 +336,20 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
                           className="absolute inset-0 h-full w-full object-cover object-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:group-hover:opacity-100"
                         />
                       )}
+                      </div>
+                      {/* Corner overlay layer - matches full card wrapper dimensions (4/5 aspect ratio) */}
+                      <div className="absolute inset-0 z-20 pointer-events-none">
+                        {/* Top-left corner - diagonal border */}
+                        <div className="product-card-corner product-card-corner-tl" />
+                        {/* Bottom-right corner - diagonal border */}
+                        <div className="product-card-corner product-card-corner-br" />
+                      </div>
                     </div>
-                    <div className="mt-4 text-xs text-gray-300" style={{ fontFamily: "AOMono" }}>
+                    <div className="mt-4 text-xs text-gray-300 transition-colors duration-300 group-hover:text-[#eeff00]" style={{ fontFamily: "AOMono" }}>
                       {node.title}
                     </div>
 
-                    <div className="mt-1 font-mono text-lg font-medium text-white">
+                    <div className="mt-1 font-mono text-lg font-medium text-white transition-colors duration-300 group-hover:text-[#eeff00]">
                       <Money data={node.priceRange.minVariantPrice}></Money>
                     </div>
                   </NextLink>

@@ -110,6 +110,112 @@
   animation-delay: 0.15s;
 }
 
+/* Product card corner elements - diagonal borders on cut-off corners */
+.product-card-corner {
+  pointer-events: none;
+  width: 18px;
+  height: 18px;
+  opacity: 0;
+  background-color: transparent;
+  position: absolute;
+  transition: 
+    opacity 2s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Top-left corner - fills the cut-off triangle area */
+.product-card-corner-tl {
+  clip-path: polygon(0 100%, 0 0, 100% 0);
+  top: 0;
+  left: 0;
+}
+
+/* Diagonal border line for top-left corner - aligns with cut edge from (0, 18px) to (18px, 0) */
+.product-card-corner-tl::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 25.46px; /* 18px * sqrt(2) ≈ 25.46px for diagonal */
+  height: 1px;
+  background-color: transparent;
+  transform-origin: 0 100%;
+  transform: rotate(-45deg);
+  transition: background-color 2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.group:hover .product-card-corner-tl {
+  opacity: 1;
+  background-color: rgba(238, 255, 0, 0.3); /* Semi-transparent yellow fill */
+  box-shadow: 
+    0 0 6px rgba(238, 255, 0, 0.4),
+    0 0 12px rgba(238, 255, 0, 0.3),
+    0 0 20px rgba(230, 255, 0, 0.2);
+  transition: 
+    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: neonFlicker 2s ease-in-out infinite;
+  animation-delay: 0.15s;
+}
+
+.group:hover .product-card-corner-tl::before {
+  background-color: #eeff00;
+  box-shadow: 
+    0 0 3px #eeff00,
+    0 0 6px rgba(238, 255, 0, 0.95);
+  transition: 
+    background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Bottom-right corner - fills the cut-off triangle area */
+.product-card-corner-br {
+  clip-path: polygon(0 100%, 100% 100%, 100% 0);
+  bottom: 0;
+  right: 0;
+}
+
+/* Diagonal border line for bottom-right corner - aligns with hypotenuse from bottom-left to top-right of the corner triangle */
+.product-card-corner-br::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25.46px; /* 18px * sqrt(2) ≈ 25.46px for diagonal */
+  height: 2px;
+  background-color: transparent;
+  transform-origin: 100% 0;
+  transform: rotate(-45deg);
+  z-index: 1;
+  transition: background-color 2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.group:hover .product-card-corner-br {
+  opacity: 1;
+  background-color: rgba(238, 255, 0, 0.3); /* Semi-transparent yellow fill */
+  box-shadow: 
+    0 0 6px rgba(238, 255, 0, 0.4),
+    0 0 12px rgba(238, 255, 0, 0.3),
+    0 0 20px rgba(230, 255, 0, 0.2);
+  transition: 
+    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: neonFlicker 2s ease-in-out infinite;
+  animation-delay: 0.15s;
+}
+
+.group:hover .product-card-corner-br::before {
+  background-color: #eeff00;
+  box-shadow: 
+    0 0 3px #eeff00,
+    0 0 6px rgba(238, 255, 0, 0.95);
+  transition: 
+    background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Neon light flickering animation - harmonic pulsing with strong light/dark contrast */
 @keyframes neonFlicker {
   0% {

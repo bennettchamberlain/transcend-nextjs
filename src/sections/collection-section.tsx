@@ -90,6 +90,13 @@ function ClippedBorder({ children }: { children: React.ReactNode }) {
         />
         {children}
       </div>
+      {/* Corner overlay layer - matches full card wrapper dimensions (4/5 aspect ratio) */}
+      <div className="absolute inset-0 z-20 pointer-events-none">
+        {/* Top-left corner - diagonal border */}
+        <div className="product-card-corner product-card-corner-tl" />
+        {/* Bottom-right corner - diagonal border */}
+        <div className="product-card-corner product-card-corner-br" />
+      </div>
     </div>
   );
 }
@@ -160,11 +167,11 @@ function CollectionCard({
             />
           )}
         </ClippedBorder>
-        <div className="mt-4 text-xs text-gray-300" style={{ fontFamily: "AOMono" }}>
+        <div className="mt-4 text-xs text-gray-300 transition-colors duration-300 group-hover:text-[#eeff00]" style={{ fontFamily: "AOMono" }}>
           {node.title}
         </div>
 
-        <div className="mt-1 font-mono text-lg font-medium text-white" style={{ fontFamily: "AOMono" }}>
+        <div className="mt-1 font-mono text-lg font-medium text-white transition-colors duration-300 group-hover:text-[#eeff00]" style={{ fontFamily: "AOMono" }}>
           <Money data={node.priceRange.minVariantPrice}></Money>
         </div>
       </NextLink>
@@ -173,70 +180,13 @@ function CollectionCard({
 }
 
 export function CollectionSection(props: DataProps<typeof fetchCollectionSection>) {
-  const titleRef = useRef<HTMLHeadingElement>(null);
   const loadMoreRef = useRef<HTMLDivElement>(null);
-  const [isAnimated, setIsAnimated] = useState(false);
-  const [displayText, setDisplayText] = useState("COLLECTION");
   const [pages, setPages] = useState([props.data?.products || { edges: [], pageInfo: { hasNextPage: false } }]);
   const [imageStates, setImageStates] = useState<Record<string, number>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const targetText = (props.data?.title as string)?.toUpperCase() || "COLLECTION";
-
-  const triggerAnimation = useCallback(() => {
-    let iterations = 0;
-    const interval = setInterval(() => {
-      setDisplayText(
-        targetText
-          .split("")
-          .map((letter: string, index: number) => {
-            if (index <= iterations + 1) {
-              return targetText[index];
-            }
-            return letters[Math.floor(Math.random() * letters.length)];
-          })
-          .join(""),
-      );
-
-      if (iterations >= targetText.length) {
-        clearInterval(interval);
-        setDisplayText(targetText);
-      }
-
-      iterations += 1 / 3;
-    }, 30);
-  }, [targetText, letters]);
-
-  // Scroll-triggered animation
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !isAnimated) {
-            setIsAnimated(true);
-            triggerAnimation();
-          }
-        });
-      },
-      {
-        threshold: 0.5,
-        rootMargin: "0px 0px -400px 0px",
-      },
-    );
-
-    const currentTitleRef = titleRef.current;
-    if (currentTitleRef) {
-      observer.observe(currentTitleRef);
-    }
-
-    return () => {
-      if (currentTitleRef) {
-        observer.unobserve(currentTitleRef);
-      }
-    };
-  }, [isAnimated, triggerAnimation]);
+  const titleText = (props.data?.title as string) || "COLLECTION";
 
   const lastPage = pages[pages.length - 1];
   const lastCursor = lastPage?.edges[lastPage.edges.length - 1]?.cursor;
@@ -308,11 +258,10 @@ export function CollectionSection(props: DataProps<typeof fetchCollectionSection
       <section className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h2
-            ref={titleRef}
-            className="mb-4 cursor-pointer text-4xl font-black text-white transition-all duration-200 md:text-5xl"
-            style={{ fontFamily: "'Space Mono', monospace" }}
+            className="mb-4 text-xl font-black text-white md:text-2xl lg:text-3xl"
+            style={{ fontFamily: "Shapiro" }}
           >
-            <span className="text-neon-green neon-glow">{displayText}</span>
+            {titleText}
           </h2>
           <p className="text-gray-300">Collection not found</p>
         </div>
@@ -327,11 +276,10 @@ export function CollectionSection(props: DataProps<typeof fetchCollectionSection
       <section className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h2
-            ref={titleRef}
-            className="mb-4 cursor-pointer text-4xl font-black text-white transition-all duration-200 md:text-5xl"
-            style={{ fontFamily: "'Space Mono', monospace" }}
+            className="mb-4 text-xl font-black text-white md:text-2xl lg:text-3xl"
+            style={{ fontFamily: "Shapiro" }}
           >
-            <span className="text-neon-green neon-glow">{displayText}</span>
+            {titleText}
           </h2>
           <div className="mt-16 mb-8">
             <h3
@@ -351,15 +299,12 @@ export function CollectionSection(props: DataProps<typeof fetchCollectionSection
     <section className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
       <div className="mb-8">
         <h2
-          ref={titleRef}
-          className="mb-4 cursor-pointer text-4xl font-black text-white transition-all duration-200 md:text-5xl"
-          style={{ fontFamily: "'Space Mono', monospace" }}
+          className="mb-4 text-2xl font-black text-white md:text-3xl lg:text-4xl"
+          style={{ fontFamily: "Shapiro" }}
         >
-          <span className="text-neon-green neon-glow" style={{ fontFamily: "AOMono" }}>
-            {displayText}
-          </span>
+          {titleText}
         </h2>
-        {props.data.description && <p className="text-gray-300">{props.data.description}</p>}
+        {props.data.description && <p className="text-lg text-gray-300 md:text-xl" style={{ fontFamily: "AOMono" }}>{props.data.description}</p>}
       </div>
 
       <div className="mb-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">

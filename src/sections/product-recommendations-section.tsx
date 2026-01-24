@@ -66,38 +66,44 @@ export function ProductRecommendationsSection(props: DataProps<typeof fetchProdu
           <ProductProvider key={product.handle} data={product}>
             <div className="group">
               <NextLink href={`/products/${product.handle}`} className="block">
-                <div 
-                  className="relative w-full overflow-hidden bg-gray-800 group" 
-                  style={{ 
-                    aspectRatio: "5/4",
-                    clipPath: "polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px)"
-                  }}
-                >
-                  {/* Hover glow border overlay - neon green/yellow */}
-                  <div
-                    className="product-card-glow-overlay absolute inset-0 z-10"
-                    style={{
-                      clipPath: "polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px)",
-                      border: "1px solid transparent",
+                <div className="relative w-full" style={{ aspectRatio: "4/5" }}>
+                  <div 
+                    className="relative h-full w-full overflow-hidden bg-gray-800 group" 
+                    style={{ 
+                      clipPath: "polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px)"
                     }}
-                  />
-                  <NextImage
-                    src={product.featuredImage?.url || product.images?.nodes[0]?.url || ""}
-                    alt={product.featuredImage?.altText || product.title}
-                    width={product.featuredImage?.width || 500}
-                    height={product.featuredImage?.height || 500}
-                    quality={100}
-                    className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
-                  />
+                  >
+                    {/* Hover glow border overlay - neon green/yellow */}
+                    <div
+                      className="product-card-glow-overlay absolute inset-0 z-10"
+                      style={{
+                        clipPath: "polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px)",
+                        border: "1px solid transparent",
+                      }}
+                    />
+                    <NextImage
+                      src={product.featuredImage?.url || product.images?.nodes[0]?.url || ""}
+                      alt={product.featuredImage?.altText || product.title}
+                      width={product.featuredImage?.width || 500}
+                      height={product.featuredImage?.height || 500}
+                      quality={100}
+                      className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                  {/* Corner overlay layer - matches full card wrapper dimensions (4/5 aspect ratio) */}
+                  <div className="absolute inset-0 z-20 pointer-events-none">
+                    {/* Top-left corner - diagonal border */}
+                    <div className="product-card-corner product-card-corner-tl" />
+                    {/* Bottom-right corner - diagonal border */}
+                    <div className="product-card-corner product-card-corner-br" />
+                  </div>
                 </div>
 
-                <div className="mt-4 text-xs text-gray-300">
-                  <span className="text-neon-green neon-glow" style={{ fontFamily: "bc-sklonar" }}>
-                    {product.title}
-                  </span>
+                <div className="mt-4 text-xs text-gray-300 transition-colors duration-300 group-hover:text-[#eeff00]" style={{ fontFamily: "AOMono" }}>
+                  {product.title}
                 </div>
 
-                <div className="mt-1 text-base font-medium text-white" style={{ fontFamily: "AOMono" }}>
+                <div className="mt-1 text-base font-medium text-white transition-colors duration-300 group-hover:text-[#eeff00]" style={{ fontFamily: "AOMono" }}>
                   <Money data={product.priceRange.minVariantPrice} />
                 </div>
               </NextLink>
