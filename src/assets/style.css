@@ -141,22 +141,14 @@
   background-color: transparent;
   transform-origin: 0 100%;
   transform: rotate(-45deg);
-  transition: background-color 2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .group:hover .product-card-corner-tl {
   opacity: 1;
-  background-color: rgba(238, 255, 0, 0.3); /* Semi-transparent yellow fill */
-  box-shadow: 
-    0 0 6px rgba(238, 255, 0, 0.4),
-    0 0 12px rgba(238, 255, 0, 0.3),
-    0 0 20px rgba(230, 255, 0, 0.2);
+  background-color: transparent; /* No fill, just the diagonal border */
   transition: 
-    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: neonFlicker 2s ease-in-out infinite;
-  animation-delay: 0.15s;
+    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .group:hover .product-card-corner-tl::before {
@@ -167,6 +159,8 @@
   transition: 
     background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: neonFlicker 2s ease-in-out infinite;
+  animation-delay: 0.15s;
 }
 
 /* Bottom-right corner - fills the cut-off triangle area */
@@ -183,27 +177,19 @@
   top: 0;
   right: 0;
   width: 25.46px; /* 18px * sqrt(2) ≈ 25.46px for diagonal */
-  height: 2px;
+  height: 1px;
   background-color: transparent;
   transform-origin: 100% 0;
   transform: rotate(-45deg);
   z-index: 1;
-  transition: background-color 2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .group:hover .product-card-corner-br {
   opacity: 1;
-  background-color: rgba(238, 255, 0, 0.3); /* Semi-transparent yellow fill */
-  box-shadow: 
-    0 0 6px rgba(238, 255, 0, 0.4),
-    0 0 12px rgba(238, 255, 0, 0.3),
-    0 0 20px rgba(230, 255, 0, 0.2);
+  background-color: transparent; /* No fill, just the diagonal border */
   transition: 
-    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: neonFlicker 2s ease-in-out infinite;
-  animation-delay: 0.15s;
+    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .group:hover .product-card-corner-br::before {
@@ -214,6 +200,8 @@
   transition: 
     background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: neonFlicker 2s ease-in-out infinite;
+  animation-delay: 0.15s;
 }
 
 /* Neon light flickering animation - harmonic pulsing with strong light/dark contrast */
@@ -269,6 +257,23 @@
   }
 }
 
+/* Subtle pulsing animation for bottom-right corner - less intense */
+@keyframes neonFlickerSubtle {
+  0%, 100% {
+    opacity: 0.9;
+    box-shadow: 
+      0 0 2px #eeff00,
+      0 0 4px rgba(238, 255, 0, 0.7),
+      0 0 6px rgba(238, 255, 0, 0.5);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 
+      0 0 3px #eeff00,
+      0 0 6px rgba(238, 255, 0, 0.95),
+      0 0 9px rgba(238, 255, 0, 0.7);
+  }
+}
 
 @font-face {
   font-family: "Modeseven";
