@@ -293,6 +293,7 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
                       <div
                         className="relative w-full overflow-hidden bg-gray-800"
                         style={{
+                          aspectRatio: "4/5",
                           clipPath: "polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px)",
                         }}
                       >
@@ -351,10 +352,8 @@ export function ProductListSection(_props: DataProps<typeof fetchProductListSect
                           />
                         )}
                       </div>
-                      <div className="mt-4 text-xs text-gray-300">
-                        <span className="text-neon-green neon-glow" style={{ fontFamily: "bc-sklonar" }}>
-                          {node.title}
-                        </span>
+                      <div className="mt-4 text-xs text-gray-300" style={{ fontFamily: "AOMono" }}>
+                        {node.title}
                       </div>
 
                       <div className="mt-1 font-mono text-base font-medium text-white" style={{ fontFamily: "AOMono" }}>

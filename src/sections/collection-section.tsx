@@ -72,7 +72,7 @@ export async function fetchCollectionSection(handle: string, cursor?: string) {
 // Frame overlay wrapper - positioned absolutely, follows clipPath
 function ClippedBorder({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative w-full" style={{ aspectRatio: "5/4" }}>
+    <div className="relative w-full" style={{ aspectRatio: "4/5" }}>
       {/* Content container - clipped */}
       <div
         className="relative h-full w-full overflow-hidden bg-gray-800"

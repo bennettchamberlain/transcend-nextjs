@@ -278,6 +278,7 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
                     <div
                       className="relative w-full overflow-hidden bg-gray-800"
                       style={{
+                        aspectRatio: "4/5",
                         clipPath: "polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px)",
                       }}
                     >
