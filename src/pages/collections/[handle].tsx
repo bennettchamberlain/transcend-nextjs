@@ -25,11 +25,7 @@ export const getStaticProps = fetchStaticProps(async ({ params }) => {
 });
 
 export default function Page(props: PageProps<typeof getStaticProps>) {
-  const { seo, title, description, image, handle } = props.data.collectionSection || {};
-  
-  // Get collection image for OG/Twitter
-  const ogImage = image?.url;
-  const ogImageAlt = image?.altText || title;
+  const { seo, title, description, handle } = props.data.collectionSection || {};
 
   return (
     <StoreLayout>
@@ -41,12 +37,6 @@ export default function Page(props: PageProps<typeof getStaticProps>) {
           description: seo?.description as string || description?.substring(0, 160),
           type: 'website',
           url: `https://transcendcollective.la/collections/${handle}`,
-          images: ogImage ? [{
-            url: ogImage,
-            alt: ogImageAlt,
-            width: image?.width,
-            height: image?.height,
-          }] : undefined,
         }}
         twitter={{
           cardType: 'summary_large_image',

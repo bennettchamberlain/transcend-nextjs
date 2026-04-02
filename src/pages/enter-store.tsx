@@ -16,9 +16,9 @@ export default function EnterStorePage() {
       try {
         await video.play();
         video.loop = true;
-      } catch (error) {
+      } catch {
         // Auto-play might be blocked, but video will play when user interacts
-        console.log("Video autoplay blocked:", error);
+        // Silently handle autoplay blocking
       }
     };
 

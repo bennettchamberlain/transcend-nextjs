@@ -32,7 +32,7 @@ export default function StorePage(props: PageProps) {
         description="Explore Transcend Collective's latest drops. Streetwear and apparel designed for the modern creative in a digital world."
         openGraph={{
           title: 'Shop Transcend Collective',
-          description: 'Explore Transcend Collective's latest drops. Streetwear and apparel designed for the modern creative in a digital world.',
+          description: 'Explore Transcend Collective\'s latest drops. Streetwear and apparel designed for the modern creative in a digital world.',
           url: 'https://transcendcollective.la/store',
         }}
       />

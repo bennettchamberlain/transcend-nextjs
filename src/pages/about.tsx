@@ -1,4 +1,3 @@
-import Head from "next/head";
 import Image from "next/image";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
@@ -266,7 +265,7 @@ function About() {
         description="Learn about Transcend Collective's mission to help others grow and spread good design through community and creativity. Clothing for a digital world."
         openGraph={{
           title: 'About Transcend Collective',
-          description: 'Learn about Transcend Collective's mission to help others grow and spread good design through community and creativity. Clothing for a digital world.',
+          description: 'Learn about Transcend Collective\'s mission to help others grow and spread good design through community and creativity. Clothing for a digital world.',
           url: 'https://transcendcollective.la/about',
           type: 'website',
         }}
