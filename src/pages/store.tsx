@@ -6,6 +6,7 @@ import { HeroSection } from "@site/sections/hero-section";
 import { HomeHeaderSection } from "@site/sections/home-header-section";
 import { fetchNewDropsSection, NewDropsSection } from "@site/sections/new-drops-section";
 import { fetchCollections } from "@site/utilities/collections";
+import { NextSeo } from "@site/utilities/deps";
 
 interface PageProps {
   collections: Awaited<ReturnType<typeof fetchCollections>>;
@@ -26,6 +27,15 @@ export const getServerSideProps: GetStaticProps<PageProps> = async () => {
 export default function StorePage(props: PageProps) {
   return (
     <>
+      <NextSeo 
+        title="Shop the Collection"
+        description="Explore Transcend Collective's latest drops. Streetwear and apparel designed for the modern creative in a digital world."
+        openGraph={{
+          title: 'Shop Transcend Collective',
+          description: 'Explore Transcend Collective's latest drops. Streetwear and apparel designed for the modern creative in a digital world.',
+          url: 'https://transcendcollective.la/store',
+        }}
+      />
       <HomeHeaderSection />
       <main className="mx-auto">
       <HeroSection />

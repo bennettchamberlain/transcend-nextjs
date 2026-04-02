@@ -89,6 +89,7 @@ export async function fetchProductSingleSection(handle: string) {
 
   return {
     ...productByHandle,
+    handle, // Add handle to the return
     descriptionHtml: descriptionHtml as string | undefined,
     recommendations: recommendations as any[],
     seo: {

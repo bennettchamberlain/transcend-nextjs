@@ -25,11 +25,35 @@ export const getStaticProps = fetchStaticProps(async ({ params }) => {
 });
 
 export default function Page(props: PageProps<typeof getStaticProps>) {
-  const { seo } = props.data.collectionSection || {};
+  const { seo, title, description, image, handle } = props.data.collectionSection || {};
+  
+  // Get collection image for OG/Twitter
+  const ogImage = image?.url;
+  const ogImageAlt = image?.altText || title;
 
   return (
     <StoreLayout>
-      <NextSeo title={seo?.title as string} description={seo?.description as string} />
+      <NextSeo 
+        title={seo?.title as string || title} 
+        description={seo?.description as string || description?.substring(0, 160)}
+        openGraph={{
+          title: seo?.title as string || title,
+          description: seo?.description as string || description?.substring(0, 160),
+          type: 'website',
+          url: `https://transcendcollective.la/collections/${handle}`,
+          images: ogImage ? [{
+            url: ogImage,
+            alt: ogImageAlt,
+            width: image?.width,
+            height: image?.height,
+          }] : undefined,
+        }}
+        twitter={{
+          cardType: 'summary_large_image',
+          handle: '@transcendcollective',
+          site: '@transcendcollective',
+        }}
+      />
       <CollectionSection data={props.data.collectionSection} />
     </StoreLayout>
   );

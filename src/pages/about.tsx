@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { StoreLayout } from "@site/layouts/store-layout";
+import { NextSeo } from "@site/utilities/deps";
 
 function About() {
   const storyRef = useRef<HTMLHeadingElement>(null);
@@ -260,13 +261,16 @@ function About() {
 
   return (
     <>
-      <Head>
-        <title>About - Transcend Collective</title>
-        <meta
-          name="description"
-          content="Learn about Transcend Collective's mission to help others grow and spread good design through community and creativity."
-        />
-      </Head>
+      <NextSeo
+        title="About Us"
+        description="Learn about Transcend Collective's mission to help others grow and spread good design through community and creativity. Clothing for a digital world."
+        openGraph={{
+          title: 'About Transcend Collective',
+          description: 'Learn about Transcend Collective's mission to help others grow and spread good design through community and creativity. Clothing for a digital world.',
+          url: 'https://transcendcollective.la/about',
+          type: 'website',
+        }}
+      />
 
       <StoreLayout>
         <div className="min-h-screen bg-black text-white">

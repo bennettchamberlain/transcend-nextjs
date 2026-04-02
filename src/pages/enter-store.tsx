@@ -1,5 +1,5 @@
 // import { CyberButton } from "@site/snippets";
-import { useEffect, useRef, useRouter } from "@site/utilities/deps";
+import { NextSeo, useEffect, useRef, useRouter } from "@site/utilities/deps";
 
 export default function EnterStorePage() {
   const router = useRouter();
@@ -48,11 +48,21 @@ export default function EnterStorePage() {
   };
 
   return (
-    <div
-      ref={containerRef}
-      className="relative flex min-h-screen w-full cursor-pointer items-end justify-center overflow-hidden bg-black"
-      onClick={handleEnterStore}
-    >
+    <>
+      <NextSeo 
+        title="Enter the Collective"
+        description="Step into Transcend Collective - clothing for a digital world. Join a community that seeks a higher calling."
+        openGraph={{
+          title: 'Enter Transcend Collective',
+          description: 'Step into Transcend Collective - clothing for a digital world. Join a community that seeks a higher calling.',
+          url: 'https://transcendcollective.la/enter-store',
+        }}
+      />
+      <div
+        ref={containerRef}
+        className="relative flex min-h-screen w-full cursor-pointer items-end justify-center overflow-hidden bg-black"
+        onClick={handleEnterStore}
+      >
       {/* Video Background */}
       <div className="absolute inset-0 h-full w-full">
         {/* Desktop Video */}
@@ -172,6 +182,7 @@ export default function EnterStorePage() {
           }
         }
       `}</style>
-    </div>
+      </div>
+    </>
   );
 }
