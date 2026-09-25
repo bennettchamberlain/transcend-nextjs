@@ -33,7 +33,9 @@ const values = [
 
 function About() {
   // All select photos to feature in the gallery
-  const yellowGreenFilter = "sepia(0.5) saturate(2.2) hue-rotate(35deg) brightness(1.05)";
+  const yellowGreenFilter35 = "sepia(0.5) saturate(2.2) hue-rotate(35deg) brightness(1.05) grayscale(0.35)";
+  const yellowGreenFilter50 = "sepia(0.5) saturate(2.2) hue-rotate(35deg) brightness(1.05) grayscale(0.5)";
+  const blackAndWhiteFilter = "grayscale(1)";
 
   const selectPhotos: { src: string; alt: string; zoom?: number; filter?: string }[] = [
     // Warren shoot photos interspersed throughout, with new photos woven in every other slide
@@ -53,16 +55,16 @@ function About() {
     { src: "/images/selects/warren_shoot/WDS00463.jpg", alt: "Transcend Collective - Warren Shoot" },
     { src: "/images/selects/for_site/DSC09021.jpg", alt: "Transcend Collective - Behind the Scenes", zoom: 1.15 },
     { src: "/images/selects/warren_shoot/WDS00716.jpg", alt: "Transcend Collective - Warren Shoot" },
-    { src: "/images/selects/IMG_6488.JPG", alt: "Transcend Collective - Artistic Vision", filter: yellowGreenFilter },
+    { src: "/images/selects/IMG_6488.JPG", alt: "Transcend Collective - Artistic Vision", filter: yellowGreenFilter35 },
     { src: "/images/selects/for_site/DSC09038.jpg", alt: "Transcend Collective - Behind the Scenes" },
-    { src: "/images/selects/DSC09111.jpg", alt: "Transcend Collective - Team Collaboration" },
+    { src: "/images/selects/DSC09111.jpg", alt: "Transcend Collective - Team Collaboration", filter: blackAndWhiteFilter },
     { src: "/images/selects/Copy of DSC08855.jpg", alt: "Transcend Collective - Creative Collaboration" },
     { src: "/images/selects/for_site/DSC09088.jpg", alt: "Transcend Collective - Behind the Scenes" },
     { src: "/images/selects/Copy of DSC09125.jpg", alt: "Transcend Collective - Growth" },
-    { src: "/images/selects/Copy of DSC08983-3.jpg", alt: "Transcend Collective - Inspiration" },
+    { src: "/images/selects/Copy of DSC08983-3.jpg", alt: "Transcend Collective - Inspiration", filter: blackAndWhiteFilter },
     { src: "/images/selects/for_site/DSC09104.jpg", alt: "Transcend Collective - Behind the Scenes" },
-    { src: "/images/selects/DSC09414.jpg", alt: "Transcend Collective - Creative Vision", filter: yellowGreenFilter },
-    { src: "/images/selects/Copy of DSC09077.jpg", alt: "Transcend Collective - Creative Energy" },
+    { src: "/images/selects/DSC09414.jpg", alt: "Transcend Collective - Creative Vision", filter: yellowGreenFilter50 },
+    { src: "/images/selects/Copy of DSC09077.jpg", alt: "Transcend Collective - Creative Energy", filter: blackAndWhiteFilter },
     { src: "/images/selects/for_site/DSC09002.jpg", alt: "Transcend Collective - Behind the Scenes" },
     { src: "/images/selects/IMG_7979.jpg", alt: "Transcend Collective - Design Excellence" },
     { src: "/images/selects/warren_shoot/WDS00677.jpg", alt: "Transcend Collective - Warren Shoot" },
