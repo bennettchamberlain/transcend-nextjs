@@ -193,54 +193,14 @@ function About() {
           {/* Our Mission */}
           <section className="border-b border-gray-800 py-16 lg:py-24">
             <div className="mx-auto max-w-6xl px-4">
-              <div className="mb-12 text-center">
-                <span
-                  className="mb-3 inline-block text-xs font-bold tracking-widest text-lime-400 uppercase"
-                  style={{ fontFamily: "AOMono" }}
-                >
-                  [ What Drives Us ]
-                </span>
-                <h2
-                  className="mb-3 text-3xl font-black text-white uppercase lg:text-4xl"
-                  style={{ fontFamily: "Modeseven", letterSpacing: "-1px" }}
-                >
-                  Our Mission
-                </h2>
-                <p className="text-sm text-gray-400 uppercase" style={{ fontFamily: "AOMono" }}>
-                  Growth &bull; Community &bull; Design
-                </p>
-              </div>
-
-              {/* Mission Statement */}
-              <div className="group relative mb-10">
-                <div
-                  className="relative overflow-hidden bg-gray-900 p-8 text-center lg:p-10"
-                  style={{
-                    clipPath: cardClipPath,
-                    backgroundImage: "url('/images/metal-texture-card-bg.jpg')",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    boxShadow: cardShadow,
-                  }}
-                >
-                  <div className="absolute inset-0 bg-black/85" />
-                  <div
-                    className="product-card-glow-overlay pointer-events-none absolute inset-0 z-10"
-                    style={{ clipPath: cardClipPath, border: "1px solid transparent" }}
-                  />
-                  <p
-                    className="relative mx-auto max-w-3xl text-sm leading-relaxed text-gray-300 uppercase lg:text-base"
-                    style={{ fontFamily: "AOMono", textShadow: "0 2px 4px rgba(0, 0, 0, 0.85)" }}
-                  >
-                    We are focused on growth and helping others. Our commitment is to spread good design, foster
-                    meaningful connections, and create opportunities for creative minds to flourish. We believe that
-                    by supporting each other, we can achieve more than we ever could alone.
-                  </p>
-                </div>
-                <div className="pointer-events-none absolute inset-0 z-20">
-                  <div className="product-card-corner product-card-corner-tl" />
-                  <div className="product-card-corner product-card-corner-br" />
-                </div>
+              {/* Mission Statement Banner */}
+              <div className="relative mb-10 aspect-[5/2] w-full overflow-hidden rounded-lg">
+                <Image
+                  src="/images/mission-hero-banner.png"
+                  alt="Our Mission. We are focused on growth and helping others. Our commitment is to spread good design, foster meaningful connections, and create opportunities for creative minds to flourish. We believe that by supporting each other, we can achieve more than we ever could alone."
+                  fill
+                  className="object-cover"
+                />
               </div>
 
               {/* Values */}
