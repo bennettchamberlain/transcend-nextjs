@@ -265,9 +265,32 @@ function About() {
                 src="/images/selects/warren_shoot/WDS00630.jpg"
                 alt="Transcend Collective - Behind the Scenes"
                 fill
-                className="beveled-corner-large object-contain object-top md:object-cover md:object-bottom"
+                style={{ transform: "scale(1.1)" }}
+                className="beveled-corner-large object-contain object-top grayscale md:object-cover md:object-bottom"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+              {/* Glow line at top of banner */}
+              <div
+                className="absolute top-0 right-0 left-0 z-10 h-0.5"
+                style={{
+                  boxShadow:
+                    "0 0 4px rgba(220, 255, 7, 0.9), 0 0 12px rgba(220, 255, 7, 0.5), 0 0 24px rgba(220, 255, 7, 0.25), 0 0 40px rgba(220, 255, 7, 0.1)",
+                  background: "linear-gradient(to bottom, rgba(220, 255, 7, 0.8), transparent)",
+                  animation: "pulseGlow 2s ease-in-out infinite",
+                }}
+              />
+
+              {/* Glow line at bottom of banner */}
+              <div
+                className="absolute right-0 bottom-0 left-0 z-10 h-0.5"
+                style={{
+                  boxShadow:
+                    "0 0 4px rgba(220, 255, 7, 0.9), 0 0 12px rgba(220, 255, 7, 0.5), 0 0 24px rgba(220, 255, 7, 0.25), 0 0 40px rgba(220, 255, 7, 0.1)",
+                  background: "linear-gradient(to top, rgba(220, 255, 7, 0.8), transparent)",
+                  animation: "pulseGlow 2s ease-in-out infinite",
+                }}
+              />
             </div>
           </section>
 
