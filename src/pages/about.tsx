@@ -178,13 +178,13 @@ function About() {
                 </div>
               </div>
 
-              <div className="relative">
+              <div className="relative aspect-[3/4] h-full min-h-[400px] lg:aspect-auto">
                 <Image
-                  src="/images/selects/warren_shoot/WDS00174.jpg"
+                  src="/images/transcend-for-site.png"
                   alt="Transcend Collective Story"
-                  width={600}
-                  height={400}
-                  className="beveled-corner-large h-full w-full object-cover"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="beveled-corner-large object-cover"
                 />
               </div>
             </div>
