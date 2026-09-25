@@ -34,29 +34,39 @@ const values = [
 function About() {
   // All select photos to feature in the gallery
   const selectPhotos = [
-    // Warren shoot photos interspersed throughout
+    // Warren shoot photos interspersed throughout, with new photos woven in every other slide
     { src: "/images/selects/warren_shoot/WDS00252.jpg", alt: "Transcend Collective - Warren Shoot" },
     { src: "/images/selects/warren_shoot/WDS00677.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/for_site/DSC08791.jpg", alt: "Transcend Collective - Behind the Scenes" },
     { src: "/images/selects/warren_shoot/WDS00542.jpg", alt: "Transcend Collective - Warren Shoot" },
     { src: "/images/selects/warren_shoot/WDS00603.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/for_site/DSC08844.jpg", alt: "Transcend Collective - Behind the Scenes" },
     { src: "/images/selects/warren_shoot/WDS00128.jpg", alt: "Transcend Collective - Warren Shoot" },
-    { src: "/images/selects/warren_shoot/CaptureOne0116.JPG", alt: "Transcend Collective - Warren Shoot" },
     { src: "/images/selects/warren_shoot/WDS00075.JPEG", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/for_site/DSC08951.jpg", alt: "Transcend Collective - Behind the Scenes" },
     { src: "/images/selects/warren_shoot/WDS00303.jpg", alt: "Transcend Collective - Warren Shoot" },
     { src: "/images/selects/warren_shoot/WDS00394.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/for_site/DSC09002.jpg", alt: "Transcend Collective - Behind the Scenes" },
     { src: "/images/selects/warren_shoot/WDS00414.jpg", alt: "Transcend Collective - Warren Shoot" },
     { src: "/images/selects/warren_shoot/WDS00463.jpg", alt: "Transcend Collective - Warren Shoot" },
+    { src: "/images/selects/for_site/DSC09021.jpg", alt: "Transcend Collective - Behind the Scenes" },
     { src: "/images/selects/warren_shoot/WDS00716.jpg", alt: "Transcend Collective - Warren Shoot" },
     { src: "/images/selects/IMG_6488.JPG", alt: "Transcend Collective - Artistic Vision" },
+    { src: "/images/selects/for_site/DSC09038.jpg", alt: "Transcend Collective - Behind the Scenes" },
     { src: "/images/selects/DSC09111.jpg", alt: "Transcend Collective - Team Collaboration" },
     { src: "/images/selects/Copy of DSC08855.jpg", alt: "Transcend Collective - Creative Collaboration" },
+    { src: "/images/selects/for_site/DSC09088.jpg", alt: "Transcend Collective - Behind the Scenes" },
     { src: "/images/selects/Copy of DSC09125.jpg", alt: "Transcend Collective - Growth" },
     { src: "/images/selects/Copy of DSC08983-3.jpg", alt: "Transcend Collective - Inspiration" },
+    { src: "/images/selects/for_site/DSC09104.jpg", alt: "Transcend Collective - Behind the Scenes" },
     { src: "/images/selects/DSC09414.jpg", alt: "Transcend Collective - Creative Vision" },
     { src: "/images/selects/Copy of DSC09077.jpg", alt: "Transcend Collective - Creative Energy" },
+    { src: "/images/selects/for_site/DSC09233.jpg", alt: "Transcend Collective - Behind the Scenes" },
     { src: "/images/selects/IMG_7979.jpg", alt: "Transcend Collective - Design Excellence" },
     { src: "/images/selects/DSC09172.jpg", alt: "Transcend Collective - Innovation" },
+    { src: "/images/selects/for_site/DSC09317.jpg", alt: "Transcend Collective - Behind the Scenes" },
     { src: "/images/selects/Copy of IMG_6493.JPG", alt: "Transcend Collective - Creative Moments" },
+    { src: "/images/selects/for_site/DSC09364.jpg", alt: "Transcend Collective - Behind the Scenes" },
     // Previous featured/banner images moved to bottom
     { src: "/images/selects/DSC08094.jpg", alt: "Transcend Collective - Creative Flow" },
   ];
