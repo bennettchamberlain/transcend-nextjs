@@ -30,7 +30,7 @@ const offers = [
   "30 Day Return Policy",
   "Free Shipping on Orders of $100 or more",
   "Express Delivery in 1 - 2 Business Days",
-  "Pickup at Our Silver Lake Location",
+  "One of a Kind Futuristic Streetwear",
 ];
 
 function TypingEffect() {
