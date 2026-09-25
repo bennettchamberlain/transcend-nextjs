@@ -1,81 +1,23 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-
 import type { Collection } from "@site/utilities/collections";
 
+import { BackgroundNoise } from "@site/snippets";
 import { NextImage, NextLink } from "@site/utilities/deps";
 
 interface CollectionsPageHeroProps {
   collections: Collection[];
 }
 
+// Bottoms and Jerseys' source photos already have natural film grain; these banners need it added to match.
+const HANDLES_NEEDING_GRAIN = ["2-0", "tops", "hoodies-crewnecl", "home-page"];
+
 export function CollectionsPageHero({ collections }: CollectionsPageHeroProps) {
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const [isAnimated, setIsAnimated] = useState(false);
-  const [displayText, setDisplayText] = useState("COLLECTIONS");
-
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const targetText = "COLLECTIONS";
-
-  const triggerAnimation = useCallback(() => {
-    let iterations = 0;
-    const interval = setInterval(() => {
-      setDisplayText(
-        targetText
-          .split("")
-          .map((_, index) => {
-            if (index <= iterations + 1) {
-              return targetText[index];
-            }
-            return letters[Math.floor(Math.random() * letters.length)];
-          })
-          .join(""),
-      );
-
-      if (iterations >= targetText.length) {
-        clearInterval(interval);
-        setDisplayText(targetText);
-      }
-
-      iterations += 1 / 3;
-    }, 30);
-  }, [targetText, letters]);
-
-  // Scroll-triggered animation
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !isAnimated) {
-            setIsAnimated(true);
-            triggerAnimation();
-          }
-        });
-      },
-      {
-        threshold: 0.5,
-        rootMargin: "0px 0px -400px 0px",
-      },
-    );
-
-    const currentTitleRef = titleRef.current;
-    if (currentTitleRef) {
-      observer.observe(currentTitleRef);
-    }
-
-    return () => {
-      if (currentTitleRef) {
-        observer.unobserve(currentTitleRef);
-      }
-    };
-  }, [isAnimated, triggerAnimation]);
-
   // Handle case where collections is undefined or null
   const safeCollections = collections || [];
 
   // Define the desired order for collections
-  const collectionOrder = ["2-0", "tops", "hoodies-crewnecl", "bottom", "home-page", "art"];
+  const collectionOrder = ["2-0", "jerseys", "tops", "hoodies-crewnecl", "bottom", "home-page", "art"];
 
   // Sort collections based on the defined order
   const sortedCollections = safeCollections.sort((a, b) => {
@@ -106,23 +48,8 @@ export function CollectionsPageHero({ collections }: CollectionsPageHeroProps) {
 
   return (
     <section className="bg-black">
-      {/* Animated Title - Centered in container */}
-      <div className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
-        <div className="mb-12 text-center">
-          <h2
-            ref={titleRef}
-            className="mb-4 cursor-pointer text-4xl font-black text-white transition-all duration-200 md:text-5xl lg:text-6xl"
-            style={{ fontFamily: "'Space Mono', monospace" }}
-          >
-            <span className="text-neon-green neon-glow" style={{ fontFamily: "AOMono" }}>
-              {displayText}
-            </span>
-          </h2>
-        </div>
-      </div>
-
       {/* Collections List - Full Width Banners */}
-      <div className="space-y-6 pb-16">
+      <div className="space-y-6 pt-16 pb-16">
           {sortedCollections.map((collection) => (
             <NextLink
               key={collection.id}
@@ -141,7 +68,10 @@ export function CollectionsPageHero({ collections }: CollectionsPageHeroProps) {
                       sizes="100vw"
                       quality={90}
                     />
-                    
+
+                    {/* Light grain, to match the banners whose source photos already have it */}
+                    {HANDLES_NEEDING_GRAIN.includes(collection.handle.toLowerCase()) && <BackgroundNoise alpha={90} />}
+
                     {/* Gradient Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                     
@@ -149,8 +79,8 @@ export function CollectionsPageHero({ collections }: CollectionsPageHeroProps) {
                     <div className="absolute inset-0 flex flex-col justify-end">
                       <div className="mx-auto w-full max-w-7xl px-4 pb-8 sm:px-6 md:pb-12 lg:px-8 lg:pb-16">
                         <h3
-                          className="mb-4 text-2xl font-bold text-white transition-colors duration-200 md:text-3xl lg:text-4xl group-hover:text-[#dcff07]"
-                          style={{ fontFamily: "Shapiro" }}
+                          className="mb-4 text-2xl font-bold text-white transition-all duration-300 md:text-3xl lg:text-4xl group-hover:[text-shadow:0_0_8px_#dcff07,0_0_16px_rgba(220,255,7,0.7),0_0_28px_rgba(220,255,7,0.4)]"
+                          style={{ fontFamily: "AOMono", letterSpacing: "-2px" }}
                         >
                           {(() => {
                             const title = collection.title || "Collection";
@@ -161,24 +91,33 @@ export function CollectionsPageHero({ collections }: CollectionsPageHeroProps) {
                               const name = title.slice(1, -1);
                               return (
                                 <>
-                                  <span style={{ fontFamily: "AOMono" }}>{bracketStart}</span>
+                                  <span
+                                    style={{
+                                      fontFamily: "AOMono",
+                                      fontWeight: 400,
+                                      display: "inline-block",
+                                      transform: "scaleX(0.7)",
+                                    }}
+                                  >
+                                    {bracketStart}
+                                  </span>
                                   {name}
-                                  <span style={{ fontFamily: "AOMono" }}>{bracketEnd}</span>
+                                  <span
+                                    style={{
+                                      fontFamily: "AOMono",
+                                      fontWeight: 400,
+                                      display: "inline-block",
+                                      transform: "scaleX(0.7)",
+                                    }}
+                                  >
+                                    {bracketEnd}
+                                  </span>
                                 </>
                               );
                             }
                             return title;
                           })()}
                         </h3>
-                        
-                        {collection.description && (
-                          <p
-                            className="mb-6 max-w-2xl text-lg text-gray-300 line-clamp-2"
-                            style={{ fontFamily: "AOMono" }}
-                          >
-                            {collection.description}
-                          </p>
-                        )}
                         
                         {/* Explore Button */}
                         <div className="flex items-center text-[#dcff07] transition-transform duration-200 group-hover:translate-x-2">
@@ -205,8 +144,8 @@ export function CollectionsPageHero({ collections }: CollectionsPageHeroProps) {
                       </div>
                     </div>
                     
-                    {/* Border on hover */}
-                    <div className="absolute inset-0 border-2 border-[#dcff07] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    {/* Border on hover - white stroke with a soft neon-green glow */}
+                    <div className="absolute inset-0 border-2 border-white opacity-0 shadow-[0_0_10px_2px_rgba(220,255,7,0.5),0_0_24px_6px_rgba(220,255,7,0.25)] transition-opacity duration-300 group-hover:opacity-100" />
                   </div>
                 ) : (
                   <div className="flex h-[400px] w-full items-center justify-center bg-gray-900 md:h-[500px] lg:h-[600px]">

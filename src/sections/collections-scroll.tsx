@@ -53,13 +53,6 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
     }
   };
 
-  // Apply initial scroll offset
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollLeft = 70; // Small initial scroll
-    }
-  }, []);
-
   // Scroll-triggered animation
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -129,15 +122,23 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
         <div className="mb-12 text-right">
           <h2
             ref={titleRef}
-            className="mb-4 cursor-pointer text-5xl font-black text-white transition-all duration-200 md:text-6xl lg:text-7xl"
-            style={{ fontFamily: "Modeseven", fontWeight: "900", letterSpacing: "-1px" }}
+            className="mb-4 cursor-pointer text-4xl font-normal text-white transition-all duration-200 md:text-5xl lg:text-6xl"
+            style={{ fontFamily: "Modeseven", fontWeight: "400", letterSpacing: "-1px" }}
           >
             {/* <span className="text-neon-green neon-glow" style={{ fontFamily: "AOMono", fontWeight: "900" }}>
               {displayText}
             </span> */}
-            {displayText}
+            {displayText.split("").map((char, index) => {
+              // Letters "T" and "I" render with extra trailing whitespace in Modeseven, so pull the next letter in
+              const isTight = char === "T" || char === "I";
+              return (
+                <span key={index} style={{ marginRight: isTight ? "-0.1em" : undefined }}>
+                  {char}
+                </span>
+              );
+            })}
           </h2>
-          <p className="text-gray-300 uppercase" style={{ fontFamily: "Shapiro", letterSpacing: "1px" }}>
+          <p className="text-sm text-gray-300 uppercase" style={{ fontFamily: "Shapiro", letterSpacing: "1px" }}>
             EXPLORE OUR CURATED COLLECTIONS
           </p>
         </div>
@@ -147,13 +148,13 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
           <button
             type="button"
             onClick={() => scroll("left")}
-            className="bg-card-bg/80 border-border-color hover:border-neon-green hover:text-neon-green hover:bg-card-bg glass-effect group hover:shadow-neon-green/20 absolute top-8 left-4 z-10 flex h-14 w-14 items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-lg"
+            className="group absolute top-1/2 -left-4 z-10 flex h-14 w-14 -translate-y-1/2 items-center justify-center text-white/50 transition-all duration-300 hover:text-white sm:-left-8 lg:-left-14"
           >
-            <ChevronLeft className="h-7 w-7 transition-all duration-200 group-hover:-translate-x-1 group-hover:scale-110" />
+            <ChevronLeft className="h-8 w-8 transition-all duration-200 group-hover:-translate-x-1 group-hover:scale-110" />
           </button>
 
           {/* Collections Scroll */}
-          <div ref={scrollRef} className="collections-scrollbar flex space-x-6 overflow-x-auto px-20 pb-8">
+          <div ref={scrollRef} className="collections-scrollbar flex space-x-6 overflow-x-auto pb-8">
             {sortedCollections.map((collection, index) => (
               <Link
                 key={collection.id}
@@ -175,6 +176,8 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
                       border: "1px solid transparent",
                     }}
                   />
+                  {/* Top-right corner - diagonal border, connects the cut corner to the rest of the glow border */}
+                  <div className="product-card-corner product-card-corner-tr z-20" />
                   {/* Background Image */}
                   <div className="absolute inset-0">
                     {collection.image ? (
@@ -202,7 +205,7 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
                       {collection.title}
                     </h3> */}
 
-                    <p className="mb-4 line-clamp-2 text-sm text-gray-300" style={{ fontFamily: "Shapiro" }}>
+                    <p className="mb-2 line-clamp-2 text-sm text-gray-300" style={{ fontFamily: "Shapiro" }}>
                       {(() => {
                         const title = collection.title || "Discover cutting-edge fashion technology";
                         // Check if title starts with [ and ends with ]
@@ -223,9 +226,9 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
                     </p>
 
                     {/* Explore Button */}
-                    <div className="text-neon-green flex items-center text-sm font-bold tracking-wider uppercase transition-transform duration-200">
+                    <div className="text-neon-green flex items-center text-[7px] font-bold tracking-wider uppercase transition-transform duration-200">
                       Explore Collection
-                      <ChevronRight className="ml-2 h-4 w-4" />
+                      <ChevronRight className="ml-1 h-2 w-2" />
                     </div>
                   </div>
                 </div>
@@ -237,9 +240,9 @@ export function CollectionsScroll({ collections }: CollectionsScrollProps) {
           <button
             type="button"
             onClick={() => scroll("right")}
-            className="bg-card-bg/80 border-border-color hover:border-neon-green hover:text-neon-green hover:bg-card-bg glass-effect group hover:shadow-neon-green/20 absolute top-8 right-4 z-10 flex h-14 w-14 items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-lg"
+            className="group absolute top-1/2 -right-4 z-10 flex h-14 w-14 -translate-y-1/2 items-center justify-center text-white/50 transition-all duration-300 hover:text-white sm:-right-8 lg:-right-14"
           >
-            <ChevronRight className="h-7 w-7 transition-all duration-200 group-hover:translate-x-1 group-hover:scale-110" />
+            <ChevronRight className="h-8 w-8 transition-all duration-200 group-hover:translate-x-1 group-hover:scale-110" />
           </button>
         </div>
 

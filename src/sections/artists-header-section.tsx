@@ -17,33 +17,22 @@ const pulseGlowKeyframes = `
 
 export function ArtistsHeaderSection() {
   const ellipseRef = useRef<HTMLDivElement>(null);
+  const ellipseBackRef = useRef<HTMLDivElement>(null);
   const mobileEllipseRef = useRef<HTMLDivElement>(null);
+  const mobileEllipseBackRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const [animationTriggered, setAnimationTriggered] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
-
-  const toggleSound = () => {
-    setIsMuted(!isMuted);
-    if (mobileVideoRef.current) {
-      mobileVideoRef.current.muted = !isMuted;
-    }
-    if (desktopVideoRef.current) {
-      desktopVideoRef.current.muted = !isMuted;
-    }
-  };
 
   useEffect(() => {
     const createAnimation = ({
       duration = 21,
-      reversed: _reversed = false,
       target,
       text,
       textProperties = undefined,
     }: {
       duration?: number;
-      reversed?: boolean;
       target: Element;
       text: string;
       textProperties?: any;
@@ -72,39 +61,68 @@ export function ArtistsHeaderSection() {
       window.gsap.fromTo(
         target.querySelectorAll("textPath")[0],
         { attr: { startOffset: "0%" } },
-        { attr: { startOffset: "-100%" }, ...props },
+        { attr: { startOffset: "100%" }, ...props },
       );
       window.gsap.fromTo(
         target.querySelectorAll("textPath")[1],
-        { attr: { startOffset: "100%" } },
+        { attr: { startOffset: "-100%" } },
         { attr: { startOffset: "0%" }, ...props },
       );
     };
 
-    const triggerAnimation = () => {
+    const triggerAnimation = async () => {
       if (animationTriggered) {
         return;
       }
 
-      // Apply animation to desktop ellipse
+      // SVG <textPath> lays out glyph advances once, so the font must be ready
+      // before the text is inserted - otherwise it can get stuck on the fallback.
+      if (typeof document !== "undefined" && document.fonts) {
+        try {
+          await document.fonts.load('400 17px "Enfonix"');
+          await document.fonts.ready;
+        } catch {
+          // Ignore font loading errors and fall through to the fallback font
+        }
+      }
+
+      const desktopText = "Designs that push the boundaries for creatives.".toUpperCase();
+      const mobileText = "Designs that push boundaries for creatives ".toUpperCase();
+      const fontSize = { fontSize: /iPhone/.test(navigator.userAgent) ? "13px" : "12px" };
+
+      // Apply animation to desktop ellipse (front and back halves, kept in sync)
       if (ellipseRef.current && window.gsap) {
         createAnimation({
           duration: 21,
-          reversed: true,
           target: ellipseRef.current.querySelector("svg")!,
-          text: "Designs that push the boundaries for creatives.".toUpperCase(),
-          textProperties: { fontSize: /iPhone/.test(navigator.userAgent) ? "19px" : "17px" },
+          text: desktopText,
+          textProperties: fontSize,
+        });
+      }
+      if (ellipseBackRef.current && window.gsap) {
+        createAnimation({
+          duration: 21,
+          target: ellipseBackRef.current.querySelector("svg")!,
+          text: desktopText,
+          textProperties: fontSize,
         });
       }
 
-      // Apply animation to mobile ellipse
+      // Apply animation to mobile ellipse (front and back halves, kept in sync)
       if (mobileEllipseRef.current && window.gsap) {
         createAnimation({
           duration: 21,
-          reversed: true,
           target: mobileEllipseRef.current.querySelector("svg")!,
-          text: "Designs that push boundaries for creatives ".toUpperCase(),
-          textProperties: { fontSize: /iPhone/.test(navigator.userAgent) ? "19px" : "17px" },
+          text: mobileText,
+          textProperties: fontSize,
+        });
+      }
+      if (mobileEllipseBackRef.current && window.gsap) {
+        createAnimation({
+          duration: 21,
+          target: mobileEllipseBackRef.current.querySelector("svg")!,
+          text: mobileText,
+          textProperties: fontSize,
         });
       }
 
@@ -163,24 +181,6 @@ export function ArtistsHeaderSection() {
             Your browser does not support the video tag.
           </video>
 
-          {/* Sound Toggle Button - Desktop */}
-          <button
-            type="button"
-            onClick={toggleSound}
-            className="absolute right-4 bottom-4 z-20 hidden h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition-all hover:bg-black/70 lg:flex"
-            aria-label={isMuted ? "Unmute video" : "Mute video"}
-          >
-            {isMuted ? (
-              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
-              </svg>
-            ) : (
-              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-              </svg>
-            )}
-          </button>
-
           {/* Mobile Video */}
           <video
             ref={mobileVideoRef}
@@ -196,24 +196,6 @@ export function ArtistsHeaderSection() {
             <source src="https://cdn.shopify.com/videos/c/o/v/fe32cdc9c6694f3b80600c0624b4bf85.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-
-          {/* Sound Toggle Button - Mobile */}
-          <button
-            type="button"
-            onClick={toggleSound}
-            className="absolute right-4 bottom-4 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition-all hover:bg-black/70 lg:hidden"
-            aria-label={isMuted ? "Unmute video" : "Mute video"}
-          >
-            {isMuted ? (
-              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
-              </svg>
-            ) : (
-              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-              </svg>
-            )}
-          </button>
 
           {/* Translucent Grid Overlay */}
           <div className="absolute inset-0 bg-black/40">
@@ -233,7 +215,8 @@ export function ArtistsHeaderSection() {
           <div
             className="mb-5px absolute top-0 right-0 left-0 z-90 h-0.5"
             style={{
-              boxShadow: "0 0 20px #dcff07, 0 0 40px #dcff07, 0 0 60px #dcff07",
+              boxShadow:
+                "0 0 4px rgba(220, 255, 7, 0.9), 0 0 12px rgba(220, 255, 7, 0.5), 0 0 24px rgba(220, 255, 7, 0.25), 0 0 40px rgba(220, 255, 7, 0.1)",
               background: "linear-gradient(to bottom, rgba(220, 255, 7, 0.8), transparent)",
               animation: "pulseGlow 2s ease-in-out infinite",
             }}
@@ -243,7 +226,8 @@ export function ArtistsHeaderSection() {
           <div
             className="mt-5px absolute right-0 bottom-0 left-0 z-30 h-0.5"
             style={{
-              boxShadow: "0 0 20px #dcff07, 0 0 40px #dcff07, 0 0 60px #dcff07",
+              boxShadow:
+                "0 0 4px rgba(220, 255, 7, 0.9), 0 0 12px rgba(220, 255, 7, 0.5), 0 0 24px rgba(220, 255, 7, 0.25), 0 0 40px rgba(220, 255, 7, 0.1)",
               background: "linear-gradient(to bottom, rgba(220, 255, 7, 0.8), transparent)",
               animation: "pulseGlow 2s ease-in-out infinite",
             }}
@@ -257,40 +241,38 @@ export function ArtistsHeaderSection() {
         <div className="absolute inset-x-0 bottom-0 h-20 w-full bg-black"></div>
 
         {/* Animated Circle with Symbol - Centered - Positioned below navigation */}
-        <div className="pointer-events-none absolute inset-x-0 top-[2px] bottom-[80px] z-10 flex items-center justify-center">
-          {/* Desktop Animated Ellipse */}
+        <div className="pointer-events-none absolute inset-x-0 top-[2px] bottom-[80px] z-10">
+          {/* Desktop Animated Ellipse - back half (behind the symbol) */}
           <div
-            ref={ellipseRef}
-            className="ellipse hidden items-center justify-center lg:flex"
-            style={{
-              width: "min(80vw, 80vh)",
-              maxWidth: "450px",
-              position: "relative",
-            }}
+            className="absolute inset-0 hidden items-center justify-center lg:flex"
+            style={{ zIndex: 1, clipPath: "inset(0 0 50% 0)" }}
           >
-            <svg
-              viewBox="0 0 240 240"
-              xmlns="http://www.w3.org/2000/svg"
-              style={{
-                transform: "rotate(-33deg)",
-                width: "100%",
-                height: "100%",
-              }}
-            >
-              <path
-                d="M227 120C227 142.091 178.871 160 119.5 160C60.1294 160 12 142.091 12 120C12 97.9086 60.1294 80 119.5 80C178.871 80 227 97.9086 227 120Z"
-                fill="none"
-              />
-              <style>
-                {`
-                text {
-                  fill: #ffffff !important;
-                  font-family: Arial, sans-serif;
-                }
-              `}
-              </style>
-            </svg>
+            <div ref={ellipseBackRef} className="ellipse" style={{ width: "min(80vw, 80vh)", maxWidth: "450px", position: "relative" }}>
+              <svg
+                viewBox="0 0 240 240"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{
+                  transform: "rotate(-33deg)",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <path
+                  d="M227 120C227 142.091 178.871 160 119.5 160C60.1294 160 12 142.091 12 120C12 97.9086 60.1294 80 119.5 80C178.871 80 227 97.9086 227 120Z"
+                  fill="none"
+                />
+                <style>
+                  {`
+                  text, textPath {
+                    fill: #ffffff !important;
+                    font-family: "Enfonix", Arial, sans-serif;
+                  }
+                `}
+                </style>
+              </svg>
+            </div>
           </div>
+
           {/* Desktop Symbol - Positioned independently to stay upright */}
           <div
             className="pointer-events-none absolute hidden items-center justify-center lg:flex"
@@ -298,48 +280,77 @@ export function ArtistsHeaderSection() {
               left: "50%",
               top: "47%",
               transform: "translate(-50%, -50%)",
-              fontSize: "4rem",
+              fontSize: "10rem",
               color: "#dcff07",
               textShadow: "0 0 20px #dcff07, 0 0 40px #dcff07",
+              zIndex: 2,
             }}
           >
             🜁
           </div>
 
-          {/* Mobile Animated Ellipse */}
+          {/* Desktop Animated Ellipse - front half (in front of the symbol) */}
           <div
-            ref={mobileEllipseRef}
-            className="ellipse flex items-center justify-center lg:hidden"
-            style={{
-              width: "min(80vw, 80vh)",
-              maxWidth: "350px",
-              margin: "0 auto",
-              position: "relative",
-            }}
+            className="absolute inset-0 hidden items-center justify-center lg:flex"
+            style={{ zIndex: 3, clipPath: "inset(50% 0 0 0)" }}
           >
-            <svg
-              viewBox="0 0 240 240"
-              xmlns="http://www.w3.org/2000/svg"
-              style={{
-                transform: "rotate(-40deg)",
-                width: "100%",
-                height: "100%",
-              }}
-            >
-              <path
-                d="M227 120C227 142.091 178.871 160 119.5 160C60.1294 160 12 142.091 12 120C12 97.9086 60.1294 80 119.5 80C178.871 80 227 97.9086 227 120Z"
-                fill="none"
-              />
-              <style>
-                {`
-                text {
-                  fill: #ffffff !important;
-                  font-family: Arial, sans-serif;
-                }
-              `}
-              </style>
-            </svg>
+            <div ref={ellipseRef} className="ellipse" style={{ width: "min(80vw, 80vh)", maxWidth: "450px", position: "relative" }}>
+              <svg
+                viewBox="0 0 240 240"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{
+                  transform: "rotate(-33deg)",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <path
+                  d="M227 120C227 142.091 178.871 160 119.5 160C60.1294 160 12 142.091 12 120C12 97.9086 60.1294 80 119.5 80C178.871 80 227 97.9086 227 120Z"
+                  fill="none"
+                />
+                <style>
+                  {`
+                  text, textPath {
+                    fill: #ffffff !important;
+                    font-family: "Enfonix", Arial, sans-serif;
+                  }
+                `}
+                </style>
+              </svg>
+            </div>
           </div>
+
+          {/* Mobile Animated Ellipse - back half (behind the symbol) */}
+          <div
+            className="absolute inset-0 flex items-center justify-center lg:hidden"
+            style={{ zIndex: 1, clipPath: "inset(0 0 50% 0)" }}
+          >
+            <div ref={mobileEllipseBackRef} className="ellipse" style={{ width: "min(80vw, 80vh)", maxWidth: "350px", position: "relative" }}>
+              <svg
+                viewBox="0 0 240 240"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{
+                  transform: "rotate(-40deg)",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <path
+                  d="M227 120C227 142.091 178.871 160 119.5 160C60.1294 160 12 142.091 12 120C12 97.9086 60.1294 80 119.5 80C178.871 80 227 97.9086 227 120Z"
+                  fill="none"
+                />
+                <style>
+                  {`
+                  text, textPath {
+                    fill: #ffffff !important;
+                    font-family: "Enfonix", Arial, sans-serif;
+                  }
+                `}
+                </style>
+              </svg>
+            </div>
+          </div>
+
           {/* Mobile Symbol - Positioned independently to stay upright */}
           <div
             className="pointer-events-none absolute flex items-center justify-center lg:hidden"
@@ -347,12 +358,44 @@ export function ArtistsHeaderSection() {
               left: "50%",
               top: "47%",
               transform: "translate(-50%, -50%)",
-              fontSize: "3rem",
+              fontSize: "7.5rem",
               color: "#dcff07",
               textShadow: "0 0 20px #dcff07, 0 0 40px #dcff07",
+              zIndex: 2,
             }}
           >
             🜁
+          </div>
+
+          {/* Mobile Animated Ellipse - front half (in front of the symbol) */}
+          <div
+            className="absolute inset-0 flex items-center justify-center lg:hidden"
+            style={{ zIndex: 3, clipPath: "inset(50% 0 0 0)" }}
+          >
+            <div ref={mobileEllipseRef} className="ellipse" style={{ width: "min(80vw, 80vh)", maxWidth: "350px", position: "relative" }}>
+              <svg
+                viewBox="0 0 240 240"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{
+                  transform: "rotate(-40deg)",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <path
+                  d="M227 120C227 142.091 178.871 160 119.5 160C60.1294 160 12 142.091 12 120C12 97.9086 60.1294 80 119.5 80C178.871 80 227 97.9086 227 120Z"
+                  fill="none"
+                />
+                <style>
+                  {`
+                  text, textPath {
+                    fill: #ffffff !important;
+                    font-family: "Enfonix", Arial, sans-serif;
+                  }
+                `}
+                </style>
+              </svg>
+            </div>
           </div>
         </div>
 

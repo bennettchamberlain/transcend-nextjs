@@ -5,6 +5,8 @@ import type { ArtistMerchIntakeData } from "@site/types/artist-merch";
 import { StepFiveAdditional } from "./step-five-additional";
 import { StepFourProjectDetails } from "./step-four-project-details";
 import { StepOneBasicInfo } from "./step-one-basic-info";
+import { StepSevenAdditionalInfo } from "./step-seven-additional-info";
+import { StepSixBudgetPayment } from "./step-six-budget-payment";
 import { StepThreeMoodboard } from "./step-three-moodboard";
 import { StepTwoSocialMedia } from "./step-two-social-media";
 
@@ -18,7 +20,7 @@ export function ArtistMerchStepper({ onComplete }: ArtistMerchStepperProps) {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const stepperRef = useRef<HTMLDivElement>(null);
 
-  const totalSteps = 5;
+  const totalSteps = 7;
 
   // Scroll stepper on mobile when moving past step 3
   useEffect(() => {
@@ -64,6 +66,15 @@ export function ArtistMerchStepper({ onComplete }: ArtistMerchStepperProps) {
       case 5:
         // Additional info is optional
         break;
+      case 6:
+        if (!formData.budgetPaymentRange)
+          newErrors.budgetPaymentRange = "Please select a budget range";
+        if (!formData.paymentPreference)
+          newErrors.paymentPreference = "Please select a payment preference";
+        break;
+      case 7:
+        // Additional info is optional
+        break;
     }
 
     setErrors(newErrors);
@@ -105,6 +116,10 @@ export function ArtistMerchStepper({ onComplete }: ArtistMerchStepperProps) {
         return "Project Details";
       case 5:
         return "Final Details";
+      case 6:
+        return "Budget & Payment";
+      case 7:
+        return "Additional Info";
       default:
         return `Step ${step}`;
     }
@@ -161,6 +176,8 @@ export function ArtistMerchStepper({ onComplete }: ArtistMerchStepperProps) {
           {currentStep === 3 && <StepThreeMoodboard data={formData} onChange={updateFormData} errors={errors} />}
           {currentStep === 4 && <StepFourProjectDetails data={formData} onChange={updateFormData} errors={errors} />}
           {currentStep === 5 && <StepFiveAdditional data={formData} onChange={updateFormData} errors={errors} />}
+          {currentStep === 6 && <StepSixBudgetPayment data={formData} onChange={updateFormData} errors={errors} />}
+          {currentStep === 7 && <StepSevenAdditionalInfo data={formData} onChange={updateFormData} errors={errors} />}
         </div>
 
         {/* Navigation Buttons */}

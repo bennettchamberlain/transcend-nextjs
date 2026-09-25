@@ -4,6 +4,7 @@ import { useCart } from "@shopify/hydrogen-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+import { BackgroundNoise } from "@site/snippets";
 import { clsx, NextLink, useRouter } from "@site/utilities/deps";
 
 const mainMenuItems: { text: string; href: string }[] = [
@@ -158,11 +159,12 @@ function isMenuItemActive(href: string) {
     {/* Top Bar - Sticky at top */}
     <div
     className={clsx(
-      "sticky top-0 z-30 h-10 bg-black/80 backdrop-blur-sm transition-all duration-300 ease-in-out",
+      "sticky top-0 z-30 h-10 overflow-hidden bg-black/80 backdrop-blur-sm transition-all duration-300 ease-in-out",
       showTopBar ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0",
     )}
   >
-    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <BackgroundNoise />
+    <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
       <div className="flex h-10 items-center justify-between">
         <div className="flex items-center space-x-4 text-xs text-gray-300">
           <TypingEffect />
@@ -177,11 +179,11 @@ function isMenuItemActive(href: string) {
           </NextLink>
           <span className="pb-2">•</span>
           <NextLink
-            href="/location"
+            href="/design-services"
             className="uppercase transition-colors hover:text-white"
             style={{ fontFamily: "AOMono" }}
           >
-            Silver Lake Location
+            Design Services
           </NextLink>
         </div>
       </div>
@@ -190,10 +192,11 @@ function isMenuItemActive(href: string) {
 
   {/* Main Navigation - Sticky below top bar */}
   <nav
-    className="sticky top-10 z-30 mx-auto flex max-w-7xl items-center justify-between bg-black/80 p-6 backdrop-blur-sm lg:px-8"
+    className="sticky top-10 z-30 mx-auto flex max-w-7xl items-center justify-between overflow-hidden bg-black/80 p-6 backdrop-blur-sm lg:px-8"
     aria-label="Global"
   >
-    <div className="flex lg:flex-1">
+    <BackgroundNoise />
+    <div className="relative z-10 flex lg:flex-1">
       <NextLink href="/" className="-m-1.5 p-1.5">
         <span className="sr-only">Transcend</span>
         <div className="flex items-center space-x-2">
@@ -207,7 +210,7 @@ function isMenuItemActive(href: string) {
         </div>
       </NextLink>
     </div>
-    <div className="hidden lg:flex lg:gap-x-12">
+    <div className="relative z-10 hidden lg:flex lg:gap-x-12">
       {mainMenuItems.map(({ text, href }) => (
         <NextLink
           className={clsx(
@@ -221,7 +224,7 @@ function isMenuItemActive(href: string) {
         </NextLink>
       ))}
     </div>
-    <div className="flex flex-1 justify-end">
+    <div className="relative z-10 flex flex-1 justify-end">
       <NextLink href="/cart">
         <span className="sr-only">Cart</span>
         <span className="relative inline-block">

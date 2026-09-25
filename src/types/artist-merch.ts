@@ -23,4 +23,12 @@ export interface ArtistMerchIntakeData {
     // Step 5: Additional Information
     specialRequests: string;
     referralSource: string;
+
+    // Step 6: Budget & Payment
+    budgetPaymentRange: string;
+    paymentPreference: "one-time" | "subscription" | "";
+
+    // Step 7: Additional Information
+    additionalNotes: string;
+    howDidYouHear: string;
 }

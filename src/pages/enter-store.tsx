@@ -96,9 +96,9 @@ export default function EnterStorePage() {
       <div className="absolute inset-0 bg-black/30 backdrop-blur-[0.5px]" />
 
       {/* Cyber Grid Overlay */}
-      <div className="absolute inset-0 opacity-20">
+      <div className="absolute inset-0 opacity-10">
         <div
-          className="h-full w-full"
+          className="drifting-grid h-full w-full"
           style={{
             backgroundImage: `
               linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
@@ -109,9 +109,9 @@ export default function EnterStorePage() {
         />
       </div>
 
-      {/* Enter Store Button - Fixed from top on desktop, bottom on mobile */}
-      <div className="fixed bottom-20 left-1/2 z-10 -translate-x-1/2 transform md:top-82 lg:top-82 xl:top-82">
-        <div className="relative">
+      {/* Enter Store Button - Centered in the viewport */}
+      <div className="fixed top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform">
+        <div className="group relative opacity-50 transition-all duration-300 hover:opacity-100">
           {/* Glowing background effect */}
           <div
             className="absolute -inset-1 animate-pulse bg-gradient-to-r from-green-400/20 via-cyan-400/20 to-purple-400/20 blur-xl"
@@ -119,6 +119,22 @@ export default function EnterStorePage() {
               clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))",
             }}
           ></div>
+
+          {/* Smooth hover glow, hugging the button's beveled edges like a soft bubble */}
+          <div
+            className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            style={{
+              filter:
+                "drop-shadow(0 0 3px rgba(220, 255, 7, 0.55)) drop-shadow(0 0 10px rgba(220, 255, 7, 0.35)) drop-shadow(0 0 22px rgba(220, 255, 7, 0.2))",
+            }}
+          >
+            <div
+              className="h-full w-full bg-[#dcff07]"
+              style={{
+                clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))",
+              }}
+            ></div>
+          </div>
 
           <div
             className="relative bg-black/80 p-1 backdrop-blur-sm"
@@ -160,7 +176,7 @@ export default function EnterStorePage() {
                 onClick={handleEnterStore}
                 className="cyber-enter-button"
               /> */}
-              <span className="text-xs font-bold tracking-wider text-white">ENTER STORE</span>
+              <span className="text-sm font-bold tracking-wider text-white">ENTER STORE</span>
             </div>
           </div>
         </div>
@@ -179,6 +195,22 @@ export default function EnterStorePage() {
         @media (max-width: 1024px) {
           .cyber-enter-button {
             transform: scale(0.8);
+          }
+        }
+
+        .drifting-grid {
+          animation: gridDrift 20s ease-in-out infinite;
+        }
+
+        @keyframes gridDrift {
+          0% {
+            background-position: 0px 0px;
+          }
+          50% {
+            background-position: 20px 15px;
+          }
+          100% {
+            background-position: 0px 0px;
           }
         }
       `}</style>

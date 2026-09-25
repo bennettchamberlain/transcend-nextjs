@@ -71,7 +71,8 @@ export function HomeHeaderSection() {
           <div
             className="animate-pulse-glow absolute top-0 right-0 left-0 z-40 h-0.5"
             style={{
-              boxShadow: "0 0 20px #dcff07, 0 0 40px #dcff07, 0 0 60px #dcff07",
+              boxShadow:
+                "0 0 4px rgba(220, 255, 7, 0.9), 0 0 12px rgba(220, 255, 7, 0.5), 0 0 24px rgba(220, 255, 7, 0.25), 0 0 40px rgba(220, 255, 7, 0.1)",
               background: "linear-gradient(to top, rgba(220, 255, 7, 0.8), transparent)",
               animation: "pulseGlow 2s ease-in-out infinite",
             }}
@@ -81,7 +82,8 @@ export function HomeHeaderSection() {
           <div
             className="animate-pulse-glow absolute right-0 bottom-0 left-0 z-30 h-0.5"
             style={{
-              boxShadow: "0 0 20px #dcff07, 0 0 40px #dcff07, 0 0 60px #dcff07",
+              boxShadow:
+                "0 0 4px rgba(220, 255, 7, 0.9), 0 0 12px rgba(220, 255, 7, 0.5), 0 0 24px rgba(220, 255, 7, 0.25), 0 0 40px rgba(220, 255, 7, 0.1)",
               background: "linear-gradient(to bottom, rgba(220, 255, 7, 0.8), transparent)",
               animation: "pulseGlow 2s ease-in-out infinite",
             }}

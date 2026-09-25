@@ -236,7 +236,7 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
             <span className="text-neon-green neon-glow">{displayText}</span>
           </h2>
           <p className="text-gray-300" style={{ fontFamily: "Shapiro", letterSpacing: "1px" }}>
-            LATEST DROPS - THE NEWEST ARRIVALS
+            THE NEWEST ARRIVALS
           </p>
         </div>
         <p className="text-gray-300">No products found in 2-0 collection.</p>
@@ -249,13 +249,15 @@ export function NewDropsSection(props: DataProps<typeof fetchNewDropsSection>) {
       <div className="mb-4 md:mb-8">
         <h2
           ref={titleRef}
-          className="mb-4 cursor-pointer text-5xl font-black text-white uppercase transition-all duration-200 md:text-6xl lg:text-7xl"
-          style={{ fontFamily: "Modeseven", fontWeight: "900", letterSpacing: "-1px" }}
+          className="mb-4 cursor-pointer text-5xl font-normal text-white uppercase transition-all duration-200 md:text-6xl lg:text-7xl"
+          style={{ fontFamily: "Modeseven", fontWeight: "400", letterSpacing: "-1px" }}
         >
-          <span className="text-neon-green neon-glow">{displayText}</span>
+          <span className="text-neon-green neon-glow" style={{ wordSpacing: "-0.3em" }}>
+            {displayText}
+          </span>
         </h2>
         <p className="text-gray-300 uppercase" style={{ fontFamily: "Shapiro", letterSpacing: "1px" }}>
-          LATEST DROPS - THE NEWEST ARRIVALS
+          THE NEWEST ARRIVALS
         </p>
       </div>
 

@@ -358,7 +358,7 @@ function Footer() {
             <div className="mb-6">
               <img src="/images/transcend logo website.png" alt="Transcend" className="h-18 w-auto" />
             </div>
-            <p className="text-justify text-sm leading-relaxed text-gray-300 uppercase">
+            <p className="text-left text-sm leading-relaxed text-gray-300 uppercase">
               Transcend Collective is a group of individuals that seek a higher calling and purpose to their lives
             </p>
           </div>

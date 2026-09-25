@@ -73,11 +73,19 @@
 @keyframes pulseGlow {
   0%, 100% {
     opacity: 1;
-    box-shadow: 0 0 20px #dcff07, 0 0 40px #dcff07, 0 0 60px #dcff07;
+    box-shadow:
+      0 0 4px rgba(220, 255, 7, 0.9),
+      0 0 12px rgba(220, 255, 7, 0.5),
+      0 0 24px rgba(220, 255, 7, 0.25),
+      0 0 40px rgba(220, 255, 7, 0.1);
   }
   50% {
-    opacity: 0.6;
-    box-shadow: 0 0 30px #dcff07, 0 0 60px #dcff07, 0 0 90px #dcff07;
+    opacity: 0.85;
+    box-shadow:
+      0 0 6px rgba(220, 255, 7, 0.95),
+      0 0 18px rgba(220, 255, 7, 0.55),
+      0 0 36px rgba(220, 255, 7, 0.3),
+      0 0 60px rgba(220, 255, 7, 0.15);
   }
 }
 
@@ -194,10 +202,50 @@
 
 .group:hover .product-card-corner-br::before {
   background-color: #eeff00;
-  box-shadow: 
+  box-shadow:
     0 0 3px #eeff00,
     0 0 6px rgba(238, 255, 0, 0.95);
-  transition: 
+  transition:
+    background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: neonFlicker 2s ease-in-out infinite;
+  animation-delay: 0.15s;
+}
+
+/* Top-right corner - fills the cut-off triangle area */
+.product-card-corner-tr {
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  top: 0;
+  right: 0;
+}
+
+/* Diagonal border line for top-right corner - aligns with cut edge from (100% - 18px, 0) to (100%, 18px) */
+.product-card-corner-tr::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 25.46px; /* 18px * sqrt(2) ≈ 25.46px for diagonal */
+  height: 1px;
+  background-color: transparent;
+  transform-origin: 0 0;
+  transform: rotate(45deg);
+  transition: background-color 2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.group:hover .product-card-corner-tr {
+  opacity: 1;
+  background-color: transparent; /* No fill, just the diagonal border */
+  transition:
+    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.group:hover .product-card-corner-tr::before {
+  background-color: #eeff00;
+  box-shadow:
+    0 0 3px #eeff00,
+    0 0 6px rgba(238, 255, 0, 0.95);
+  transition:
     background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
   animation: neonFlicker 2s ease-in-out infinite;
@@ -326,6 +374,30 @@
 @font-face {
   font-family: "Divine";
   src: url("/fonts/Divine.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "CS Merquise";
+  src: url("/fonts/CS Merquise.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tenex";
+  src: url("/fonts/Tenex.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Enfonix";
+  src: url("/fonts/Enfonix.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;

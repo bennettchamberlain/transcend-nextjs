@@ -15,7 +15,7 @@ export function HeroButtonRow() {
         onClick={handleClick}
       >
         <div
-          className="flex items-center justify-center bg-black px-6 py-3 text-lg font-bold text-white transition-colors duration-200 hover:bg-gray-900 hover:underline"
+          className="flex items-center justify-center bg-black px-6 py-3 text-lg font-bold text-white transition-all duration-200 hover:bg-gray-900 hover:shadow-[inset_0_0_16px_rgba(220,255,7,0.35)]"
           style={{
             clipPath: "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px))",
           }}
