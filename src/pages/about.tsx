@@ -110,10 +110,6 @@ function About() {
                   <AnimatedGrainOverlay alpha={6} className="mix-blend-screen" />
                 </div>
               </div>
-              <p className="mx-auto max-w-2xl text-lg text-gray-300 uppercase" style={{ fontFamily: "Shapiro" }}>
-                A movement dedicated to growth, helping others, and spreading good design through community and
-                creativity.
-              </p>
             </section>
           </div>
 
