@@ -512,7 +512,7 @@ function Footer() {
                 </svg>
               </a>
               <a
-                href="https://open.spotify.com/playlist/7boM5g2ZoJQHvFzGQZpjtS?si=f5383223664c4546"
+                href="https://open.spotify.com/artist/1imrSvRPmb8rUTQvIwi3g0?si=M-O35KrbRJOSwBUhb-vVfA"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 transition-colors duration-200 hover:text-lime-400"
