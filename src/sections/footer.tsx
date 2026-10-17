@@ -502,7 +502,7 @@ function Footer() {
                 </svg>
               </a>
               <a
-                href="https://www.youtube.com/@Transcendvisuals"
+                href="https://www.youtube.com/@TranscendCollectiveLA"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 transition-colors duration-200 hover:text-lime-400"
