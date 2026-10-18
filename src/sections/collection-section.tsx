@@ -299,10 +299,10 @@ export function CollectionSection(props: DataProps<typeof fetchCollectionSection
     <section className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
       <div className="mb-8">
         <h2
-          className="mb-4 text-2xl font-black text-white md:text-3xl lg:text-4xl"
+          className="mb-4 text-[28.8px] font-black text-white md:text-[36px] lg:text-[43.2px]"
           style={{ fontFamily: "Modeseven" }}
         >
-          {titleText}
+          {titleText.replace(/^\[\s*|\s*\]$/g, "")}
         </h2>
         {props.data.description && <p className="text-lg text-gray-300 md:text-xl" style={{ fontFamily: "AOMono" }}>{props.data.description}</p>}
       </div>
