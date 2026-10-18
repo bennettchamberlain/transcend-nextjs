@@ -300,7 +300,7 @@ export function CollectionSection(props: DataProps<typeof fetchCollectionSection
       <div className="mb-8">
         <h2
           className="mb-4 text-2xl font-black text-white md:text-3xl lg:text-4xl"
-          style={{ fontFamily: "Shapiro" }}
+          style={{ fontFamily: "Modeseven" }}
         >
           {titleText}
         </h2>
