@@ -233,8 +233,18 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
             <div className="mt-4 pt-5 md:pt-10">
               <h2 className="sr-only">Product information</h2>
 
-              <h1 className="mb-5 text-2xl font-bold tracking-tight text-white uppercase sm:text-3xl" style={{ fontFamily: "Shapiro" }}>
-                {props.data.title}
+              <h1 className="mb-5 text-2xl font-bold tracking-tight text-white uppercase sm:text-3xl" style={{ fontFamily: "Modeseven" }}>
+                {props.data.title.split(/([[\]])/).map((part, index) =>
+                  part === "[" || part === "]" ? (
+                    // Modeseven draws brackets as arrows, so render just the brackets in AOMono
+                    // eslint-disable-next-line react/no-array-index-key
+                    <span key={`bracket-${index}`} style={{ fontFamily: "AOMono" }}>
+                      {part}
+                    </span>
+                  ) : (
+                    part
+                  ),
+                )}
               </h1>
 
               {props.data.descriptionHtml && (
