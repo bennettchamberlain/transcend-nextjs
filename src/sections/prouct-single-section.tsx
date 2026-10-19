@@ -278,7 +278,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
                 {options.map(({ name, values }) => (
                   <div className="mb-3" key={name}>
                     <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-medium text-white">{name}</h3>
+                      <h3 className="text-lg font-medium text-white" style={{ fontFamily: "Shapiro" }}>{name}</h3>
                     </div>
 
                     {values.map(({ value, selected, disabled }) => {
