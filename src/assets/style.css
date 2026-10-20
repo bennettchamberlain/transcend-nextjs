@@ -59,9 +59,11 @@
   font-family: "AOMono", ui-monospace, monospace;
 }
 
-/* Fixed px (not em) so nested elements like ul > li don't compound the reduction */
+/* Fixed px (not em) so nested elements like ul > li don't compound the reduction.
+   Tracking is re-declared here so it's 0.1em of the 8px text, not inherited from the 16px wrapper. */
 .product-description *:not(h3) {
   font-size: 8px;
+  letter-spacing: 0.1em;
 }
 
 /* AOMono is always set at +100 tracking, wherever it is used */
