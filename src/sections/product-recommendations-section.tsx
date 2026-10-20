@@ -57,7 +57,7 @@ export function ProductRecommendationsSection(props: DataProps<typeof fetchProdu
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mb-8 pt-10">
-        <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">You Might Also Like</h2>
+        <h2 className="font-composite mb-3 text-2xl text-white sm:text-3xl">You Might Also Like</h2>
         <p className="mt-2 text-base text-gray-300 uppercase">Discover similar products that complement your style</p>
       </div>
 

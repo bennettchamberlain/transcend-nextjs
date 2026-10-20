@@ -247,7 +247,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
             <div className="mt-4 pt-5 md:pt-10">
               <h2 className="sr-only">Product information</h2>
 
-              <h1 className="mb-5 text-2xl font-bold tracking-tight text-white uppercase sm:text-3xl" style={{ fontFamily: "Modeseven" }}>
+              <h1 className="font-composite mb-5 text-2xl text-white uppercase sm:text-3xl">
                 {props.data.title.split(/([[\]])/).map((part, index) =>
                   part === "[" || part === "]" ? (
                     // Modeseven draws brackets as arrows, so render just the brackets in AOMono

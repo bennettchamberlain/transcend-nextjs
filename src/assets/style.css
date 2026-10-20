@@ -49,6 +49,41 @@
   font-display: swap;
 }
 
+/*
+Font: 		YWFT Composite
+Style: 		Light
+URL: 		https://youworkforthem.com/font/T0008/ywft-composite
+Foundry: 	YouWorkForThem
+Foundry: 	https://youworkforthem.com/designer/1/youworkforthem
+Copyright:	Copyright © 1999 by YouWorkForThem. All rights reserved.
+Version: 	18
+Created:	April 14, 2026
+License: 	https://www.youworkforthem.com/font-license 
+License: 	The WebFont(s) listed in this document must follow the YouWorkForThem
+			WebFont license rules. All other parties are strictly restricted 
+			from using the WebFonts(s) listed without a purchased license. 
+			All details above must always remain unaltered and visible in your CSS.
+*/
+
+@font-face {
+  font-family: "Composite";
+  src: url("/fonts/ywft-composite-light.woff2") format("woff2"),
+    url("/fonts/ywft-composite-light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Composite must always be set at -60 tracking and 150% vertical scale, so use this class instead of font-family directly */
+.font-composite {
+  font-family: "Composite", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  letter-spacing: -0.06em;
+  display: inline-block;
+  transform: scaleY(1.5);
+  transform-origin: left center;
+}
+
 /* Product description body text is AOMono, at AOMono's standard +100 tracking */
 .product-description {
   letter-spacing: 0.1em;
