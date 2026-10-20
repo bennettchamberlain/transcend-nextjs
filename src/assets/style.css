@@ -49,6 +49,26 @@
   font-display: swap;
 }
 
+/* Product description body text is AOMono, at AOMono's standard +100 tracking */
+.product-description {
+  letter-spacing: 0.1em;
+}
+
+.product-description,
+.product-description *:not(h3) {
+  font-family: "AOMono", ui-monospace, monospace;
+}
+
+/* Fixed px (not em) so nested elements like ul > li don't compound the reduction */
+.product-description *:not(h3) {
+  font-size: 8px;
+}
+
+/* AOMono is always set at +100 tracking, wherever it is used */
+[style*="AOMono"] {
+  letter-spacing: 0.1em;
+}
+
 /* Hide scrollbar for stepper */
 .scrollbar-hide {
   -ms-overflow-style: none;

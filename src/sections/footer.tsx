@@ -358,7 +358,7 @@ function Footer() {
             <div className="mb-6">
               <img src="/images/transcend logo website.png" alt="Transcend" className="h-18 w-auto" />
             </div>
-            <p className="text-left text-sm leading-relaxed text-gray-300 uppercase">
+            <p className="text-left text-[8px] leading-relaxed text-gray-300 uppercase" style={{ fontFamily: "AOMono" }}>
               Transcend Collective is a group of individuals that seek a higher calling and purpose to their lives
             </p>
           </div>
@@ -478,7 +478,7 @@ function Footer() {
         <div className="mt-62 border-t border-gray-800 pt-8">
           <div className="flex flex-col items-center justify-between md:flex-row">
             <div className="mb-4 md:mb-0">
-              <p className="text-sm text-gray-500 uppercase">© 2025 Transcend. All rights reserved.</p>
+              <p className="text-sm text-gray-500 uppercase">© 2023 Transcend. All rights reserved.</p>
             </div>
             <div className="flex space-x-6">
               <a

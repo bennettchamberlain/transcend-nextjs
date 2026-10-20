@@ -99,6 +99,20 @@ export async function fetchProductSingleSection(handle: string) {
   };
 }
 
+// Shopify returns sizes in variant creation order, so sort them smallest to largest. Unknown sizes go last.
+const sizeOrder = ["xxs", "xs", "s", "m", "l", "xl", "2xl", "xxl", "3xl", "xxxl", "4xl", "5xl"];
+
+function sortSizeValues<T extends { value: string }>(optionName: string, values: T[]): T[] {
+  if (optionName.toLowerCase() !== "size") {
+    return values;
+  }
+  const rank = (value: string) => {
+    const index = sizeOrder.indexOf(value.trim().toLowerCase());
+    return index === -1 ? sizeOrder.length : index;
+  };
+  return [...values].sort((a, b) => rank(a.value) - rank(b.value));
+}
+
 export function ProductSingleSection(props: DataProps<typeof fetchProductSingleSection>) {
   const { variantId, options, selectOption } = useVariantSelector(props.data);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -249,7 +263,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
 
               {props.data.descriptionHtml && (
                 <div
-                  className="mb-5 text-base text-gray-300"
+                  className="product-description mb-5 text-base text-gray-300"
                   // eslint-disable-next-line react-dom/no-dangerously-set-innerhtml
                   dangerouslySetInnerHTML={{
                     __html: props.data.descriptionHtml
@@ -281,7 +295,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
                       <h3 className="relative -top-[4.5px] text-[9px] font-medium text-white" style={{ fontFamily: "Shapiro" }}>{name}</h3>
                     </div>
 
-                    {values.map(({ value, selected, disabled }) => {
+                    {sortSizeValues(name, values).map(({ value, selected, disabled }) => {
                       return (
                         <Button
                           className="beveled-corner mr-2 rounded-none"
@@ -291,7 +305,7 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
                           disabled={disabled}
                           onClick={() => selectOption(name, value)}
                         >
-                          <p className="pt-1">{value}</p>
+                          <p className="pt-1 uppercase">{value}</p>
                         </Button>
                       );
                     })}
@@ -305,7 +319,11 @@ export function ProductSingleSection(props: DataProps<typeof fetchProductSingleS
                 const hasSizeSelected = sizeOption?.values.some(({ selected }) => selected) ?? false;
                 return (
                   sizeOption &&
-                  !hasSizeSelected && <p className="mt-4 text-sm text-[#dcff07]">Please select a size to add to cart</p>
+                  !hasSizeSelected && (
+                    <p className="mt-4 text-[9.33px] text-[#dcff07]" style={{ fontFamily: "AOMono" }}>
+                      Please select a size to add to cart
+                    </p>
+                  )
                 );
               })()}
 
