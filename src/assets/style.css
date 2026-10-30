@@ -84,6 +84,15 @@ License: 	The WebFont(s) listed in this document must follow the YouWorkForThem
   transform-origin: left center;
 }
 
+/* voxBox Expanded by Iconian Fonts (Daniel Zadorozny, iconian.com). Written consent for commercial use received from Iconian Fonts. */
+@font-face {
+  font-family: "voxBox Expanded";
+  src: url("/fonts/voxboxexpand.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Product description body text is AOMono, at AOMono's standard +100 tracking */
 .product-description {
   letter-spacing: 0.1em;
@@ -99,6 +108,18 @@ License: 	The WebFont(s) listed in this document must follow the YouWorkForThem
 .product-description *:not(h3) {
   font-size: 8px;
   letter-spacing: 0.1em;
+}
+
+/* Section headings inside product descriptions (Features, Care Instructions, Fabric, ...) */
+.product-description h3 {
+  font-family: "voxBox Expanded", "Modeseven", ui-sans-serif, system-ui, sans-serif;
+  font-size: 1.5em;
+}
+
+/* voxBox Expanded is always set at -50 tracking, wherever it is used */
+.product-description h3,
+[style*="voxBox"] {
+  letter-spacing: -0.05em;
 }
 
 /* AOMono is always set at +100 tracking, wherever it is used */

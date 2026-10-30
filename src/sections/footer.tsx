@@ -365,7 +365,7 @@ function Footer() {
 
           {/* Quick Links */}
           <div className="lg:col-span-1 lg:pl-10">
-            <h3 className="mb-6 font-[AOMono] font-[Druk] text-lg text-white uppercase">QUICK LINKS</h3>
+            <h3 className="mb-6 text-[24px] text-white uppercase" style={{ fontFamily: "voxBox Expanded" }}>QUICK LINKS</h3>
             <ul className="space-y-3">
               <li>
                 <a
@@ -404,7 +404,7 @@ function Footer() {
 
           {/* About Links */}
           <div className="lg:col-span-1">
-            <h3 className="mb-6 font-[AOMono] font-[Druk] text-lg text-white uppercase">ABOUT</h3>
+            <h3 className="mb-6 text-[24px] text-white uppercase" style={{ fontFamily: "voxBox Expanded" }}>ABOUT</h3>
             <ul className="space-y-3">
               <li>
                 <a
@@ -427,7 +427,7 @@ function Footer() {
 
           {/* Newsletter Subscription */}
           <div className="lg:col-span-1">
-            <h3 className="mb-6 font-[AOMono] font-[Druk] text-lg text-white uppercase">NEWSLETTER</h3>
+            <h3 className="mb-6 text-[24px] text-white uppercase" style={{ fontFamily: "voxBox Expanded" }}>NEWSLETTER</h3>
             <p className="mb-4 text-sm text-gray-300 uppercase">Keep up...</p>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="editor-field editor-field__textbox">
