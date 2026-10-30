@@ -20,7 +20,6 @@ interface Package {
   bestFor: string[];
   timeline: string;
   deliverables: string[];
-  addOns?: { label: string; price: string }[];
 }
 
 const packages: Package[] = [
@@ -63,12 +62,6 @@ const packages: Package[] = [
       "Mini brand guideline PDF",
       "3 revision rounds",
     ],
-    addOns: [
-      { label: "Motion logo animation", price: "$200-500" },
-      { label: "Merchandise mockups", price: "$300-600" },
-      { label: "Spotify canvas visuals", price: "$100-200" },
-      { label: "Visualizer loops", price: "$300-1000" },
-    ],
   },
   {
     number: "03",
@@ -91,6 +84,13 @@ const packages: Package[] = [
       "4 revision rounds",
     ],
   },
+];
+
+const additionalAddOns = [
+  { label: "Motion logo animation", price: "$200-500" },
+  { label: "Merchandise mockups", price: "$300-600" },
+  { label: "Spotify canvas visuals", price: "$100-200" },
+  { label: "Visualizer loops", price: "$300-1000" },
 ];
 
 const premiumAddOns = ["Tour Poster", "Social Rollout Package", "Teaser Rollout Assets", "Electronic Press Kits"];
@@ -210,11 +210,7 @@ export default function DesignServicesPage() {
                       />
 
                       <div
-                        className={`relative grid grid-cols-1 gap-8 lg:max-[1159px]:grid-cols-[auto_1fr_1fr_1fr] ${
-                          pkg.addOns
-                            ? "min-[1160px]:grid-cols-[auto_1fr_max-content_minmax(240px,1fr)]"
-                            : "min-[1160px]:grid-cols-[auto_1fr_max-content]"
-                        }`}
+                        className="relative grid grid-cols-1 gap-8 lg:max-[1159px]:grid-cols-[auto_1fr_1fr] min-[1160px]:grid-cols-[auto_1fr_520px]"
                         style={{ textShadow: "0 2px 4px rgba(0, 0, 0, 0.85)" }}
                       >
                         {/* Number + title + price */}
@@ -298,35 +294,6 @@ export default function DesignServicesPage() {
                             ))}
                           </ul>
                         </div>
-
-                        {/* Add-ons, if any */}
-                        {pkg.addOns && (
-                          <div>
-                            <>
-                              <div className="mb-2 flex items-center gap-2">
-                                <DollarSign className="h-6 w-6 text-lime-400" />
-                                <span
-                                  className="text-[21.6px] font-normal tracking-widest whitespace-nowrap text-lime-400 uppercase"
-                                  style={{ fontFamily: "voxBox Expanded" }}
-                                >
-                                  Add-On Options
-                                </span>
-                              </div>
-                              <ul className="space-y-1.5">
-                                {pkg.addOns.map((addOn) => (
-                                  <li
-                                    key={addOn.label}
-                                    className="flex items-center justify-between gap-3 text-sm text-gray-300"
-                                    style={{ fontFamily: "AOMono" }}
-                                  >
-                                    <span>{addOn.label}</span>
-                                    <span className="text-lime-400" style={{ fontFamily: "voxBox Expanded", fontSize: "16.8px" }}>{addOn.price}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </>
-                          </div>
-                        )}
                       </div>
                     </div>
                     {/* Corner overlay - diagonal borders on the cut-off corners */}
@@ -336,6 +303,64 @@ export default function DesignServicesPage() {
                     </div>
                   </div>
                 ))}
+
+                {/* Additional add-ons */}
+                <div className="group relative">
+                  <div
+                    className="relative overflow-hidden bg-gray-900 p-8 lg:p-10"
+                    style={{
+                      clipPath:
+                        "polygon(24px 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%, 0 24px)",
+                      backgroundImage: "url('/images/metal-texture-card-bg.jpg')",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
+                  >
+                    {/* Dark tint over the metal texture, so text stays legible */}
+                    <div className="absolute inset-0 bg-black/90" />
+
+                    {/* Hover glow border overlay */}
+                    <div
+                      className="product-card-glow-overlay pointer-events-none absolute inset-0 z-10"
+                      style={{
+                        clipPath:
+                          "polygon(24px 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%, 0 24px)",
+                        border: "1px solid transparent",
+                      }}
+                    />
+
+                    <div className="relative" style={{ textShadow: "0 2px 4px rgba(0, 0, 0, 0.85)" }}>
+                      <div className="mb-4 flex items-center gap-2">
+                        <DollarSign className="h-6 w-6 text-lime-400" />
+                        <h3
+                          className="text-[21.6px] font-normal tracking-widest whitespace-nowrap text-lime-400 uppercase"
+                          style={{ fontFamily: "voxBox Expanded" }}
+                        >
+                          Additional Add-Ons
+                        </h3>
+                      </div>
+                      <ul className="grid grid-cols-1 gap-x-12 md:grid-cols-2">
+                        {additionalAddOns.map((addOn) => (
+                          <li
+                            key={addOn.label}
+                            className="flex items-center justify-between gap-3 border-b border-gray-700/60 py-3 text-sm text-gray-300 last:border-b-0 md:nth-last-2:border-b-0"
+                            style={{ fontFamily: "AOMono" }}
+                          >
+                            <span>{addOn.label}</span>
+                            <span className="text-lime-400" style={{ fontFamily: "Modeseven", fontSize: "16.8px" }}>
+                              {addOn.price}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                  {/* Corner overlay - diagonal borders on the cut-off corners */}
+                  <div className="pointer-events-none absolute inset-0 z-20">
+                    <div className="product-card-corner product-card-corner-tl" />
+                    <div className="product-card-corner product-card-corner-br" />
+                  </div>
+                </div>
               </div>
 
               {/* Premium add-ons */}
