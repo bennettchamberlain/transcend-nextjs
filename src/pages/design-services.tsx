@@ -216,8 +216,7 @@ export default function DesignServicesPage() {
                         {/* Number + title + price */}
                         <div className="lg:w-56">
                           <span
-                            className="block text-[72px] leading-none font-normal text-lime-400/90 lg:text-[86px]"
-                            style={{ fontFamily: "voxBox Expanded" }}
+                            className="font-composite mb-4 text-[72px] leading-none text-lime-400/90 lg:text-[86px]"
                           >
                             {pkg.number}
                           </span>
