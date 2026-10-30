@@ -216,7 +216,7 @@ export default function DesignServicesPage() {
                         {/* Number + title + price */}
                         <div className="lg:w-56">
                           <span
-                            className="font-composite mb-4 text-[72px] leading-none text-lime-400/90 lg:text-[86px]"
+                            className="font-composite mt-8 mb-4 text-[72px] leading-none text-lime-400/90 lg:text-[86px]"
                           >
                             {pkg.number}
                           </span>
@@ -232,7 +232,7 @@ export default function DesignServicesPage() {
                           >
                             {pkg.price}
                           </span>
-                          <p className="text-sm text-gray-400" style={{ fontFamily: "AOMono" }}>
+                          <p className="text-xs text-gray-400" style={{ fontFamily: "AOMono" }}>
                             {pkg.description}
                           </p>
                         </div>
