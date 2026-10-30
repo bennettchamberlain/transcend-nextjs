@@ -216,7 +216,7 @@ export default function DesignServicesPage() {
                         {/* Number + title + price */}
                         <div className="lg:w-56">
                           <span
-                            className="block text-6xl leading-none font-normal text-lime-400/90 lg:text-7xl"
+                            className="block text-[72px] leading-none font-normal text-lime-400/90 lg:text-[86px]"
                             style={{ fontFamily: "voxBox Expanded" }}
                           >
                             {pkg.number}
@@ -243,7 +243,7 @@ export default function DesignServicesPage() {
                           <div className="mb-2 flex items-center gap-2">
                             <Target className="h-6 w-6 text-lime-400" />
                             <span
-                              className="text-lg font-normal tracking-widest text-lime-400 uppercase"
+                              className="text-[21.6px] font-normal tracking-widest text-lime-400 uppercase"
                               style={{ fontFamily: "voxBox Expanded" }}
                             >
                               Best For
@@ -259,7 +259,7 @@ export default function DesignServicesPage() {
                           <div className="mb-2 flex items-center gap-2">
                             <Clock className="h-6 w-6 text-lime-400" />
                             <span
-                              className="text-lg font-normal tracking-widest text-lime-400 uppercase"
+                              className="text-[21.6px] font-normal tracking-widest text-lime-400 uppercase"
                               style={{ fontFamily: "voxBox Expanded" }}
                             >
                               Timeline
@@ -275,7 +275,7 @@ export default function DesignServicesPage() {
                           <div className="mb-2 flex items-center gap-2">
                             <Zap className="h-6 w-6 text-lime-400" />
                             <span
-                              className="text-lg font-normal tracking-widest text-lime-400 uppercase"
+                              className="text-[21.6px] font-normal tracking-widest text-lime-400 uppercase"
                               style={{ fontFamily: "voxBox Expanded" }}
                             >
                               Deliverables
@@ -302,7 +302,7 @@ export default function DesignServicesPage() {
                               <div className="mb-2 flex items-center gap-2">
                                 <DollarSign className="h-6 w-6 text-lime-400" />
                                 <span
-                                  className="text-lg font-normal tracking-widest text-lime-400 uppercase"
+                                  className="text-[21.6px] font-normal tracking-widest text-lime-400 uppercase"
                                   style={{ fontFamily: "voxBox Expanded" }}
                                 >
                                   Add-On Options
@@ -316,7 +316,7 @@ export default function DesignServicesPage() {
                                     style={{ fontFamily: "AOMono" }}
                                   >
                                     <span>{addOn.label}</span>
-                                    <span className="text-lime-400" style={{ fontFamily: "voxBox Expanded" }}>{addOn.price}</span>
+                                    <span className="text-lime-400" style={{ fontFamily: "voxBox Expanded", fontSize: "16.8px" }}>{addOn.price}</span>
                                   </li>
                                 ))}
                               </ul>
