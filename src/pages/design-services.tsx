@@ -216,8 +216,8 @@ export default function DesignServicesPage() {
                         {/* Number + title + price */}
                         <div className="lg:w-56">
                           <span
-                            className="block text-6xl leading-none font-black text-lime-400/90 lg:text-7xl"
-                            style={{ fontFamily: "Modeseven" }}
+                            className="block text-6xl leading-none font-normal text-lime-400/90 lg:text-7xl"
+                            style={{ fontFamily: "voxBox Expanded" }}
                           >
                             {pkg.number}
                           </span>
@@ -243,8 +243,8 @@ export default function DesignServicesPage() {
                           <div className="mb-2 flex items-center gap-2">
                             <Target className="h-6 w-6 text-lime-400" />
                             <span
-                              className="text-lg font-bold tracking-widest text-lime-400 uppercase"
-                              style={{ fontFamily: "AOMono" }}
+                              className="text-lg font-normal tracking-widest text-lime-400 uppercase"
+                              style={{ fontFamily: "voxBox Expanded" }}
                             >
                               Best For
                             </span>
@@ -259,8 +259,8 @@ export default function DesignServicesPage() {
                           <div className="mb-2 flex items-center gap-2">
                             <Clock className="h-6 w-6 text-lime-400" />
                             <span
-                              className="text-lg font-bold tracking-widest text-lime-400 uppercase"
-                              style={{ fontFamily: "AOMono" }}
+                              className="text-lg font-normal tracking-widest text-lime-400 uppercase"
+                              style={{ fontFamily: "voxBox Expanded" }}
                             >
                               Timeline
                             </span>
@@ -275,8 +275,8 @@ export default function DesignServicesPage() {
                           <div className="mb-2 flex items-center gap-2">
                             <Zap className="h-6 w-6 text-lime-400" />
                             <span
-                              className="text-lg font-bold tracking-widest text-lime-400 uppercase"
-                              style={{ fontFamily: "AOMono" }}
+                              className="text-lg font-normal tracking-widest text-lime-400 uppercase"
+                              style={{ fontFamily: "voxBox Expanded" }}
                             >
                               Deliverables
                             </span>
@@ -302,8 +302,8 @@ export default function DesignServicesPage() {
                               <div className="mb-2 flex items-center gap-2">
                                 <DollarSign className="h-6 w-6 text-lime-400" />
                                 <span
-                                  className="text-lg font-bold tracking-widest text-lime-400 uppercase"
-                                  style={{ fontFamily: "AOMono" }}
+                                  className="text-lg font-normal tracking-widest text-lime-400 uppercase"
+                                  style={{ fontFamily: "voxBox Expanded" }}
                                 >
                                   Add-On Options
                                 </span>
@@ -316,7 +316,7 @@ export default function DesignServicesPage() {
                                     style={{ fontFamily: "AOMono" }}
                                   >
                                     <span>{addOn.label}</span>
-                                    <span className="text-lime-400">{addOn.price}</span>
+                                    <span className="text-lime-400" style={{ fontFamily: "voxBox Expanded" }}>{addOn.price}</span>
                                   </li>
                                 ))}
                               </ul>
