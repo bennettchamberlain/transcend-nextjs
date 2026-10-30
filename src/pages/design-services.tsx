@@ -210,7 +210,11 @@ export default function DesignServicesPage() {
                       />
 
                       <div
-                        className="relative grid grid-cols-1 gap-8 lg:grid-cols-[auto_1fr_1fr_1fr]"
+                        className={`relative grid grid-cols-1 gap-8 lg:max-[1159px]:grid-cols-[auto_1fr_1fr_1fr] ${
+                          pkg.addOns
+                            ? "min-[1160px]:grid-cols-[auto_1fr_max-content_minmax(240px,1fr)]"
+                            : "min-[1160px]:grid-cols-[auto_1fr_max-content]"
+                        }`}
                         style={{ textShadow: "0 2px 4px rgba(0, 0, 0, 0.85)" }}
                       >
                         {/* Number + title + price */}
@@ -285,7 +289,7 @@ export default function DesignServicesPage() {
                             {pkg.deliverables.map((item) => (
                               <li
                                 key={item}
-                                className="flex items-start gap-2 text-sm text-gray-300"
+                                className="flex items-start gap-2 text-sm text-gray-300 min-[1160px]:whitespace-nowrap"
                                 style={{ fontFamily: "AOMono" }}
                               >
                                 <span className="mt-1.5 h-1 w-1 flex-none rounded-full bg-lime-400" />
@@ -296,13 +300,13 @@ export default function DesignServicesPage() {
                         </div>
 
                         {/* Add-ons, if any */}
-                        <div>
-                          {pkg.addOns && (
+                        {pkg.addOns && (
+                          <div>
                             <>
                               <div className="mb-2 flex items-center gap-2">
                                 <DollarSign className="h-6 w-6 text-lime-400" />
                                 <span
-                                  className="text-[21.6px] font-normal tracking-widest text-lime-400 uppercase"
+                                  className="text-[21.6px] font-normal tracking-widest whitespace-nowrap text-lime-400 uppercase"
                                   style={{ fontFamily: "voxBox Expanded" }}
                                 >
                                   Add-On Options
@@ -321,8 +325,8 @@ export default function DesignServicesPage() {
                                 ))}
                               </ul>
                             </>
-                          )}
-                        </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                     {/* Corner overlay - diagonal borders on the cut-off corners */}
